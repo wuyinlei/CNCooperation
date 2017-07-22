@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">cnlang</string>
+
+    <string name="title_home">主页</string>
+    <string name="title_mine">我的</string>
+    <string name="title_tv">直播</string>
+    <string name="title_news">试水</string>
+
+</resources>

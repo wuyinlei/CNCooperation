@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--常用字体大小-->
+    <dimen name="font_10">10sp</dimen>
+    <dimen name="font_12">12sp</dimen>
+    <dimen name="font_14">14sp</dimen>
+    <dimen name="font_16">16sp</dimen>
+    <dimen name="font_18">18sp</dimen>
+    <dimen name="font_20">20sp</dimen>
+    <dimen name="font_22">22sp</dimen>
+    <dimen name="font_24">24sp</dimen>
+    <dimen name="font_28">28sp</dimen>
+    <dimen name="font_32">32sp</dimen>
+
+    <!--常用的布局控件的高宽-->
+    <dimen name="len_2">2dp</dimen>
+    <dimen name="len_4">4dp</dimen>
+    <dimen name="len_6">6dp</dimen>
+    <dimen name="len_8">8dp</dimen>
+    <dimen name="len_10">10dp</dimen>
+    <dimen name="len_12">12dp</dimen>
+    <dimen name="len_14">14dp</dimen>
+    <dimen name="len_16">16dp</dimen>
+    <dimen name="len_18">18dp</dimen>
+    <dimen name="len_20">20dp</dimen>
+    <dimen name="len_22">22dp</dimen>
+    <dimen name="len_24">24dp</dimen>
+    <dimen name="len_26">26dp</dimen>
+    <dimen name="len_28">28dp</dimen>
+    <dimen name="len_30">30dp</dimen>
+    <dimen name="len_32">32dp</dimen>
+    <dimen name="len_34">34dp</dimen>
+
+    <dimen name="len_36">36dp</dimen>
+    <dimen name="len_38">38dp</dimen>
+    <dimen name="len_40">40dp</dimen>
+    <dimen name="len_42">42dp</dimen>
+    <dimen name="len_44">44dp</dimen>
+    <dimen name="len_46">46dp</dimen>
+    <dimen name="len_48">48dp</dimen>
+    <dimen name="len_50">50dp</dimen>
+    <dimen name="len_52">52dp</dimen>
+    <dimen name="len_56">56dp</dimen>
+    <dimen name="len_60">60dp</dimen>
+    <dimen name="len_64">64dp</dimen>
+    <dimen name="len_68">68dp</dimen>
+    <dimen name="len_72">72dp</dimen>
+    <dimen name="len_76">76dp</dimen>
+    <dimen name="len_80">80dp</dimen>
+    <dimen name="len_84">84dp</dimen>
+    <dimen name="len_88">88dp</dimen>
+    <dimen name="len_92">92dp</dimen>
+    <dimen name="len_96">96dp</dimen>
+    <dimen name="len_100">100dp</dimen>
+    <dimen name="len_116">116dp</dimen>
+    <dimen name="len_120">120dp</dimen>
+    <dimen name="len_124">124dp</dimen>
+    <dimen name="len_128">128dp</dimen>
+    <dimen name="len_144">144dp</dimen>
+    <dimen name="len_156">156dp</dimen>
+    <dimen name="len_172">172dp</dimen>
+    <dimen name="len_188">188dp</dimen>
+    <dimen name="len_196">196dp</dimen>
+    <dimen name="len_200">200dp</dimen>
+    <dimen name="len_212">212dp</dimen>
+    <dimen name="len_224">224dp</dimen>
+    <dimen name="len_256">256dp</dimen>
+
+
+
+</resources>
