@@ -36,8 +36,13 @@ ext {
     targetSdkVersion = 25
     supportVersion = '25.3.1'
     gsonVersion = '2.8.0'
+    gildeVersion = '3.8.0'
     retrofitVersion = '2.1.0'
     butterknifeVersion = '8.6.0'
     ossVersion = '2.3.0'
+    okhttpVersion = '3.8.1'
+    loggerVersion = "2.1.1"
+    rxjavaVersion = "2.1.1"
+    ucropVersion = "2.2.0-native"
 
 }
