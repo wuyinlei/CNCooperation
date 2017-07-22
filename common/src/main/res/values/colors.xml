@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tab_checked">#4e5864</color>
+    <color name="tab_unchecked">#8d9ca9</color>
+
+</resources>
