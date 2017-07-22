@@ -3,8 +3,6 @@ package com.cainiao.cncooperation;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 

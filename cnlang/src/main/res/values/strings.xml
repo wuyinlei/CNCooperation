@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">cnlang</string>
 
+    <!--主页tab按键名字-->
     <string name="title_home">主页</string>
     <string name="title_mine">我的</string>
     <string name="title_tv">直播</string>
