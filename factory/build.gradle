@@ -35,6 +35,5 @@ dependencies {
     //rxjava2.0
     compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjavaVersion"
 
-    //Log
-    compile "com.orhanobut:logger:$rootProject.ext.loggerVersion"
+
 }
