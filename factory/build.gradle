@@ -28,12 +28,15 @@ dependencies {
     //retrofit
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 
     //okhttp
     compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
 
     //rxjava2.0
     compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjavaVersion"
+
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroidVersion"
 
 
 }

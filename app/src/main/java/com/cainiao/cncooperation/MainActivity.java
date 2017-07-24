@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.cainiao.cncooperation.ui.fragment.CartFragment;
 import com.cainiao.cncooperation.ui.fragment.HomeFragment;
 import com.cainiao.cncooperation.ui.fragment.MineFragment;
 import com.cainiao.cncooperation.ui.fragment.NewsFragment;
@@ -90,8 +91,11 @@ public class MainActivity extends BaseActivity {
                             case R.id.navigation_video:
                                 mViewPager.setCurrentItem(2);
                                 break;
-                            case R.id.navigation_mine:
+                            case R.id.navigation_cart:
                                 mViewPager.setCurrentItem(3);
+                                break;
+                            case R.id.navigation_mine:
+                                mViewPager.setCurrentItem(4);
                                 break;
                         }
                         return false;
@@ -117,7 +121,10 @@ public class MainActivity extends BaseActivity {
         adapter.addFragment(new HomeFragment());
         adapter.addFragment(new NewsFragment());
         adapter.addFragment(new VideoFragment());
+        adapter.addFragment(new CartFragment());
         adapter.addFragment(new MineFragment());
         viewPager.setAdapter(adapter);
     }
+
+
 }

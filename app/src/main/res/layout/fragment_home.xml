@@ -4,10 +4,11 @@
              android:layout_height="match_parent"
              tools:context="com.cainiao.cncooperation.ui.fragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+    <Button
+        android:id="@+id/btnRequest"
+        android:text="请求数据"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </FrameLayout>
