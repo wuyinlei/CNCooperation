@@ -2,13 +2,15 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.cainiao.cncooperation.ui.fragment.VideoFragment">
+             tools:context="com.cainiao.cncooperation.ui.fragment.CartFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:gravity="center"
         android:textColor="@color/tab_checked"
-        android:text="@string/title_tv"
-        android:textSize="@dimen/font_28"/>
+
+        android:textSize="@dimen/font_28"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/title_cart"/>
+
 </FrameLayout>
