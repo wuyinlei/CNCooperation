@@ -6,6 +6,13 @@
     <color name="colorAccent">#1572fc</color>
 
     <color name="windowsBackground">#f7f7f7</color>
+    <color name="windowsBackgroundLight">#f8f8f8</color>
+
+
+    <color name="textSecond">#8d9ca9</color>
+    <color name="textAccent">@color/colorAccent</color>
+    <color name="textLight">@color/white</color>
+    <color name="textDark">#202020</color>
 
 
     <color name="white">#ffffff</color>

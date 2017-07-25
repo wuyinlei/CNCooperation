@@ -6,9 +6,6 @@ import android.content.DialogInterface;
 import com.cainiao.common.widget.CustomProgress;
 import com.cainiao.factory.R;
 
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-
 
 public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber<T>
         implements DialogInterface.OnCancelListener {
@@ -36,16 +33,18 @@ public abstract class ProgressDialogSubscriber<T> extends ErrorHandlerSubscriber
 
 
     @Override
-    public void onSubscribe(@NonNull Disposable d) {
+    public void onStart() {
+        super.onStart();
         if (isShowDialog())
             CustomProgress.show(mContext, str, cancelable, mCancelListener);
     }
 
     @Override
-    public void onComplete() {
+    public void onCompleted() {
         if (isShowDialog())
             CustomProgress.disMiss();
     }
+
 
     /**
      * 本次请求是否显示dialog

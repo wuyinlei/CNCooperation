@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment;
+package com.cainiao.cncooperation.ui.fragment.main;
 
 
 import android.os.Bundle;

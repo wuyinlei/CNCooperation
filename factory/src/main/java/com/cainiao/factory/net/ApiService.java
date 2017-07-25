@@ -1,13 +1,13 @@
 package com.cainiao.factory.net;
 
 import com.cainiao.common.base.BaseBean;
-import com.cainiao.factory.bean.Index;
+import com.cainiao.factory.model.Index;
 
 import java.util.List;
 
-import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by wuyinlei on 2017/7/23.

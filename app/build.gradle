@@ -3,12 +3,18 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
+
+    dexOptions {
+        preDexLibraries = false
+    }
+
     defaultConfig {
         applicationId "com.cainiao.cncooperation"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -22,13 +28,14 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
 
+    compile 'com.android.support:multidex:1.0.0'
+
     compile project(':factory')
-    compile "com.android.support:design:$rootProject.ext.supportVersion"
+//    compile "com.android.support:design:$rootProject.ext.supportVersion"
     compile "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportVersion"
 
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
 
-    compile 'com.android.support:support-v4:25.3.1'
 }

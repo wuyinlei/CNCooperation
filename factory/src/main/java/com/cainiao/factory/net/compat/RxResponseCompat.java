@@ -3,14 +3,11 @@ package com.cainiao.factory.net.compat;
 import com.cainiao.common.base.BaseBean;
 import com.cainiao.factory.net.exception.ApiException;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 /**
@@ -21,39 +18,41 @@ import io.reactivex.schedulers.Schedulers;
 
 public class RxResponseCompat {
 
-    public static <T> ObservableTransformer<BaseBean<T>,T> compatResult(){
-
-        return new ObservableTransformer<BaseBean<T>, T>(){
+    /**
+     * 数据转换
+     * @param <T>
+     * @return
+     */
+    public static <T> Observable.Transformer<BaseBean<T>, T> compatResult() {
+        return new Observable.Transformer<BaseBean<T>, T>() {
             @Override
-            public ObservableSource<T> apply(@NonNull Observable<BaseBean<T>> baseBeanObservable) {
+            public Observable<T> call(Observable<BaseBean<T>> baseBeanObservable) {
 
-                return baseBeanObservable.flatMap(new Function<BaseBean<T>, ObservableSource<T>>() {
+                return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {
                     @Override
-                    public ObservableSource<T> apply(@NonNull final BaseBean<T> tBaseBean) {
-
+                    public Observable<T> call(final BaseBean<T> tBaseBean) {
                         if (tBaseBean.success()) {
 
-                            return new Observable<T>() {
+                            return Observable.create(new Observable.OnSubscribe<T>() {
                                 @Override
-                                protected void subscribeActual(Observer observer) {
+                                public void call(Subscriber<? super T> subscriber) {
                                     try {
-                                        observer.onNext(tBaseBean.getResults());
-                                        observer.onComplete();
-                                    } catch (Exception e) {
-                                        observer.onError(e);
+                                        subscriber.onNext(tBaseBean.getResults());
+                                        subscriber.onCompleted();
+                                    } catch (Exception e
+                                            ) {
+                                        subscriber.onError(e);
                                     }
 
                                 }
-                            };
+                            });
+
                         } else {
                             return Observable.error(new ApiException(tBaseBean.getErrorCode(), tBaseBean.getErrorStr()));
                         }
                     }
                 }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
             }
-
         };
     }
-
-
 }
