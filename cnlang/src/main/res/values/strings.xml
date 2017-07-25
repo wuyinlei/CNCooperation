@@ -23,6 +23,8 @@
     <string name="error_socket_unreachable">网络不可用</string>
 
 
-    <string name="loading">加载中...</string>
+    <string name="loading">加载中…</string>
+    <string name="find_search_hint">点击搜素一下吧</string>
+
 
 </resources>

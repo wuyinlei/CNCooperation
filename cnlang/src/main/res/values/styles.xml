@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="AppTheme.Base">
+        <!--<item name="toolbarStyle">@style/Widget.Toolbar</item>-->
+        <!--<item name="toolbarNavigationButtonStyle">@style/Widget.ToolbarNavigationButtonStyle</item>-->
+        <!--<item name="actionOverflowButtonStyle">@style/Widget.ActionButton.Overflow</item>-->
+        <!--<item name="actionOverflowMenuStyle">@style/Widget.PopupMenu.Overflow</item>-->
+
+        <item name="colorControlNormal">#f0ffffff</item>
+        <item name="colorControlActivated">#4e5864</item>
+    </style>
+
+    <style name="AppTheme.TransStatusBar.Base" parent="AppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+    <style name="AppTheme.Base" parent="Theme.private" />
+
+    <style name="AppTheme.TransStatusBar" parent="AppTheme.TransStatusBar.Base" />
+
+    <style name="Widget.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.Toolbar.Title</item>
+        <item name="titleTextColor">?attr/toolbarTitleColor</item>
+        <item name="android:tint">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="Widget.ActionButton.Overflow" parent="@style/Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:tint">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="Widget.PopupMenu.Overflow" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="android:tint">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="Widget.ToolbarNavigationButtonStyle" parent="@style/Widget.AppCompat.Toolbar.Button.Navigation">
+        <item name="android:tint">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="TextAppearance.Toolbar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">?attr/toolbarTitleSize</item>
+        <item name="android:textColor">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">?attr/toolbarTitleSize</item>
+        <item name="android:textColor">?attr/toolbarTitleColor</item>
+    </style>
+
+    <style name="Theme.private" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--Background-->
+        <item name="android:windowBackground">@color/windowsBackground</item>
+        <!--NoTitle-->
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <!--ToolBar-->
+        <item name="actionBarSize">@dimen/len_48</item>
+
+    </style>
+
+
+
+
+</resources>

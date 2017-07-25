@@ -1,23 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/activity_main"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/activity_main"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="#ffffff"
+                                                 android:orientation="vertical">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="@color/burlywood"
+        android:elevation="@dimen/len_2"
+        android:outlineProvider="bounds"
+        tools:targetApi="lollipop">
+
+        <RelativeLayout
+            android:id="@+id/re_bg_layout"
+            android:background="@color/burlywood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/len_4"
+            android:paddingRight="@dimen/len_4">
+
+
+            <ImageView
+                android:id="@+id/iv_scan"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:layout_gravity="start|center_vertical"
+                android:layout_margin="@dimen/len_4"
+                android:contentDescription="@string/app_name"
+                android:foreground="@drawable/ic_touch_menu"
+                android:padding="@dimen/len_10"
+                android:src="@drawable/ic_scan"
+                />
+
+
+            <RelativeLayout
+                android:id="@+id/re_title_search"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ffffff"
-                android:orientation="vertical">
+                android:layout_height="@dimen/len_38"
+                android:layout_margin="@dimen/len_4"
+                android:layout_toLeftOf="@+id/iv_message"
+                android:layout_toRightOf="@+id/iv_scan"
+                android:background="@drawable/rect_editext_search"
+                android:gravity="center|start"
+                android:visibility="visible"
+                >
+
+                <TextView
+                    android:layout_toRightOf="@+id/iv_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/find_search_hint"
+                    android:textColor="#9b9b9b"
+                    android:textSize="13sp"
+                    />
+
+                <ImageView
+                    android:layout_marginLeft="@dimen/len_6"
+                    android:layout_marginRight="@dimen/len_6"
+                    android:id="@+id/iv_search"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_search_24dp"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="end|center_vertical"
+                android:layout_margin="@dimen/len_4"
+                android:contentDescription="@string/app_name"
+                android:foreground="@drawable/ic_touch_menu"
+                android:padding="@dimen/len_10"
+                android:src="@drawable/ic_sms_black_24dp"
+                />
+
+        </RelativeLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_navigation"/>
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_marginBottom="@dimen/len_56"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/len_52"
         android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         app:elevation="@dimen/len_8"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@drawable/bottom_navigation_selector"
@@ -27,6 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/len_4"
         android:layout_above="@id/bottom_navigation"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/len_52"
         android:background="@drawable/bottom_shadow"/>
 
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

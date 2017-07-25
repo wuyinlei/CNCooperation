@@ -1,4 +1,4 @@
-package com.cainiao.factory;
+package com.cainiao.factory.net;
 
 import com.cainiao.common.base.BaseBean;
 import com.cainiao.factory.bean.Index;
@@ -11,12 +11,13 @@ import retrofit2.http.Query;
 
 /**
  * Created by wuyinlei on 2017/7/23.
+ *
+ * @function ApiService
  */
 
 public interface ApiService {
 
 
-    public static final String BASE_URL = "http://api.xinliji.me/com/";
 
 
     @GET("loadBanner_v2/")

@@ -1,7 +1,5 @@
 package com.cainiao.factory.net.compat;
 
-import android.media.tv.TvContentRating;
-
 import com.cainiao.common.base.BaseBean;
 import com.cainiao.factory.net.exception.ApiException;
 
