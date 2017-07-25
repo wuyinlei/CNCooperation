@@ -1,11 +1,15 @@
 package com.cainiao.cncooperation;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cainiao.cncooperation.ui.fragment.CartFragment;
 import com.cainiao.cncooperation.ui.fragment.HomeFragment;
@@ -25,8 +29,26 @@ public class MainActivity extends BaseActivity {
 
     public MenuItem mMenuItem;
 
+    @BindView(R.id.re_title_search)
+    public RelativeLayout mReTitleSearch;
+
     @BindView(R.id.bottom_navigation)
     public BottomNavigationView mNavigationView;
+
+    @BindView(R.id.tv_title)
+    public TextView mTvTitle;
+
+    @BindView(R.id.iv_message)
+    public ImageView mIvMessage;
+
+    @BindView(R.id.iv_scan)
+    public ImageView mIvScan;
+
+    @BindView(R.id.appbar_layout)
+    public AppBarLayout mBarLayout;
+
+    @BindView(R.id.re_bg_layout)
+    public RelativeLayout mReBgLayout;
 
     @Override
     protected void initView() {
@@ -84,18 +106,33 @@ public class MainActivity extends BaseActivity {
                         switch (item.getItemId()) {
                             case R.id.navigation_home:
                                 mViewPager.setCurrentItem(0);
+                                mTvTitle.setVisibility(View.GONE);
+                                mIvScan.setVisibility(View.VISIBLE);
+                                mReTitleSearch.setVisibility(View.VISIBLE);
                                 break;
                             case R.id.navigation_dashboard:
                                 mViewPager.setCurrentItem(1);
+                                mTvTitle.setVisibility(View.GONE);
+                                mIvScan.setVisibility(View.GONE);
+                                mReTitleSearch.setVisibility(View.VISIBLE);
                                 break;
                             case R.id.navigation_video:
                                 mViewPager.setCurrentItem(2);
+                                mTvTitle.setVisibility(View.GONE);
+                                mIvScan.setVisibility(View.GONE);
+                                mReTitleSearch.setVisibility(View.VISIBLE);
                                 break;
                             case R.id.navigation_cart:
                                 mViewPager.setCurrentItem(3);
+                                mTvTitle.setVisibility(View.VISIBLE);
+                                mIvScan.setVisibility(View.GONE);
+                                mReTitleSearch.setVisibility(View.GONE);
                                 break;
                             case R.id.navigation_mine:
                                 mViewPager.setCurrentItem(4);
+                                mTvTitle.setVisibility(View.GONE);
+                                mIvScan.setVisibility(View.GONE);
+                                mReTitleSearch.setVisibility(View.GONE);
                                 break;
                         }
                         return false;

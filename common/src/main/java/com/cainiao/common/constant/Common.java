@@ -32,6 +32,10 @@ public class Common {
          * 是否登录
          */
         public String IS_LOGIN = "IS_LOGIN";
+
+        public String BASE_URL = "http://api.xinliji.me/com/";
+
+
     }
 
 

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorPrimary">#31373d</color>
+    <color name="colorPrimaryDark">#31373d</color>
+    <color name="colorAccent">#1572fc</color>
+
+    <color name="windowsBackground">#f7f7f7</color>
+
+
     <color name="white">#ffffff</color>
     <!-- 白色 -->
     <color name="ivory">#fffff0</color>
@@ -293,5 +300,7 @@
     <!-- 暗蓝色 -->
     <color name="navy">#000080</color>
     <!-- 海军色 -->
+
+    <color name="black">#000000</color>
 
 </resources>

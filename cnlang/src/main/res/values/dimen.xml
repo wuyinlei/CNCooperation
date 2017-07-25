@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <dimen name="actionBarWithStatusBarSize">50dp</dimen>
+    <dimen name="statusBarSize">25dp</dimen>
+
+
     <!--常用字体大小-->
     <dimen name="font_10">10sp</dimen>
     <dimen name="font_12">12sp</dimen>
