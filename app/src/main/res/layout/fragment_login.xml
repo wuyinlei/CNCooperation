@@ -2,15 +2,12 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.cainiao.cncooperation.ui.fragment.main.CartFragment">
+             tools:context="com.cainiao.cncooperation.ui.fragment.account.LoginFragment">
 
+    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:gravity="center"
-        android:textColor="@color/tab_checked"
-
-        android:textSize="@dimen/font_28"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_cart"/>
+        android:text="@string/hello_blank_fragment"/>
 
 </FrameLayout>

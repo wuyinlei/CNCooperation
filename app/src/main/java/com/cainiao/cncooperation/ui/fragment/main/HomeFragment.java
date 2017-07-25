@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment;
+package com.cainiao.cncooperation.ui.fragment.main;
 
 
 import android.util.Log;
@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
-import com.cainiao.factory.bean.Index;
+import com.cainiao.factory.model.Index;
 import com.cainiao.factory.net.HttpManager;
 import com.cainiao.factory.net.compat.RxResponseCompat;
 import com.cainiao.factory.net.rx.ProgressDialogSubscriber;
@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.annotations.NonNull;
 
 /**
  * @function 首页界面
@@ -48,7 +47,7 @@ public class HomeFragment extends BaseFragment {
                 .compose(RxResponseCompat.<List<Index>>compatResult())
                 .subscribe(new ProgressDialogSubscriber<List<Index>>(getContext()) {
                     @Override
-                    public void onNext(@NonNull List<Index> indices) {
+                    public void onNext( List<Index> indices) {
                         Log.d("HomeFragment", "indices.size():" + indices.size());
                     }
                 });

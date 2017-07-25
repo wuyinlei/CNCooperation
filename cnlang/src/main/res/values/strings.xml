@@ -24,7 +24,59 @@
 
 
     <string name="loading">加载中…</string>
-    <string name="find_search_hint">点击搜素一下吧</string>
+    <string name="find_search_hint">点击搜索一下吧！！！</string>
+    <string name="hint_name">请输入用户名</string>
+    <string name="hint_password">请设置密码，6-16位数字或字母</string>
+    <string name="login">点击注册</string>
+    <string name="send_message_code">发送验证码</string>
+    <string name="hint_phone">请输入11位的手机号</string>
+    <string name="hint_message_code">请输入验证码</string>
+
+    <!--密码相关页面,登录注册、修改找回-->
+    <string name="login_login">登录</string>
+    <string name="login_name">用户名不能为空</string>
+    <string name="login_phone">请输入手机号</string>
+    <string name="login_password">请输入密码</string>
+    <string name="login_forget_password">忘记密码</string>
+    <string name="login_register_code">输入验证码</string>
+    <string name="login_forget">找回密码</string>
+    <string name="change_password_old">旧密码</string>
+    <string name="change_password_old_hint">请输入旧密码</string>
+    <string name="change_password_old_new_hint">请设置新密码，6-16位数字或字母</string>
+    <string name="change_password_old_new">新密码</string>
+    <string name="change_password_old_new_repeat">重复密码</string>
+    <string name="change_password_old_new2">请再次输入新密码</string>
+    <string name="registerer_sure">注册</string>
+    <string name="login_by_other">使用其他方式登录</string>
+    <string name="login_qq">QQ</string>
+    <string name="login_wx">微信</string>
+    <string name="login_wb">微博</string>
+    <string name="login_fb">Facebook</string>
+    <string name="register_msg_code">验证码已发送</string>
+    <string name="vertify_msg_code_error">验证码已发送</string>
+    <string name="register_msg_failed">验证码发送失败：</string>
+    <string name="register_phone_err">请填写正确手机号</string>
+    <string name="register_code_error">验证码错误</string>
+    <string name="register_password_err">密码应该是6-16位数字或字母</string>
+    <string name="register_had_phone">该手机号已注册，直接登录？</string>
+    <string name="register_yes">确定</string>
+    <string name="register_no">取消</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_failure">注册成功</string>
+
+    <string name="login_suc">登录成功</string>
+    <string name="change_password_def">两次输入密码不一致，请重新输入</string>
+    <string name="change_password_old_err">旧密码输入错误</string>
+    <string name="setting_quit_login">退出当前账号</string>
+    <string name="setting_quit">退出成功</string>
+    <string name="login_ing">正在登录...</string>
+    <string name="register_ing">正在注册...</string>
+    <string name="findpsd_ing">正在提交...</string>
+    <string name="findpsd_re_send1">重新发送(</string>
+    <string name="findpsd_forget">忘记密码</string>
+    <string name="findpsd_suc">修改成功</string>
+    <string name="findpsd_commit">提交</string>
+    <string name="permmission_sms">读取短信权限申请失败</string>
 
 
 </resources>

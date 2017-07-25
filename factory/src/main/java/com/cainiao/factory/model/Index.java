@@ -1,4 +1,4 @@
-package com.cainiao.factory.bean;
+package com.cainiao.factory.model;
 
 
 /**

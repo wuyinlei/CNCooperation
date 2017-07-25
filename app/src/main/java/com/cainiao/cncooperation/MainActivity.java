@@ -11,11 +11,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cainiao.cncooperation.ui.fragment.CartFragment;
-import com.cainiao.cncooperation.ui.fragment.HomeFragment;
-import com.cainiao.cncooperation.ui.fragment.MineFragment;
-import com.cainiao.cncooperation.ui.fragment.NewsFragment;
-import com.cainiao.cncooperation.ui.fragment.VideoFragment;
+import com.cainiao.cncooperation.ui.fragment.main.CartFragment;
+import com.cainiao.cncooperation.ui.fragment.main.HomeFragment;
+import com.cainiao.cncooperation.ui.fragment.main.MineFragment;
+import com.cainiao.cncooperation.ui.fragment.main.NewsFragment;
+import com.cainiao.cncooperation.ui.fragment.main.VideoFragment;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;

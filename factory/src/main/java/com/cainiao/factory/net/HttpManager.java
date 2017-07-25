@@ -4,16 +4,16 @@ import android.support.annotation.Nullable;
 
 import com.cainiao.common.base.BaseBean;
 import com.cainiao.common.constant.Common;
-import com.cainiao.factory.bean.Index;
+import com.cainiao.factory.model.Index;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 
 
 public final class HttpManager {
@@ -48,7 +48,7 @@ public final class HttpManager {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(Common.Constance.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client);
         return builder.build();
     }
