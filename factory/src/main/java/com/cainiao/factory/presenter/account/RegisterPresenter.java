@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.cainiao.common.presenter.BasePresenter;
+import com.cainiao.common.utils.HashUtil;
 import com.cainiao.common.utils.RegularUtils;
 import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
@@ -37,19 +38,19 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
 
     @Override
     public void register(final String phone, final String name, final String password, final String verifyCode) {
+
+        if (TextUtils.isEmpty(name)) {
+            mView.showNameError(R.string.login_name);
+            return;
+        }
+
         if (!checkMobile(phone)) {
             mView.showPhoneError(R.string.register_phone_err);
             return;
         }
 
-        if (TextUtils.isEmpty(name)) {
-            mView.showNameError(((Context) mView).getResources().getString(R.string.login_name));
-
-            return;
-        }
-
         if (TextUtils.isEmpty(password) || password.length() < 6) {
-            mView.showPasswordError(((Context) mView).getResources().getString(R.string.change_password_old_new_hint));
+            mView.showPasswordError(R.string.change_password_old_new_hint);
             return;
         }
 
@@ -73,7 +74,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
 
         MyUser bu = new MyUser();
         bu.setUsername(name);
-        bu.setPassword(password);
+        bu.setPassword(HashUtil.getMD5String(password));
         bu.setMobilePhoneNumber(phone);
 //注意：不能用save方法进行注册
         bu.signUp(new SaveListener<MyUser>() {

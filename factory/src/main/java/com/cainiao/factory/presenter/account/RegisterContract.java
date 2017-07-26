@@ -29,11 +29,11 @@ public interface RegisterContract {
          */
         void onFailure(int code, String msg);
 
-        void showPasswordError(String errorMsg);
+        void showPasswordError(@StringRes int str);
 
         void showPhoneError(@StringRes int str);
 
-        void showNameError(String errorMsg);
+        void showNameError(@StringRes int str);
 
 
         void verifyCodeError(@StringRes int str);

@@ -28,7 +28,7 @@
     <string name="hint_name">请输入用户名</string>
     <string name="hint_password">请设置密码，6-16位数字或字母</string>
     <string name="login">点击注册</string>
-    <string name="send_message_code">发送验证码</string>
+    <string name="send_message_code">点击发送验证码</string>
     <string name="hint_phone">请输入11位的手机号</string>
     <string name="hint_message_code">请输入验证码</string>
 
@@ -54,6 +54,8 @@
     <string name="login_fb">Facebook</string>
     <string name="register_msg_code">验证码已发送</string>
     <string name="vertify_msg_code_error">验证码已发送</string>
+    <string name="retry_msg_code_error">验证码已发送</string>
+    <string name="interval_msg_code">%ss后重新发送</string>
     <string name="register_msg_failed">验证码发送失败：</string>
     <string name="register_phone_err">请填写正确手机号</string>
     <string name="register_code_error">验证码错误</string>
@@ -62,7 +64,9 @@
     <string name="register_yes">确定</string>
     <string name="register_no">取消</string>
     <string name="register_success">注册成功</string>
-    <string name="register_failure">注册成功</string>
+    <string name="register_failure">注册失败</string>
+    <string name="label_go_login">已有账户？去登录</string>
+
 
     <string name="login_suc">登录成功</string>
     <string name="change_password_def">两次输入密码不一致，请重新输入</string>
@@ -77,6 +81,7 @@
     <string name="findpsd_suc">修改成功</string>
     <string name="findpsd_commit">提交</string>
     <string name="permmission_sms">读取短信权限申请失败</string>
+    <string name="label_register_welcome">欢迎您</string>
 
 
 </resources>

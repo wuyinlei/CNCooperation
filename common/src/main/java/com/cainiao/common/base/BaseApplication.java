@@ -5,8 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.cainiao.common.constant.Common;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,4 +85,7 @@ public class BaseApplication extends Application {
 
     }
 
+    public static Application getInstance() {
+        return instance;
+    }
 }
