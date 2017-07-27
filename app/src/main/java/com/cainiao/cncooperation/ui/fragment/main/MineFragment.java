@@ -1,12 +1,6 @@
 package com.cainiao.cncooperation.ui.fragment.main;
 
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
 

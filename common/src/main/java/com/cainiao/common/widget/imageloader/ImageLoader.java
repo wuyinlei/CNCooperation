@@ -1,4 +1,4 @@
-package com.cainiao.common.utils.imageloader;
+package com.cainiao.common.widget.imageloader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -160,6 +160,8 @@ public class ImageLoader {
             view.setImageResource(config.getErrorResId());
         }
     }
+
+
 
     private static void setListener(GenericRequestBuilder request, final LoaderListener listener) {
         request.listener(new RequestListener() {

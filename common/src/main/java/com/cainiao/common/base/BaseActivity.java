@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.cainiao.common.R;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -21,6 +24,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //在界面未初始化之前调用额初始化窗口
+        Glide.get(this).clearMemory();
+
+
 
         if (initArgs(getIntent().getExtras())) {
             //设置界面layoutId
@@ -87,5 +93,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
+
+        Glide.get(this).clearMemory();
     }
 }

@@ -1,6 +1,7 @@
 package com.cainiao.cncooperation.ui.fragment.account;
 
 
+import android.content.Context;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -8,10 +9,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cainiao.cncooperation.MainActivity;
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
+import com.cainiao.factory.Factory;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.RegisterContract;
 import com.cainiao.factory.presenter.account.RegisterPresenter;
@@ -50,11 +55,24 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     EditText mEtName;
 
     @BindView(R.id.bt_send_code)
-    Button mBtSend;
+    TextView mBtSend;
 
     @BindView(R.id.bt_login)
     Button mBtLogin;
 
+    @OnClick(R.id.fg_login)
+    public void Login(){
+        mAccountTrigger.triggerView();
+    }
+
+    private AccountTrigger mAccountTrigger;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mAccountTrigger = (AccountTrigger) context;
+    }
 
     private RegisterPresenter mRegisterPresenter;
 
@@ -67,6 +85,10 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
     @OnClick(R.id.bt_login)
     void toLogin() {
+        mBtLogin.setClickable(false);
+        mBtLogin.setBackgroundResource(R.color.white);
+        mBtLogin.setTextColor(R.color.colorPrimary);
+        mBtLogin.setText(getActivity().getString(R.string.register_ing));
         String name = mEtName.getText().toString().trim();
         String phone = mEtPhone.getText().toString().trim();
         String password = mEtPassword.getText().toString().trim();
@@ -91,13 +113,16 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
+                        Toast.makeText(getContext(),
+                                getActivity().getString(R.string.retry_msg_code_error),
+                                Toast.LENGTH_SHORT).show();
                         mBtSend.setClickable(false);
                     }
                 }).subscribe(new Subscriber<Long>() {
             @Override
             public void onCompleted() {
                 mBtSend.setClickable(true);
-                mBtSend.setText("重新发送验证码");
+                mBtSend.setText(getActivity().getString(R.string.retry_msg_code_error));
             }
 
             @Override
@@ -107,7 +132,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
             @Override
             public void onNext(Long aLong) {
-                mBtSend.setText(aLong + "秒后重新发送");
+                mBtSend.setText(String.format(getActivity().getString(R.string.interval_msg_code), aLong));
             }
         });
     }
@@ -118,17 +143,36 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
         return R.layout.fragment_register;
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
 
     @Override
     public void registerSuccess(MyUser user) {
-        //注册成功
-        Log.d("RegisterFragment", user.getUsername());
-        Toast.makeText(getContext(), "注册成功", Toast.LENGTH_SHORT).show();
+        Observable.interval(1, TimeUnit.SECONDS)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        //注册成功
+                        mBtLogin.setClickable(true);
+                        mBtLogin.setBackgroundResource(R.color.white);
+                        mBtLogin.setTextColor(R.color.springgreen);
+                        mBtLogin.setText(getActivity().getString(R.string.login_ing));
+                    }
+                }).subscribe(new Subscriber<Long>() {
+            @Override
+            public void onCompleted() {
+                getActivity().finish();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Long aLong) {
+
+            }
+        });
+
 
     }
 
@@ -140,17 +184,16 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     @Override
     public void onFailure(int code, String msg) {
         //注册失败
+        mBtLogin.setClickable(true);
+        mBtLogin.setBackgroundResource(R.color.white);
+        mBtLogin.setTextColor(R.color.colorAccent);
+        mBtLogin.setText(getActivity().getString(R.string.register_failure));
     }
 
     @Override
-    public void showPasswordError(String errorMsg) {
-        mTvInputPw.setError(errorMsg);
+    public void showPasswordError(@StringRes int str) {
+        mTvInputPw.setError(getActivity().getString(str));
     }
-
-//    @Override
-//    public void showPhoneError(String errorMsg) {
-//
-//    }
 
 
     @Override
@@ -159,13 +202,18 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     }
 
     @Override
-    public void showNameError(String errorMsg) {
-        mTvInputName.setError(errorMsg);
+    public void showNameError(@StringRes int str) {
+        mTvInputName.setError(getActivity().getString(str));
     }
 
     @Override
-    public void verifyCodeError(@StringRes int str) {
-        Toast.makeText(getContext(), getActivity().getString(str), Toast.LENGTH_SHORT).show();
+    public void verifyCodeError(@StringRes final int str) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getContext(), getActivity().getString(str), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

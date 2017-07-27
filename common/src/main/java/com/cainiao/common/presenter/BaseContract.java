@@ -16,7 +16,7 @@ public interface BaseContract<T> {
         void showError(@StringRes int str);
 
         //显示进度条
-        void showLoading();
+//        void showLoading();
 
     }
 

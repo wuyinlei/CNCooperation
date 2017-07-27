@@ -24,15 +24,16 @@
 
 
     <string name="loading">加载中…</string>
+
+
+    <!--密码相关页面,登录注册、修改找回-->
     <string name="find_search_hint">点击搜索一下吧！！！</string>
     <string name="hint_name">请输入用户名</string>
     <string name="hint_password">请设置密码，6-16位数字或字母</string>
     <string name="login">点击注册</string>
-    <string name="send_message_code">发送验证码</string>
+    <string name="send_message_code">点击发送验证码</string>
     <string name="hint_phone">请输入11位的手机号</string>
     <string name="hint_message_code">请输入验证码</string>
-
-    <!--密码相关页面,登录注册、修改找回-->
     <string name="login_login">登录</string>
     <string name="login_name">用户名不能为空</string>
     <string name="login_phone">请输入手机号</string>
@@ -54,6 +55,8 @@
     <string name="login_fb">Facebook</string>
     <string name="register_msg_code">验证码已发送</string>
     <string name="vertify_msg_code_error">验证码已发送</string>
+    <string name="retry_msg_code_error">验证码已发送</string>
+    <string name="interval_msg_code">%ss后重新发送</string>
     <string name="register_msg_failed">验证码发送失败：</string>
     <string name="register_phone_err">请填写正确手机号</string>
     <string name="register_code_error">验证码错误</string>
@@ -62,8 +65,8 @@
     <string name="register_yes">确定</string>
     <string name="register_no">取消</string>
     <string name="register_success">注册成功</string>
-    <string name="register_failure">注册成功</string>
-
+    <string name="register_failure">注册失败</string>
+    <string name="label_go_login">已有账户？去登录</string>
     <string name="login_suc">登录成功</string>
     <string name="change_password_def">两次输入密码不一致，请重新输入</string>
     <string name="change_password_old_err">旧密码输入错误</string>
@@ -77,6 +80,29 @@
     <string name="findpsd_suc">修改成功</string>
     <string name="findpsd_commit">提交</string>
     <string name="permmission_sms">读取短信权限申请失败</string>
+    <string name="label_register_welcome">欢迎您</string>
+
+    <!--相册相关-->
+    <string name="photo_pick_close">关闭</string>
+    <string name="select_album">选择相册</string>
+    <string name="select_image_success">完成(%1$s/%2$s)</string>
+    <string name="photo_take">拍摄照片</string>
+    <string name="label_gallery_select_max_size">至多选择%s张</string>
+    <string name="mine_invite_friends">邀请好友</string>
+    <string name="mine_setting">设置</string>
+    <string name="mine_help_and_feedback">帮助与反馈</string>
+    <string name="mine_gif">我的礼盒</string>
+    <string name="mine_my_address">我的收货地址</string>
+    <string name="mine_my_equipment">我的设备</string>
+    <string name="mine_my_collect">我的收藏</string>
+    <string name="mine_my_friend_circle">朋友圈</string>
+    <string name="mine_my_service">我的服务</string>
+    <string name="mine_my_card">我的卡券</string>
+    <string name="mine_my_sign">签到</string>
+    <string name="mine_login_immediately">立即登录</string>
+    <string name="circle_anonymous_published">匿名发表</string>
+    <string name="circle_do_not_show_location">不显示位置</string>
+    <string name="circle_hint_publish">为保证大家的隐私和安全，请勿留下私人联系方式。</string>
 
 
 </resources>

@@ -38,7 +38,7 @@ public abstract class BasePresenter<T extends BaseContract.View> implements Base
     public void start() {
         T view = mView;
         if (view != null) {
-            view.showLoading();
+//            view.showLoading();
         }
 
     }

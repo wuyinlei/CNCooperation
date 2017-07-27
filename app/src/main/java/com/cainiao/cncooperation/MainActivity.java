@@ -1,5 +1,8 @@
 package com.cainiao.cncooperation;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -101,6 +104,7 @@ public class MainActivity extends BaseActivity {
     private void navigationViewSetting(BottomNavigationView navigationView) {
         navigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @SuppressLint("NewApi")
                     @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
@@ -164,4 +168,8 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    public static void show(Context context) {
+        Intent intent = new Intent(context,MainActivity.class);
+        context.startActivity(intent);
+    }
 }

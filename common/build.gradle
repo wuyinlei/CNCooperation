@@ -42,8 +42,9 @@ dependencies {
     //图片裁剪库
     //    compile "com.yalantis:ucrop:$rootProject.ext.ucropVersion"
     //圆形图片
-    compile 'de.hdodenhof:circleimageview:2.1.0'
     //Log
     compile "com.orhanobut:logger:$rootProject.ext.loggerVersion"
 
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

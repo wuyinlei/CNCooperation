@@ -1,4 +1,4 @@
-package com.cainiao.common.utils.imageloader;
+package com.cainiao.common.widget.imageloader;
 
 /**
  * Created by wuyinlei on 2017/7/22.

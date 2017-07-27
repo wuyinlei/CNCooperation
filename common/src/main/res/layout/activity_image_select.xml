@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".widget.camera.ImageSelectActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/photo_pick"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="@dimen/statusBarSize"
+        android:background="#fcfcfc"
+        android:gravity="top">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="21dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:paddingLeft="6dp"
+            android:src="@drawable/ic_close_drawable"/>
+
+        <TextView
+            android:id="@+id/tv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/iv_close"
+            android:layout_toRightOf="@+id/iv_close"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/len_10"
+            android:text="@string/photo_pick_close"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="@string/app_name"/>
+
+        <TextView
+            android:id="@+id/tv_select_album"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_close"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="19dp"
+            android:gravity="center_vertical"
+            android:text="@string/select_album"
+            android:textColor="#4a4a4a"
+            android:textSize="15sp"/>
+
+        <ImageView
+            android:id="@+id/pic_head_view_down"
+            android:layout_width="@dimen/len_14"
+            android:layout_height="@dimen/len_14"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/len_14"
+            android:layout_marginRight="@dimen/len_14"
+            android:background="@drawable/ic_down_drawable"/>
+    </RelativeLayout>
+
+    <com.cainiao.common.widget.camera.GalleryView
+        android:id="@+id/gallery_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/photo_pick"
+        android:layout_marginBottom="@dimen/len_48"/>
+
+
+    <TextView
+        android:id="@+id/tv_select_success"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_48"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:background="@color/aqua"
+        android:gravity="center"
+        android:textColor="@color/wheat"
+        android:textSize="@dimen/font_18"
+        tools:text="@string/select_image_success"
+        />
+
+</RelativeLayout>
