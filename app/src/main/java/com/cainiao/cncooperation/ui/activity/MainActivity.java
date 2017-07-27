@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation;
+package com.cainiao.cncooperation.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.fragment.main.CartFragment;
 import com.cainiao.cncooperation.ui.fragment.main.HomeFragment;
 import com.cainiao.cncooperation.ui.fragment.main.MineFragment;

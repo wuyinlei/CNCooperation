@@ -88,6 +88,8 @@
     <string name="select_image_success">完成(%1$s/%2$s)</string>
     <string name="photo_take">拍摄照片</string>
     <string name="label_gallery_select_max_size">至多选择%s张</string>
+
+    <!--我的界面相关资源-->
     <string name="mine_invite_friends">邀请好友</string>
     <string name="mine_setting">设置</string>
     <string name="mine_help_and_feedback">帮助与反馈</string>
@@ -100,9 +102,12 @@
     <string name="mine_my_card">我的卡券</string>
     <string name="mine_my_sign">签到</string>
     <string name="mine_login_immediately">立即登录</string>
+
+    <!--朋友圈相关字符串资源-->
     <string name="circle_anonymous_published">匿名发表</string>
     <string name="circle_do_not_show_location">不显示位置</string>
     <string name="circle_hint_publish">为保证大家的隐私和安全，请勿留下私人联系方式。</string>
+    <string name="circle_content_publish">内容发布</string>
 
 
 </resources>
