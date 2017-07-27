@@ -100,6 +100,9 @@
     <string name="mine_my_card">我的卡券</string>
     <string name="mine_my_sign">签到</string>
     <string name="mine_login_immediately">立即登录</string>
+    <string name="circle_anonymous_published">匿名发表</string>
+    <string name="circle_do_not_show_location">不显示位置</string>
+    <string name="circle_hint_publish">为保证大家的隐私和安全，请勿留下私人联系方式。</string>
 
 
 </resources>
