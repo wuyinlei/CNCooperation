@@ -25,16 +25,26 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.Main">
-        </activity>
-        <activity android:name=".ui.activity.AccountActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.TestSelectImageActivity">
+        <activity android:name=".ui.activity.AccountActivity">
         </activity>
+        <activity android:name=".ui.activity.TestSelectImageActivity">
+
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+
+        </activity>
+
+        <activity android:name="com.cainiao.common.widget.camera.ImageSelectActivity"/>
     </application>
 
 </manifest>

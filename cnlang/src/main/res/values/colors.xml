@@ -225,7 +225,7 @@
     <!-- 中暗蓝色 -->
     <color name="lightslategray">#778899</color>
     <!-- 亮蓝灰 -->
-    <color name="lightslategrey">#778899</color>
+    <color name="lightslategrey">#ff535353</color>
     <!-- 亮蓝灰 -->
     <color name="slategray">#708090</color>
     <!-- 灰石色 -->
@@ -309,5 +309,7 @@
     <!-- 海军色 -->
 
     <color name="black">#000000</color>
+
+    <color name="mine_title_bg">#b7acf0</color>
 
 </resources>
