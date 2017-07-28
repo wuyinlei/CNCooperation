@@ -225,4 +225,5 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
         super.onDestroyView();
         mRegisterPresenter = null;
     }
+
 }

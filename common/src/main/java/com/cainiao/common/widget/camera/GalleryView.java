@@ -99,6 +99,8 @@ public class GalleryView extends RecyclerView {
         // 一个标识加载器的唯一ID    一个可选的参数以支持加载器的构建   一个LoaderManager.LoaderCallbacks的实现
         manager.initLoader(LOADER_ID, null, callback);
         this.mMaxCount = maxCount;
+        mHasChooseImages.clear();
+        mSelectImages.clear();
         this.mHasChooseImages = images;
         this.isShowCamera = showCamera;
         this.mode = mode;
@@ -118,6 +120,8 @@ public class GalleryView extends RecyclerView {
         manager.initLoader(LOADER_ID, null, callback);
         this.mMaxCount = 1;
         this.isShowCamera = true;
+        mHasChooseImages.clear();
+        mSelectImages.clear();
         this.mode = ImageSelectActivity.MODE_SINGLE;
         return LOADER_ID;
     }
@@ -134,7 +138,18 @@ public class GalleryView extends RecyclerView {
         // 一个标识加载器的唯一ID    一个可选的参数以支持加载器的构建   一个LoaderManager.LoaderCallbacks的实现
         manager.initLoader(LOADER_ID, null, callback);
         this.mMaxCount = 9;
+        mHasChooseImages.clear();
+        mSelectImages.clear();
         this.mHasChooseImages = images;
+        if (images !=null && images.size() > 0){
+            for (String image : images) {
+                Image uploadImage = new Image();
+                uploadImage.path = image;
+                mSelectImages.add(uploadImage);
+            }
+
+            notifySelectChanged();
+        }
         this.isShowCamera = true;
         this.mode = ImageSelectActivity.MODE_MULTI;
         return LOADER_ID;
@@ -160,8 +175,11 @@ public class GalleryView extends RecyclerView {
         ArrayList<String> images = new ArrayList<>();
 
         for (Image image : mSelectImages) {
+            if (images.contains(image))
+                continue;
             images.add(image.path);
         }
+
         return images;
     }
 
@@ -217,6 +235,13 @@ public class GalleryView extends RecyclerView {
                         image.path = path;
                         image.date = dateTime;
                         image.imageDisplay = fileName;
+
+                        for (Image selectImage : mSelectImages) {
+                            if(selectImage.path.equals(image.path))
+                                image.isSelect = true;
+                        }
+//                        if(mSelectImages.contains(image.path))
+//                            image.isSelect = true;
 
                         //添加到集合中
                         images.add(image);
@@ -284,8 +309,11 @@ public class GalleryView extends RecyclerView {
                 return;
 
             if (holder instanceof ItemHolder) {
+
+
                 ItemHolder itemHolder = (ItemHolder) holder;
                 final Image image = mImgLists.get(position);
+
 
                 //加载图片
                 Glide.with(holder.itemView.getContext())
@@ -306,7 +334,7 @@ public class GalleryView extends RecyclerView {
                     @Override
                     public void onClick(View v) {
                         if (onItemSelectClick(image)) {
-                            notifyDataSetChanged();
+                            GalleryView.this.getAdapter().notifyDataSetChanged();
                         }
                     }
                 });
@@ -349,7 +377,7 @@ public class GalleryView extends RecyclerView {
         }
 
         if (isNeedUpdateNotify) {
-            notifySelectSuccess(mSelectImages);
+//            notifySelectSuccess(mSelectImages);
             notifySelectChanged();
         }
 

@@ -35,19 +35,18 @@
         </activity>
         <activity android:name=".ui.activity.TestSelectImageActivity">
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN"/> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER"/> -->
-            <!-- </intent-filter> -->
-
         </activity>
         <activity android:name="com.cainiao.common.widget.camera.ImageSelectActivity"/>
-        <activity android:name=".ui.activity.FriendCircleActivity">
+        <activity
+            android:name=".ui.activity.FriendCircleActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
         </activity>
         <activity android:name=".ui.activity.MessageActivity">
         </activity>
+
+        <activity android:name=".ui.activity.DynamicPublishActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>
