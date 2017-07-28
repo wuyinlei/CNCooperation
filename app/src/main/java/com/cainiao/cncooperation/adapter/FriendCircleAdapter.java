@@ -24,7 +24,7 @@ public class FriendCircleAdapter extends SimpleAdapter<Index> {
     }
 
     @Override
-    protected void convert(BaseViewHolder viewHoder, Index item) {
+    protected void convert(BaseViewHolder viewHoder, Index item,int position) {
 //        viewHoder.getImageView(R.id.iv_avatar)
 //        viewHoder.getTextView(R.id.tv_name)
         ExpandTextView mExpandView = (ExpandTextView) viewHoder.getView(R.id.tv_expand_content);

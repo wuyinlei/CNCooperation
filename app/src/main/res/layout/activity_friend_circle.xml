@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.cainiao.cncooperation.ui.activity.FriendCircleActivity">
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                      xmlns:tl="http://schemas.android.com/apk/res-auto"
+                                                      android:id="@+id/refresh_layout"
+                                                      android:layout_width="match_parent"
+                                                      android:layout_height="match_parent">
 
-</RelativeLayout>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coord_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:addStatesFromChildren="true"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clipChildren="false">
+
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="10dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                <include
+                    android:layout_marginTop="@dimen/len_56"
+                    layout="@layout/mind_circle_head_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_collapseParallaxMultiplier="1"/>
+
+
+                <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tl:contentInsetLeft="0dp"
+                    tl:contentInsetStart="0dp"
+                    tl:layout_collapseMode="pin"
+                    tl:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    tl:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <include layout="@layout/mind_circle_title_layout"/>
+
+
+                </android.support.v7.widget.Toolbar>
+
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

@@ -57,6 +57,5 @@ public interface RegisterContract {
         //发送验证码
         void sendVerifyCode(String phone);
 
-
     }
 }

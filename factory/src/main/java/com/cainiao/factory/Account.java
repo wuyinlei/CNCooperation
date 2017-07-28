@@ -3,6 +3,8 @@ package com.cainiao.factory;
 
 import com.cainiao.factory.model.MyUser;
 
+import cn.bmob.v3.BmobUser;
+
 /**
  * Created by wuyinlei on 2017/7/26.
  *
@@ -18,7 +20,7 @@ public class Account {
      */
     public static MyUser getUser() {
         //如果为null  返回一个new User  其次从数据库中查询
-        return (MyUser) MyUser.getCurrentUser();
+        return BmobUser.getCurrentUser(MyUser.class);
     }
 
     /**

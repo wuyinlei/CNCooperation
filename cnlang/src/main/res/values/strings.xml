@@ -108,6 +108,8 @@
     <string name="circle_do_not_show_location">不显示位置</string>
     <string name="circle_hint_publish">为保证大家的隐私和安全，请勿留下私人联系方式。</string>
     <string name="circle_content_publish">内容发布</string>
+    <string name="mind_circle_content_not_null">施主还是写点东西吧！！！</string>
+    <string name="mind_circle_publish_success">动态发布成功！！！</string>
 
 
 </resources>

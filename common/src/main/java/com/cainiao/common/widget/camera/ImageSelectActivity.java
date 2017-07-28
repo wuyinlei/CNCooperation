@@ -1,6 +1,8 @@
 package com.cainiao.common.widget.camera;
 
+import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,6 +73,37 @@ public class ImageSelectActivity extends BaseActivity implements
     private ImageView mIvClose;
     private TextView mTvClose, mTvTitle, mTvSelectAlbum, mTvSelectSuccess;
 
+    /**
+     * @param context    上下文
+     * @param maxCount   最大选择的图片个数
+     * @param showCamera 是否显示拍照按钮
+     * @param mode       选择的模式
+     * @param resultList 已经选择的图片地址
+     */
+    public static void start(Context context, int maxCount, boolean showCamera, int mode, ArrayList<String> resultList) {
+        Intent intent = new Intent(context, ImageSelectActivity.class);
+        intent.putExtra(ImageSelectActivity.EXTRA_SHOW_CAMERA, showCamera);
+        intent.putExtra(ImageSelectActivity.EXTRA_SELECT_COUNT, maxCount);
+        intent.putExtra(ImageSelectActivity.EXTRA_SELECT_MODE, mode);
+        intent.putStringArrayListExtra(ImageSelectActivity.EXTRA_DEFAULT_SELECTED_LIST, resultList);
+        ((Activity) context).startActivityForResult(intent, ImageSelectActivity.RESULT_CODE);
+    }
+
+    /**
+     * 默认的显示照相机  多选  选择9张
+     *
+     * @param context    上下文
+     * @param resultList 已经选择的图片地址
+     */
+    public static void start(Context context, ArrayList<String> resultList) {
+        Intent intent = new Intent(context, ImageSelectActivity.class);
+        intent.putExtra(ImageSelectActivity.EXTRA_SHOW_CAMERA, true);
+        intent.putExtra(ImageSelectActivity.EXTRA_SELECT_COUNT, 9);
+        intent.putExtra(ImageSelectActivity.EXTRA_SELECT_MODE, MODE_MULTI);
+        intent.putStringArrayListExtra(ImageSelectActivity.EXTRA_DEFAULT_SELECTED_LIST, resultList);
+        ((Activity) context).startActivityForResult(intent, ImageSelectActivity.RESULT_CODE);
+    }
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_image_select;
@@ -111,9 +144,8 @@ public class ImageSelectActivity extends BaseActivity implements
         mShowCamera = getIntent().getBooleanExtra(ImageSelectActivity.EXTRA_SHOW_CAMERA, true);
         mMaxCount = getIntent().getIntExtra(ImageSelectActivity.EXTRA_SELECT_COUNT, 9);
         mResultList = getIntent().getStringArrayListExtra(ImageSelectActivity.EXTRA_DEFAULT_SELECTED_LIST);
-        mode = getIntent().getIntExtra(ImageSelectActivity.EXTRA_SELECT_MODE,ImageSelectActivity.MODE_MULTI);
+        mode = getIntent().getIntExtra(ImageSelectActivity.EXTRA_SELECT_MODE, ImageSelectActivity.MODE_MULTI);
     }
-
 
 
     @Override
@@ -123,15 +155,8 @@ public class ImageSelectActivity extends BaseActivity implements
             finish();
 
         } else if (i == R.id.tv_select_album) {// TODO: 2017/7/26   进行相关的相册选择
-            showAllFileCamera();
+//            showAllFileCamera();
         }
-
-
-    }
-
-    private void showAllFileCamera() {
-        final RecyclerView mAllPhotoPicRecycler;
-        View view = LayoutInflater.from(this).inflate(R.layout.activity_album_pick, null);
 
 
     }
@@ -147,8 +172,8 @@ public class ImageSelectActivity extends BaseActivity implements
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent();
-                    intent.putStringArrayListExtra(ImageSelectActivity.EXTRA_DEFAULT_SELECTED_LIST,mGalleryView.getAllSelectImages());
-                    ImageSelectActivity.this.setResult(RESULT_OK,intent);
+                    intent.putStringArrayListExtra(ImageSelectActivity.EXTRA_DEFAULT_SELECTED_LIST, mGalleryView.getAllSelectImages());
+                    ImageSelectActivity.this.setResult(RESULT_OK, intent);
                     finish();
                     overridePendingTransition(R.anim.login_activity_in, R.anim.login_activity_out);
                 }
