@@ -2,7 +2,9 @@ package com.cainiao.common.widget.nineimage;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.text.TextPaint;
@@ -69,7 +71,7 @@ public class NineGridViewWrapper extends android.support.v7.widget.AppCompatImag
                      */
 //                    drawable.mutate().setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                     //这个地方设置的是当手指在该图片的时候是否显示一个灰色--->代表着用户已经点击了  友好的交互
-//                    drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+                    drawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
                     ViewCompat.postInvalidateOnAnimation(this);
                 }
                 break;

@@ -40,6 +40,9 @@ public class Common {
         public int SKIP_COUNT = 10;  //忽略的前面请求的个数
 
 
+        public String OBECJT_ID = "OBECJT_ID";
+
+
     }
 
     public static class Path {

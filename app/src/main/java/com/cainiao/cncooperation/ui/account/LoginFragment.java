@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment.account;
+package com.cainiao.cncooperation.ui.account;
 
 
 import android.support.v4.app.Fragment;

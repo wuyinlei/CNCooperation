@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.cainiao.cncooperation.ui.fragment.main.CartFragment">
+             tools:context=".ui.main.CartFragment">
 
     <TextView
         android:gravity="center"

@@ -111,6 +111,9 @@
     <string name="mind_circle_content_not_null">施主还是写点东西吧！！！</string>
     <string name="mind_circle_publish_success">动态发布成功！！！</string>
     <string name="request_error">网络不好,请检查网络连接是否有误！！！</string>
+    <string name="msg_more">全文</string>
+    <string name="msg_collapse">收起</string>
+    <string name="dynamic_detail">动态详情</string>
 
 
 </resources>

@@ -1,8 +1,7 @@
-package com.cainiao.cncooperation.ui.activity;
+package com.cainiao.cncooperation.ui.account;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -13,9 +12,9 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.cainiao.cncooperation.R;
-import com.cainiao.cncooperation.ui.fragment.account.AccountTrigger;
-import com.cainiao.cncooperation.ui.fragment.account.LoginFragment;
-import com.cainiao.cncooperation.ui.fragment.account.RegisterFragment;
+import com.cainiao.cncooperation.ui.account.AccountTrigger;
+import com.cainiao.cncooperation.ui.account.LoginFragment;
+import com.cainiao.cncooperation.ui.account.RegisterFragment;
 import com.cainiao.common.base.BaseActivity;
 
 import butterknife.BindView;

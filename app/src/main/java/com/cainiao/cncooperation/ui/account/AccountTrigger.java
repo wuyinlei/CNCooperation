@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment.account;
+package com.cainiao.cncooperation.ui.account;
 
 /**
  * Created by wuyinlei on 2017/6/10.

@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.activity;
+package com.cainiao.cncooperation.ui.message;
 
 import android.content.Context;
 import android.content.Intent;

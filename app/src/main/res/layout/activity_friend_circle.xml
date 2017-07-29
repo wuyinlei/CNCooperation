@@ -4,7 +4,8 @@
                                                       xmlns:tl="http://schemas.android.com/apk/res-auto"
                                                       android:id="@+id/refresh_layout"
                                                       android:layout_width="match_parent"
-                                                      android:layout_height="match_parent">
+                                                      android:layout_height="match_parent"
+                                                      android:visibility="visible">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coord_container"
@@ -31,11 +32,11 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <include
-                    android:layout_marginTop="@dimen/len_56"
                     layout="@layout/mind_circle_head_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_collapseParallaxMultiplier="1"/>
+                    android:layout_marginTop="@dimen/len_56"
+                    app:layout_collapseParallaxMultiplier="0.5"/>
 
 
                 <android.support.v7.widget.Toolbar

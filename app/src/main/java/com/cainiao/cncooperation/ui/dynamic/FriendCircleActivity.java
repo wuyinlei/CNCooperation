@@ -1,8 +1,7 @@
-package com.cainiao.cncooperation.ui.activity;
+package com.cainiao.cncooperation.ui.dynamic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +9,14 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.FriendCircleAdapter;
+import com.cainiao.cncooperation.ui.message.MessageActivity;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
-import com.cainiao.common.widget.adapter.BaseViewHolder;
-import com.cainiao.common.widget.adapter.SimpleAdapter;
+import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.Account;
-import com.cainiao.factory.Factory;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
@@ -28,14 +25,10 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class FriendCircleActivity extends BaseActivity implements FriendCircleContract.View {
 
@@ -74,6 +67,8 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
 
     private FriendCirclePresenter mCirclePresenter;
     private FriendCircleAdapter mAdapter;
+    private int index;
+    private boolean hasMore, isFirst;
 
     /**
      * 显示这个view
@@ -109,6 +104,11 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
 
         setupRecyclerView(mCircleRecycler);
 
+        MyUser user = Account.getUser();
+
+        ImageLoader.load(user.getAvatar(), mCircleAvatar);
+        mCircleNameTxt.setText(Account.getUser().getUsername());
+
         mCirclePresenter.requestData(Common.Constance.LIMIT_COUNT);
 
 
@@ -142,24 +142,23 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishRefreshing();
-                    }
-                }, 2000);
+                mCirclePresenter.requestData(10);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishLoadmore();
-                    }
-                }, 2000);
+                if (hasMore) {
+
+                    mCirclePresenter.loadMoreData(10, 10 * ++index);
+                } else {
+                    //已经加载完所有数据
+                    mRefreshLayout.finishLoadmore();
+                }
             }
         });
+
+        mRefreshLayout.startRefresh();
+
 
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appbar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -176,6 +175,14 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == 101) {
+            mCirclePresenter.requestData(10);
+        }
+
+    }
 
     @OnClick(R.id.action_mindcirrcle_publish)
     public void jumpToPublish() {
@@ -183,6 +190,7 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
             DynamicPublishActivity.show(this);
         else {
             //跳转到登录界面
+
 
         }
     }
@@ -221,11 +229,19 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
 
     @Override
     public void requestDataSuccess(List<CircleViewBean> viewBeen) {
-        mAdapter.addData(viewBeen);
+        if (!isFirst) {
+            isFirst = true;
+            return;
+        }
+        mAdapter.refreshData(viewBeen);
+        mRefreshLayout.finishRefreshing();
+        hasMore = viewBeen.size() >= 10;
     }
 
     @Override
     public void loadMoreDataSuccess(List<CircleViewBean> viewBeen) {
-
+        mAdapter.addData(viewBeen);
+        hasMore = viewBeen.size() >= 10;
+        mRefreshLayout.finishLoadmore();
     }
 }

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
@@ -19,6 +20,7 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import rx.Observable;
 import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -105,8 +107,10 @@ public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.Vi
                     viewBean.setContent(friendCircle.getContent());
                     viewBean.setCreateDate(friendCircle.getCreatedAt());
                     viewBean.setImages(friendCircle.getCircleimages());
-                    viewBean.setViewcount(new Random(100) + "");
+                    viewBean.setViewcount(new Random(100).nextInt() + "");
+                    viewBean.setLikescount(friendCircle.getLove() + "");
 //                    viewBean.setLikescount(friendCircle.getLove() + "");
+                    viewBean.setObjectId(friendCircle.getObjectId());
                     viewBean.setUsername(friendCircle.getAuthor().getUsername());
 //                    viewBean.setCommentcount();
                     BmobQuery<FriendCircleComment> query = new BmobQuery<>();
@@ -130,18 +134,20 @@ public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.Vi
                                     comments.add(commentBean);
                                 }
 
-                                viewBean.setComment(comments);
+                                // viewBean.setComment(comments);
+
+
                             }
                         }
                     });
 
                     circleViewBeanList.add(viewBean);
-
                 }
-
+                //// TODO: 2017/7/29 暂时还没想到怎么解决为好
                 return Observable.just(circleViewBeanList);
             }
-        }).subscribeOn(Schedulers.io())
+        })
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<List<CircleViewBean>>() {
                     @Override

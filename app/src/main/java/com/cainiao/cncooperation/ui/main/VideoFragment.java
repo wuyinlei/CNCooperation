@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment.main;
+package com.cainiao.cncooperation.ui.main;
 
 
 import com.cainiao.cncooperation.R;

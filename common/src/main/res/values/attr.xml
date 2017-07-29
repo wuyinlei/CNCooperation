@@ -12,5 +12,20 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!--圆形头像-->
+    <declare-styleable name="CircleImageView">
+        <attr name="outCircleColor" format="color"/>
+        <attr name="outCircleWidth" format="dimension"/>
+    </declare-styleable>
+
+
+    <!--可展开的textview-->
+    <declare-styleable name="ExpandableTextView">
+        <attr name="maxCollapsedLines" format="integer" />
+        <attr name="animDuration" format="integer" />
+        <attr name="animAlphaStart" format="float" />
+        <attr name="expandDrawable" format="reference" />
+        <attr name="collapseDrawable" format="reference" />
+    </declare-styleable>
 
 </resources>
