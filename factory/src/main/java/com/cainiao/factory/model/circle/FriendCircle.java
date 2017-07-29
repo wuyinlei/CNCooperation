@@ -28,7 +28,14 @@ public class FriendCircle extends BmobObject {
     // 多对多 喜欢该帖子的所有用户(用户也可以喜欢多个帖子)
     private BmobRelation likes;
 
-    private String viewcount;
+    private int love;
+    private int hate;
+    private int share;
+    private int comment;
+    private boolean isPass;
+    private boolean myFav;//收藏
+
+    private boolean myLove;//赞
 
     public String getContent() {
         return content;
@@ -62,11 +69,59 @@ public class FriendCircle extends BmobObject {
         this.likes = likes;
     }
 
-    public String getViewcount() {
-        return viewcount;
+    public int getLove() {
+        return love;
     }
 
-    public void setViewcount(String viewcount) {
-        this.viewcount = viewcount;
+    public void setLove(int love) {
+        this.love = love;
+    }
+
+    public int getHate() {
+        return hate;
+    }
+
+    public void setHate(int hate) {
+        this.hate = hate;
+    }
+
+    public int getShare() {
+        return share;
+    }
+
+    public void setShare(int share) {
+        this.share = share;
+    }
+
+    public int getComment() {
+        return comment;
+    }
+
+    public void setComment(int comment) {
+        this.comment = comment;
+    }
+
+    public boolean isPass() {
+        return isPass;
+    }
+
+    public void setPass(boolean pass) {
+        isPass = pass;
+    }
+
+    public boolean isMyFav() {
+        return myFav;
+    }
+
+    public void setMyFav(boolean myFav) {
+        this.myFav = myFav;
+    }
+
+    public boolean isMyLove() {
+        return myLove;
+    }
+
+    public void setMyLove(boolean myLove) {
+        this.myLove = myLove;
     }
 }

@@ -110,6 +110,7 @@
     <string name="circle_content_publish">内容发布</string>
     <string name="mind_circle_content_not_null">施主还是写点东西吧！！！</string>
     <string name="mind_circle_publish_success">动态发布成功！！！</string>
+    <string name="request_error">网络不好,请检查网络连接是否有误！！！</string>
 
 
 </resources>

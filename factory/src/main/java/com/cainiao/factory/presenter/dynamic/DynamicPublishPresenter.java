@@ -30,20 +30,26 @@ public class DynamicPublishPresenter extends BasePresenter<DynamicPublishContrac
     @Override
     public void dynamicPublish(String content, ArrayList<String> images) {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
-        final FriendCircle post = new FriendCircle();
+        final FriendCircle friendCircle = new FriendCircle();
         if (checkContent(content)) {
             getView().showError(R.string.mind_circle_content_not_null);
             return;
         }
-        post.setContent(content);
-        post.setAuthor(user);
+        friendCircle.setContent(content);
+        friendCircle.setAuthor(user);
+        friendCircle.setLove(0);
+        friendCircle.setHate(0);
+        friendCircle.setShare(0);
+        friendCircle.setComment(0);
+        friendCircle.setPass(true);
         if (images != null && images.size() > 0)
-            post.setCircleimages(images);
-        post.save(new SaveListener<String>() {
+            friendCircle.setCircleimages(images);
+        friendCircle.save(new SaveListener<String>() {
             @Override
             public void done(String postId, BmobException e) {
                 if (e == null) {
                     getView().publishDynamicSuccess(R.string.mind_circle_publish_success);
+
 
                 } else {
                     getView().onFailure(e.getErrorCode(), e.getMessage());
@@ -51,6 +57,7 @@ public class DynamicPublishPresenter extends BasePresenter<DynamicPublishContrac
             }
         });
     }
+
 
 
     @Override

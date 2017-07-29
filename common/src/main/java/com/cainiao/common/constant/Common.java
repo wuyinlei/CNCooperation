@@ -35,6 +35,10 @@ public class Common {
 
         public String BASE_URL = "http://api.xinliji.me/com/";
 
+        public int LIMIT_COUNT = 10;  //每次请求10个数据
+
+        public int SKIP_COUNT = 10;  //忽略的前面请求的个数
+
 
     }
 

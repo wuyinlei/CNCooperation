@@ -1,6 +1,7 @@
 package com.cainiao.factory.model;
 
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobRelation;
 
 /**
  * Created by wuyinlei on 2017/7/25.
@@ -15,6 +16,8 @@ public class MyUser extends BmobUser {
     private Integer age;
     private String address;
     private String description;  //描述
+
+    private BmobRelation favorite;
 
     public Boolean getSex() {
         return sex;
@@ -54,5 +57,13 @@ public class MyUser extends BmobUser {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public BmobRelation getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(BmobRelation favorite) {
+        this.favorite = favorite;
     }
 }
