@@ -7,11 +7,14 @@ import java.util.List;
 
 /**
  * Created by wuyinlei on 2017/7/29.
+ *
+ * @function 朋友圈的可视bean
  */
 
 public class CircleViewBean {
 
     private String avator;
+    private String objectId;
     private String username;
     private String createDate;
     private String content;
@@ -20,7 +23,7 @@ public class CircleViewBean {
     private List<String> images;
     private String viewcount;
 
-    public List<CircleComment> comment;
+    private List<CircleComment> comment = new ArrayList<>();
 
     public String getAvator() {
         return avator;
@@ -28,6 +31,14 @@ public class CircleViewBean {
 
     public void setAvator(String avator) {
         this.avator = avator;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getObjectId() {
+        return objectId;
     }
 
     public String getUsername() {
@@ -94,7 +105,7 @@ public class CircleViewBean {
         this.comment = comment;
     }
 
-   public static class CircleComment {
+    public static class CircleComment {
         String comment;
         MyUser user;
 

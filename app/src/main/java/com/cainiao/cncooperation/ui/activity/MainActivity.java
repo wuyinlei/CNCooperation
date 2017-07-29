@@ -15,11 +15,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cainiao.cncooperation.R;
-import com.cainiao.cncooperation.ui.fragment.main.CartFragment;
-import com.cainiao.cncooperation.ui.fragment.main.HomeFragment;
-import com.cainiao.cncooperation.ui.fragment.main.MineFragment;
-import com.cainiao.cncooperation.ui.fragment.main.NewsFragment;
-import com.cainiao.cncooperation.ui.fragment.main.VideoFragment;
+import com.cainiao.cncooperation.ui.main.CartFragment;
+import com.cainiao.cncooperation.ui.main.HomeFragment;
+import com.cainiao.cncooperation.ui.main.MineFragment;
+import com.cainiao.cncooperation.ui.main.NewsFragment;
+import com.cainiao.cncooperation.ui.main.VideoFragment;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
@@ -62,6 +62,23 @@ public class MainActivity extends BaseActivity {
         navigationViewSetting(mNavigationView);
 
         viewPagerSetting(mViewPager);
+
+//        BmobUser bu2 = new BmobUser();
+//        bu2.setUsername("若兰明月");
+//        bu2.setPassword("123456asd");
+//        bu2.login(new SaveListener<BmobUser>() {
+//
+//            @Override
+//            public void done(BmobUser bmobUser, BmobException e) {
+//                if(e==null){
+//                    Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                    //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
+//                    //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
+//                }else{
+////                        loge(e);
+//                }
+//            }
+//        });
 
     }
 

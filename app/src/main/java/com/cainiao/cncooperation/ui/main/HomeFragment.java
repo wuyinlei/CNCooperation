@@ -1,4 +1,4 @@
-package com.cainiao.cncooperation.ui.fragment.main;
+package com.cainiao.cncooperation.ui.main;
 
 
 import android.util.Log;
@@ -8,13 +8,9 @@ import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
-import com.cainiao.factory.model.Index;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
-import com.cainiao.factory.net.HttpManager;
-import com.cainiao.factory.net.compat.RxResponseCompat;
-import com.cainiao.factory.net.rx.ProgressDialogSubscriber;
 
 import java.util.Date;
 import java.util.List;
@@ -25,12 +21,9 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
-import rx.Observable;
 
 /**
  * @function 首页界面

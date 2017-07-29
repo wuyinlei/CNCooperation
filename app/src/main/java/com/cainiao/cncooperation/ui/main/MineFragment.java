@@ -1,8 +1,8 @@
-package com.cainiao.cncooperation.ui.fragment.main;
+package com.cainiao.cncooperation.ui.main;
 
 
 import com.cainiao.cncooperation.R;
-import com.cainiao.cncooperation.ui.activity.FriendCircleActivity;
+import com.cainiao.cncooperation.ui.dynamic.FriendCircleActivity;
 import com.cainiao.common.base.BaseFragment;
 
 import butterknife.OnClick;
@@ -15,6 +15,7 @@ public class MineFragment extends BaseFragment {
 
     @OnClick(R.id.ll_friend_circle)
     public void jumpToFriendCircle(){
+
         FriendCircleActivity.show(getContext());
     }
 

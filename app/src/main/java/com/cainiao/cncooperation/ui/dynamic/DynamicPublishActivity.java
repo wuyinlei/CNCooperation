@@ -1,5 +1,6 @@
-package com.cainiao.cncooperation.ui.activity;
+package com.cainiao.cncooperation.ui.dynamic;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.StringRes;
@@ -89,7 +90,8 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
 
     public static void show(Context context) {
         Intent intent = new Intent(context, DynamicPublishActivity.class);
-        context.startActivity(intent);
+
+        ((Activity)context).startActivityForResult(intent,100);
     }
 
     PublishImageAdapter mImageAdapter;
@@ -287,5 +289,8 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     @Override
     public void publishDynamicSuccess(@StringRes int str) {
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
+
+        setResult(101,null);
+        finish();
     }
 }
