@@ -3,6 +3,7 @@ package com.cainiao.cncooperation.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,12 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.adapter.FriendCircleAdapter;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.adapter.BaseViewHolder;
 import com.cainiao.common.widget.adapter.SimpleAdapter;
 import com.cainiao.factory.Account;
 import com.cainiao.factory.Factory;
 import com.cainiao.factory.model.MyUser;
+import com.cainiao.factory.model.circle.CircleViewBean;
+import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
+import com.cainiao.factory.presenter.dynamic.FriendCirclePresenter;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
@@ -31,7 +37,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class FriendCircleActivity extends BaseActivity {
+public class FriendCircleActivity extends BaseActivity implements FriendCircleContract.View {
 
     @BindView(R.id.action_mindcirrcle_message)
     RelativeLayout mActionBack;
@@ -66,6 +72,9 @@ public class FriendCircleActivity extends BaseActivity {
     @BindView(R.id.recycler_view)
     RecyclerView mCircleRecycler;
 
+    private FriendCirclePresenter mCirclePresenter;
+    private FriendCircleAdapter mAdapter;
+
     /**
      * 显示这个view
      *
@@ -90,6 +99,7 @@ public class FriendCircleActivity extends BaseActivity {
         mActionImagePublish.setBackgroundResource(R.drawable.mind_circle_action_camera);
         mRefreshLayout.setTargetView(mCircleRecycler);
 
+        mCirclePresenter = new FriendCirclePresenter(this);
 
     }
 
@@ -97,7 +107,11 @@ public class FriendCircleActivity extends BaseActivity {
     protected void initData() {
         super.initData();
 
-//        setupRecyclerView(mCircleRecycler);
+        setupRecyclerView(mCircleRecycler);
+
+        mCirclePresenter.requestData(Common.Constance.LIMIT_COUNT);
+
+
     }
 
     @Override
@@ -106,14 +120,16 @@ public class FriendCircleActivity extends BaseActivity {
 
     }
 
+
     /**
      * 相关设置
      *
      * @param recyclerView RecyclerView
      */
     private void setupRecyclerView(RecyclerView recyclerView) {
+        mAdapter = new FriendCircleAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.setAdapter(mAdapter);
         ProgressLayout header = new ProgressLayout(this);
         mRefreshLayout.setHeaderView(header);
         mRefreshLayout.setFloatRefresh(true);
@@ -168,23 +184,6 @@ public class FriendCircleActivity extends BaseActivity {
         else {
             //跳转到登录界面
 
-            MyUser bu2 = new MyUser();
-            bu2.setUsername("若兰明月");
-            bu2.setPassword("123456asd");
-            bu2.login(new SaveListener<BmobUser>() {
-
-                @Override
-                public void done(BmobUser bmobUser, BmobException e) {
-                    if(e==null){
-                        Toast.makeText(FriendCircleActivity.this, "登录成功:", Toast.LENGTH_SHORT).show();
-                        //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
-                        //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
-                    }else{
-//                        loge(e);
-                    }
-                }
-            });
-
         }
     }
 
@@ -195,15 +194,38 @@ public class FriendCircleActivity extends BaseActivity {
     }
 
 
-    class Photo {
-        public String name;
-        public int imgSrc;
+    @Override
+    public void showError(@StringRes int str) {
 
-        public Photo(String name, int imgSrc) {
-            this.name = name;
-            this.imgSrc = imgSrc;
-        }
     }
 
+    @Override
+    public void onLikesFailure(int code, String msg) {
 
+    }
+
+    @Override
+    public void onLikesSuccess(@StringRes int str) {
+
+    }
+
+    @Override
+    public void onCommentFailure(int code, String msg) {
+
+    }
+
+    @Override
+    public void onCommentSuccess(@StringRes int str, String content) {
+
+    }
+
+    @Override
+    public void requestDataSuccess(List<CircleViewBean> viewBeen) {
+        mAdapter.addData(viewBeen);
+    }
+
+    @Override
+    public void loadMoreDataSuccess(List<CircleViewBean> viewBeen) {
+
+    }
 }
