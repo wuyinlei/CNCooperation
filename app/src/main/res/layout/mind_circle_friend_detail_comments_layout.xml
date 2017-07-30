@@ -14,6 +14,7 @@
         android:layout_marginLeft="@dimen/len_10"
         android:layout_toRightOf="@+id/img_avatar"
         tools:text="陈芷涵"
+        android:textColor="@color/text_color_2"
         android:textSize="@dimen/font_16"/>
 
 
@@ -26,6 +27,7 @@
         android:layout_marginTop="@dimen/len_6"
         android:layout_toRightOf="@+id/img_avatar"
         tools:text="陈芷涵"
+        android:textColor="@color/textSecond"
         android:textSize="@dimen/font_14"/>
 
 
@@ -40,6 +42,8 @@
 
     <TextView
         android:id="@+id/tv_time"
+        android:textColor="@color/textSecond"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"

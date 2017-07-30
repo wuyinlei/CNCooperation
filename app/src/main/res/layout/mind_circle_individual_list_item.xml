@@ -177,7 +177,7 @@
                         android:layout_marginRight="@dimen/len_10"
                         android:drawablePadding="5.0dip"
                         android:gravity="center_vertical"
-                        android:text="游览107次"
+                        android:text="@string/look_view_count"
                         android:textColor="@color/gray"
                         android:textSize="@dimen/font_14"/>
 

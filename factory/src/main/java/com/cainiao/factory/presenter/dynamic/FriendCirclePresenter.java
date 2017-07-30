@@ -5,7 +5,6 @@ import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.model.circle.FriendCircle;
-import com.cainiao.factory.model.circle.FriendCircleComment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,12 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobDate;
-import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import rx.Observable;
 import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -85,7 +82,7 @@ public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.Vi
                             subscriber.onNext(list);
                             subscriber.onCompleted();
                         } else {
-                            subscriber.onError(e);
+//                            subscriber.onError(e);
                         }
                     }
                 });
@@ -107,44 +104,45 @@ public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.Vi
                     viewBean.setContent(friendCircle.getContent());
                     viewBean.setCreateDate(friendCircle.getCreatedAt());
                     viewBean.setImages(friendCircle.getCircleimages());
-                    viewBean.setViewcount(new Random(100).nextInt() + "");
+                    viewBean.setViewcount(friendCircle.getViewcount()+"");
                     viewBean.setLikescount(friendCircle.getLove() + "");
 //                    viewBean.setLikescount(friendCircle.getLove() + "");
+                    viewBean.setCommentcount(friendCircle.getCommentSize() + "");
                     viewBean.setObjectId(friendCircle.getObjectId());
                     viewBean.setUsername(friendCircle.getAuthor().getUsername());
 //                    viewBean.setCommentcount();
-                    BmobQuery<FriendCircleComment> query = new BmobQuery<>();
-                    ////用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
-                    FriendCircle post = new FriendCircle();
-                    post.setObjectId(friendCircles.get(i).getObjectId());
-                    query.addWhereEqualTo("post", new BmobPointer(post));
-                    //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
-                    query.include("author,post.author");
-                    query.findObjects(new FindListener<FriendCircleComment>() {
-
-                        @Override
-                        public void done(List<FriendCircleComment> objects, BmobException e) {
-                            if (objects != null && e == null) {
-                                List<CircleViewBean.CircleComment> comments = new ArrayList<>();
-                                for (int i = 0; i < objects.size(); i++) {
-                                    viewBean.setCommentcount(objects.size() + "");
-                                    CircleViewBean.CircleComment commentBean = new CircleViewBean.CircleComment();
-                                    commentBean.setUser(objects.get(i).getAuthor());
-                                    commentBean.setComment(objects.get(i).getContent());
-                                    comments.add(commentBean);
-                                }
-
-                                // viewBean.setComment(comments);
-
-
-                            }
-                        }
-                    });
+//                    BmobQuery<FriendCircleComment> query = new BmobQuery<>();
+//                    ////用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
+//                    FriendCircle post = new FriendCircle();
+//                    post.setObjectId(friendCircles.get(i).getObjectId());
+//                    query.addWhereEqualTo("post", new BmobPointer(post));
+//                    //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
+//                    query.include("author,post.author");
+//                    query.findObjects(new FindListener<FriendCircleComment>() {
+//
+//                        @Override
+//                        public void done(List<FriendCircleComment> objects, BmobException e) {
+//                            if (objects != null && e == null) {
+//                                List<CircleViewBean.CircleComment> comments = new ArrayList<>();
+//                                for (int i = 0; i < objects.size(); i++) {
+//                                    viewBean.setCommentcount(objects.size() + "");
+//                                    CircleViewBean.CircleComment commentBean = new CircleViewBean.CircleComment();
+//                                    commentBean.setUser(objects.get(i).getAuthor());
+//                                    commentBean.setComment(objects.get(i).getContent());
+//                                    comments.add(commentBean);
+//                                }
+//
+//                                // viewBean.setComment(comments);
+//
+//
+//                            }
+//                        }
+//                    });
 
                     circleViewBeanList.add(viewBean);
                 }
                 //// TODO: 2017/7/29 暂时还没想到怎么解决为好
-                return Observable.just(circleViewBeanList);
+                return Observable.just(circleViewBeanList).delay(500,TimeUnit.MICROSECONDS);
             }
         })
                 .subscribeOn(Schedulers.io())

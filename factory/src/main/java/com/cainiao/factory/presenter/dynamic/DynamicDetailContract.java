@@ -75,14 +75,31 @@ public interface DynamicDetailContract {
          */
         void publishComment(String postId, MyUser currentUser, String content);
 
+
+        /**
+         * 更新评论的个数
+         *
+         * @param objectId    当前动态的objectId
+         * @param commentSize 当前的评论个数
+         */
+        void updateCommentSize(String objectId, String commentSize);
+
         /**
          * 请求数据
-         * @param postId  objectId
+         *
+         * @param postId objectId
          */
         void requestDetailData(String postId);
 
 
         void collectLikes(String postId);
+
+        /**
+         * 点赞成功之后的更新喜欢的个数
+         * @param objectId  当前的动态objectId
+         * @param likesCount 喜欢的个数
+         */
+        void updateLikes(String objectId,String likesCount);
 
 
         boolean checkContent(String content);
@@ -92,7 +109,7 @@ public interface DynamicDetailContract {
          *
          * @param limit 第一页数据的个数
          */
-        void requestCommentData(int limit,String objectId);
+        void requestCommentData(int limit, String objectId);
 
         /**
          * 请求下一页数据
@@ -100,12 +117,17 @@ public interface DynamicDetailContract {
          * @param limit 每页的数据限制
          * @param skip  忽略前多少条
          */
-        void loadMoreCommentData(String objectId,int limit, int skip);
+        void loadMoreCommentData(String objectId, int limit, int skip);
 
-
+        /**
+         * 更新查看的个数
+         *
+         * @param viewCount 当前已经的查看个数
+         * @param objectId  当前动态的objectId
+         */
+        void updateViewCount(String viewCount, String objectId);
 
     }
-
 
 
 }

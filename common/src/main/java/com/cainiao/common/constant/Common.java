@@ -1,5 +1,7 @@
 package com.cainiao.common.constant;
 
+import java.net.PortUnreachableException;
+
 /**
  * Created by wuyinlei on 2017/7/22.
  *
@@ -40,7 +42,13 @@ public class Common {
         public int SKIP_COUNT = 10;  //忽略的前面请求的个数
 
 
+        //发布动态的时候用到的
         public String OBECJT_ID = "OBECJT_ID";
+        public String DYNAMIC_IMAGE = "DYNAMIC_IMAGE";
+        public String DYNAMIC_CONTENT = "DYNAMIC_CONTENT";
+
+        public int DYNAMIC_REQUEST_CODE = 0X100;
+        public int DYNAMIC_RESULT_CODE = 0X101;
 
 
     }

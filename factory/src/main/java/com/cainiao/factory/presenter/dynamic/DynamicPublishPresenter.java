@@ -42,13 +42,15 @@ public class DynamicPublishPresenter extends BasePresenter<DynamicPublishContrac
         friendCircle.setShare(0);
         friendCircle.setComment(0);
         friendCircle.setPass(true);
+        friendCircle.setViewcount("1");
+        friendCircle.setCommentSize("0");
         if (images != null && images.size() > 0)
             friendCircle.setCircleimages(images);
         friendCircle.save(new SaveListener<String>() {
             @Override
             public void done(String postId, BmobException e) {
                 if (e == null) {
-                    getView().publishDynamicSuccess(R.string.mind_circle_publish_success);
+                    getView().publishDynamicSuccess(postId,R.string.mind_circle_publish_success);
 
 
                 } else {

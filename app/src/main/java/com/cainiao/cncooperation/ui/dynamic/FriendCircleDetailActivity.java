@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.adapter.FriendCricleDetailCommentAdapter;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
@@ -23,12 +25,19 @@ import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailPresenter;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class FriendCircleDetailActivity extends BaseActivity implements DynamicDetailContract.View {
 
@@ -63,12 +72,17 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerCommentView;
 
+
+    @BindView(R.id.ll_rote)
+    TwinklingRefreshLayout mRefreshLayout;
+
     @OnClick(R.id.ic_back)
-    public void back(){
+    public void back() {
         finish();
     }
 
     private DynamicDetailPresenter mDetailPresenter;
+    private FriendCricleDetailCommentAdapter mCommentAdapter;
 
     private String objectId;
 
@@ -88,7 +102,36 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     protected void initView() {
         super.initView();
 
+        mRefreshLayout.setEnableRefresh(false);  //不让下拉刷新
+        mRefreshLayout.setEnableOverScroll(false);  //是否允许开启越界回弹模式
         mDetailPresenter = new DynamicDetailPresenter(this);
+        mCommentAdapter = new FriendCricleDetailCommentAdapter(this);
+        mRecyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerCommentView.setAdapter(mCommentAdapter);
+
+        mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                //加载更多评论数据
+                Observable.timer(1000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onCompleted() {
+                        Toast.makeText(FriendCircleDetailActivity.this, "加载更多评论完成", Toast.LENGTH_SHORT).show();
+                        mRefreshLayout.finishLoadmore();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -97,6 +140,20 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
         mDetailPresenter.requestDetailData(objectId);
         mDetailPresenter.requestCommentData(10, objectId);
+
+
+    }
+
+    /**
+     * 模拟更新此篇动态的查看
+     *
+     * @param viewCount 当前查看的个数
+     * @param objectId  当前动态的objectId
+     */
+    private void updateViewCount(String viewCount, String objectId) {
+
+        mDetailPresenter.updateViewCount(viewCount,objectId);
+
     }
 
     @Override
@@ -135,10 +192,16 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
 
-
     @Override
     public void requestCommentDataSuccess(List<DetailComment> viewBeen) {
-        Toast.makeText(this, "viewBeen.size():" + viewBeen.size(), Toast.LENGTH_SHORT).show();
+
+
+        if (viewBeen.size() > 0) {
+            mLlComment.setVisibility(View.VISIBLE);
+            mCommentAdapter.addData(viewBeen);
+        } else {
+            mLlComment.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -159,9 +222,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
         mTvCommentCount.setText(friendCircle.getComment() + "");
 
-
-//        mTvViewCount.setText(friendCircle.getViewcount() == null ? "100":friendCircle.getViewcount() + "");
-
+        mTvViewCount.setText(friendCircle.getViewcount());
 
         if (friendCircle.getCircleimages() != null && friendCircle.getCircleimages().size() > 0) {
             List<ImageInfo> infoimages = new ArrayList<>();
@@ -175,6 +236,8 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         } else {
             mNineGrid.setVisibility(View.GONE);
         }
+
+        updateViewCount(friendCircle.getViewcount(), friendCircle.getObjectId());
     }
 
 }
