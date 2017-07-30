@@ -3,7 +3,6 @@ package com.cainiao.factory.presenter.dynamic;
 import android.support.annotation.StringRes;
 
 import com.cainiao.common.presenter.BaseContract;
-import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.RegisterContract;
 
 import java.util.ArrayList;
@@ -32,9 +31,10 @@ public interface DynamicPublishContract {
 
         /**
          * 发布成功
+         * @param postId
          * @param str  提示信息
          */
-        void publishDynamicSuccess(@StringRes int str);
+        void publishDynamicSuccess(String postId, @StringRes int str);
 
 
     }

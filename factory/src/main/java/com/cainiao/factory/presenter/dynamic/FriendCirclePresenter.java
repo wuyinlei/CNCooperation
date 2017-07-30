@@ -104,7 +104,7 @@ public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.Vi
                     viewBean.setContent(friendCircle.getContent());
                     viewBean.setCreateDate(friendCircle.getCreatedAt());
                     viewBean.setImages(friendCircle.getCircleimages());
-                    viewBean.setViewcount(new Random(100).nextInt() + "");
+                    viewBean.setViewcount(friendCircle.getViewcount()+"");
                     viewBean.setLikescount(friendCircle.getLove() + "");
 //                    viewBean.setLikescount(friendCircle.getLove() + "");
                     viewBean.setCommentcount(friendCircle.getCommentSize() + "");

@@ -77,7 +77,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     TwinklingRefreshLayout mRefreshLayout;
 
     @OnClick(R.id.ic_back)
-    public void back(){
+    public void back() {
         finish();
     }
 
@@ -140,6 +140,20 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
         mDetailPresenter.requestDetailData(objectId);
         mDetailPresenter.requestCommentData(10, objectId);
+
+
+    }
+
+    /**
+     * 模拟更新此篇动态的查看
+     *
+     * @param viewCount 当前查看的个数
+     * @param objectId  当前动态的objectId
+     */
+    private void updateViewCount(String viewCount, String objectId) {
+
+        mDetailPresenter.updateViewCount(viewCount,objectId);
+
     }
 
     @Override
@@ -178,13 +192,16 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
 
-
     @Override
     public void requestCommentDataSuccess(List<DetailComment> viewBeen) {
 
-        mCommentAdapter.addData(viewBeen);
 
-//        Toast.makeText(this, "viewBeen.size():" + viewBeen.size(), Toast.LENGTH_SHORT).show();
+        if (viewBeen.size() > 0) {
+            mLlComment.setVisibility(View.VISIBLE);
+            mCommentAdapter.addData(viewBeen);
+        } else {
+            mLlComment.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -205,9 +222,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
         mTvCommentCount.setText(friendCircle.getComment() + "");
 
-
-//        mTvViewCount.setText(friendCircle.getViewcount() == null ? "100":friendCircle.getViewcount() + "");
-
+        mTvViewCount.setText(friendCircle.getViewcount());
 
         if (friendCircle.getCircleimages() != null && friendCircle.getCircleimages().size() > 0) {
             List<ImageInfo> infoimages = new ArrayList<>();
@@ -221,6 +236,8 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         } else {
             mNineGrid.setVisibility(View.GONE);
         }
+
+        updateViewCount(friendCircle.getViewcount(), friendCircle.getObjectId());
     }
 
 }

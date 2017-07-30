@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.account.PersonalActivity;
 import com.cainiao.cncooperation.ui.dynamic.FriendCircleDetailActivity;
+import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.adapter.BaseViewHolder;
 import com.cainiao.common.widget.adapter.SimpleAdapter;
 import com.cainiao.common.widget.circleimage.CircleImageView;
@@ -65,6 +66,8 @@ public class FriendCircleAdapter extends SimpleAdapter<CircleViewBean> {
         RecyclerView mCircleRecyclerComment = (RecyclerView) viewHoder.getView(R.id.circle_comment_list);
 
         CircleImageView circleImageView = (CircleImageView) viewHoder.getView(R.id.iv_avatar);
+
+        viewHoder.getTextView(R.id.mind_circle_view).setText(String.format(context.getString(R.string.look_view_count),item.getViewcount()));
 
         Glide.with(context)
                 .load(item.getAvator())

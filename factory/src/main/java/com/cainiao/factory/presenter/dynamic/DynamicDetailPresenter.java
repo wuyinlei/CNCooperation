@@ -10,12 +10,14 @@ import com.cainiao.factory.model.circle.FriendCircleComment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by wuyinlei on 2017/7/29.
@@ -33,6 +35,11 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
     @Override
     public void publishComment(String postId, MyUser currentUser, String content) {
+
+    }
+
+    @Override
+    public void updateCommentSize(String objectId, String commentSize) {
 
     }
 
@@ -57,6 +64,11 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
     @Override
     public void collectLikes(String postId) {
+
+    }
+
+    @Override
+    public void updateLikes(String objectId, String likesCount) {
 
     }
 
@@ -103,4 +115,25 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
     }
 
+    @Override
+    public void updateViewCount(String viewCount, String objectId) {
+
+        FriendCircle friendCircle = new FriendCircle();
+        int random = new Random().nextInt(30);
+        if (viewCount == null) {
+            friendCircle.setViewcount(String.valueOf(random));
+        } else {
+            int count = Integer.parseInt(viewCount) + random;
+            friendCircle.setViewcount(String.valueOf(count));
+        }
+        friendCircle.update(objectId, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+
+            }
+        });
+
+
+    }
 }

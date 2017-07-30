@@ -2,6 +2,7 @@ package com.cainiao.cncooperation.ui.dynamic;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,9 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -178,8 +182,28 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == 101) {
-            mCirclePresenter.requestData(10);
+        if (requestCode == Common.Constance.DYNAMIC_REQUEST_CODE && resultCode == Common.Constance.DYNAMIC_RESULT_CODE) {
+            //模拟本地发动态  但是图片不行现在
+
+            ArrayList<String> image = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
+            String content = data.getStringExtra(Common.Constance.DYNAMIC_CONTENT);
+            String objectId = data.getStringExtra(Common.Constance.OBECJT_ID);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String currentTime = dateFormat.format(new Date());
+            //构造javabean数据
+            CircleViewBean viewBean = new CircleViewBean();
+            viewBean.setCommentcount("0");
+            viewBean.setObjectId(objectId);
+            viewBean.setContent(content);
+            viewBean.setCreateDate(currentTime);
+            viewBean.setUsername(Account.getUserName());
+            viewBean.setAvator(Account.getAvatar());
+            viewBean.setViewcount("1");
+            viewBean.setLikescount("0");
+
+            //刷新数据
+            mAdapter.addData(viewBean);
+
         }
 
     }

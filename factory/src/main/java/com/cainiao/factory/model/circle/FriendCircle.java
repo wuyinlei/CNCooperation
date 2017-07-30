@@ -34,8 +34,8 @@ public class FriendCircle extends BmobObject {
     private int comment;
     private boolean isPass;
     private boolean myFav;//收藏
-    private int viewcount;
-    private int commentSize;
+    private String viewcount;
+    private String commentSize;
 
     private boolean myLove;//赞
 
@@ -87,11 +87,11 @@ public class FriendCircle extends BmobObject {
         this.hate = hate;
     }
 
-    public void setViewcount(int viewcount) {
+    public void setViewcount(String viewcount) {
         this.viewcount = viewcount;
     }
 
-    public int getViewcount() {
+    public String getViewcount() {
         return viewcount;
     }
 
@@ -135,11 +135,11 @@ public class FriendCircle extends BmobObject {
         this.myLove = myLove;
     }
 
-    public int getCommentSize() {
+    public String getCommentSize() {
         return commentSize;
     }
 
-    public void setCommentSize(int commentSize) {
+    public void setCommentSize(String commentSize) {
         this.commentSize = commentSize;
     }
 }

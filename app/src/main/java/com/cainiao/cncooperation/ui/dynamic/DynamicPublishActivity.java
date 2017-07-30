@@ -1,7 +1,9 @@
 package com.cainiao.cncooperation.ui.dynamic;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.PublishImageAdapter;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.luban.Luban;
 import com.cainiao.common.widget.camera.ImageSelectActivity;
 import com.cainiao.factory.UploadHelper;
@@ -44,7 +47,7 @@ import rx.schedulers.Schedulers;
  * @function 动态发布界面
  */
 
-public class DynamicPublishActivity extends BaseActivity implements DynamicPublishContract.View{
+public class DynamicPublishActivity extends BaseActivity implements DynamicPublishContract.View {
 
     @BindView(R.id.action_mindcirrcle_message)
     RelativeLayout mActionBack;
@@ -91,7 +94,7 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     public static void show(Context context) {
         Intent intent = new Intent(context, DynamicPublishActivity.class);
 
-        ((Activity)context).startActivityForResult(intent,100);
+        ((Activity) context).startActivityForResult(intent, Common.Constance.DYNAMIC_REQUEST_CODE);
     }
 
     PublishImageAdapter mImageAdapter;
@@ -99,7 +102,20 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     //关闭
     @OnClick(R.id.action_mindcirrcle_message)
     public void close() {
-        finish();
+
+        new AlertDialog.Builder(this).setTitle(getString(R.string.upload_dialog_title)).setMessage("")
+                .setPositiveButton(getString(R.string.upload_dialog_sure), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DynamicPublishActivity.this.finish();
+                    }
+                }).setNegativeButton(getString(R.string.upload_dialog_quit), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        }).show();
+
+
     }
 
     //发布动态
@@ -109,7 +125,7 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
 
             String content = mCircleContentEdit.getText().toString().trim();
 
-            mPublishPresenter.dynamicPublish(content,mServerUrls);
+            mPublishPresenter.dynamicPublish(content, mServerUrls);
 
             Log.d("DynamicPublishActivity", "mServerUrls.size():" + mServerUrls.size());
             Log.d("DynamicPublishActivity", "mImageResults.size():" + mImageResults.size());
@@ -275,7 +291,6 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     }
 
 
-
     @Override
     public void showError(@StringRes int str) {
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
@@ -287,10 +302,14 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     }
 
     @Override
-    public void publishDynamicSuccess(@StringRes int str) {
+    public void publishDynamicSuccess(String postId, @StringRes int str) {
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
-
-        setResult(101,null);
+        Intent intent = new Intent();
+        //这样的话可以模拟本地发表
+        intent.putStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE, mImageResults);
+        intent.putExtra(Common.Constance.DYNAMIC_CONTENT, mCircleContentEdit.getText().toString().trim());
+        intent.putExtra(Common.Constance.OBECJT_ID, postId);
+        setResult(Common.Constance.DYNAMIC_RESULT_CODE, intent);
         finish();
     }
 }

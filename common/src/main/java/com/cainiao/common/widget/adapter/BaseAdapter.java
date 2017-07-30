@@ -97,7 +97,7 @@ public abstract class BaseAdapter<T, H extends BaseViewHolder> extends RecyclerV
 
         int position = datas.indexOf(t);
         datas.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
 
@@ -109,6 +109,18 @@ public abstract class BaseAdapter<T, H extends BaseViewHolder> extends RecyclerV
 
     public void addData(List<T> datas) {
         addData(0, datas);
+    }
+
+
+    /**
+     * 添加单个数据
+     *
+     * @param data data
+     */
+    public void addData(T data) {
+        if (data != null)
+            datas.add(0, data);
+        notifyDataSetChanged();
     }
 
     public void addData(int position, List<T> list) {

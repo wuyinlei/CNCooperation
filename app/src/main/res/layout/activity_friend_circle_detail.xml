@@ -228,9 +228,17 @@
                         </RelativeLayout>
 
                     </LinearLayout>
+
                 </LinearLayout>
 
+
             </android.support.design.widget.CollapsingToolbarLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/divider_color"/>
+
 
         </android.support.design.widget.AppBarLayout>
         <!--<View-->
@@ -245,10 +253,6 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider_color"/>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

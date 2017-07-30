@@ -114,6 +114,10 @@
     <string name="msg_more">全文</string>
     <string name="msg_collapse">收起</string>
     <string name="dynamic_detail">动态详情</string>
+    <string name="look_view_count">游览%s次</string>
+    <string name="upload_dialog_title">确定不需要再编辑一下么？</string>
+    <string name="upload_dialog_sure">确定</string>
+    <string name="upload_dialog_quit">取消</string>
 
 
 </resources>
