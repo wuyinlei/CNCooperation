@@ -33,4 +33,22 @@ public class Account {
 
         return getUser() != null;
     }
+
+    /**
+     * 获取到当前用户的头像
+     *
+     * @return 当前用户的头像
+     */
+    public static String getAvatar() {
+        return getUser().getAvatar();
+    }
+
+    /**
+     * 获取到当前用户的名字
+     *
+     * @return 用户名字
+     */
+    public static String getUserName() {
+        return getUser().getUsername();
+    }
 }

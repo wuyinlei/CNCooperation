@@ -35,6 +35,7 @@ public class FriendCircle extends BmobObject {
     private boolean isPass;
     private boolean myFav;//收藏
     private int viewcount;
+    private int commentSize;
 
     private boolean myLove;//赞
 
@@ -132,5 +133,13 @@ public class FriendCircle extends BmobObject {
 
     public void setMyLove(boolean myLove) {
         this.myLove = myLove;
+    }
+
+    public int getCommentSize() {
+        return commentSize;
+    }
+
+    public void setCommentSize(int commentSize) {
+        this.commentSize = commentSize;
     }
 }

@@ -1,11 +1,9 @@
 package com.cainiao.factory.presenter.dynamic;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.cainiao.common.presenter.BasePresenter;
 import com.cainiao.factory.model.MyUser;
-import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
