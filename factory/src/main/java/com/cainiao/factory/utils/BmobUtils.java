@@ -1,9 +1,13 @@
 package com.cainiao.factory.utils;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
+import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
@@ -22,6 +26,7 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobDate;
 import cn.bmob.v3.datatype.BmobPointer;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.QueryListener;
@@ -33,6 +38,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by wuyinlei on 2017/7/31.
@@ -214,7 +221,7 @@ public class BmobUtils {
      * @param skip  分页加载的时候忽略的前多少个
      * @param view  当前的view
      */
-    public static void requestFriendCircle(int limit, final int skip, final FriendCircleContract.View view) {
+    public static void requestFriendCircle(final int limit, final int skip, final FriendCircleContract.View view) {
 
         Observable.create(new Observable.OnSubscribe<List<FriendCircle>>() {
 
@@ -225,7 +232,7 @@ public class BmobUtils {
 //		query.setCachePolicy(CachePolicy.NETWORK_ONLY);
 
 
-                query.setLimit(10);  //限制最多10条数据结果作为一页
+                query.setLimit(limit);  //限制最多10条数据结果作为一页
                 BmobDate date = new BmobDate(new Date(System.currentTimeMillis()));
                 query.addWhereLessThan("createdAt", date);
 //        LogUtils.i(TAG,"SIZE:"+Constant.NUMBERS_PER_PAGE*pageNum);
@@ -319,5 +326,144 @@ public class BmobUtils {
                     }
                 });
     }
+
+    /**
+     * 添加点赞
+     *
+     * @param context  上下文
+     * @param objectId 当前动态的id
+     */
+    public static void addLikes(final Context context, String objectId) {
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        FriendCircle postss = new FriendCircle();
+        postss.setObjectId(objectId);
+//将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
+        BmobRelation relation = new BmobRelation();
+//将当前用户添加到多对多关联中
+        relation.add(user);
+//多对多关联指向`post`的`likes`字段
+        postss.setLikes(relation);
+        postss.update(new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Toast.makeText(context, "点赞成功", Toast.LENGTH_SHORT).show();
+
+//                    Log.i("bmob","多对多关联添加成功");
+                } else {
+                    Log.i("bmob", "失败：" + e.getMessage());
+                }
+            }
+
+        });
+    }
+
+    /**
+     * 查询一个用户发布的多有的动态
+     *
+     * @param limit    每页需要查询的数量
+     * @param page     当前页数
+     * @param listener 监听器
+     */
+    public static void queryAllUserDynamic(int limit, int page, final OnListener<FriendCircle> listener) {
+        //查询一个用户发表的所以帖子
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        BmobQuery<FriendCircle> query = new BmobQuery<>();
+        query.addWhereEqualTo("author", user);    // 查询当前用户的所有帖子
+        query.order("-updatedAt");
+        query.include("author");// 希望在查询帖子信息的同时也把发布人的信息查询出来
+        query.setLimit(limit);
+        query.setSkip((page - 1) * limit);
+        query.findObjects(new FindListener<FriendCircle>() {
+
+            @Override
+            public void done(List<FriendCircle> object, BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(object);
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+
+        });
+    }
+
+
+    /**
+     * 查询所有的收藏该动态的人
+     *
+     * @param objectId 动态id
+     * @param limit    每页需要查询的数量
+     * @param page     当前页数
+     * @param listener 查询的监听
+     */
+    public static void queryAllCollectUser(String objectId, final int limit, int page, final OnListener<MyUser> listener) {
+        //查询搜藏该帖子的所有人
+        BmobQuery<MyUser> query = new BmobQuery<>();
+        FriendCircle posts = new FriendCircle();
+        posts.setObjectId(objectId);
+        // TODO 不友好
+        query.addWhereRelatedTo("likes", new BmobPointer(posts));
+        query.setLimit(limit);
+        query.setSkip((page - 1) * limit);
+        query.findObjects(new FindListener<MyUser>() {
+            @Override
+            public void done(List<MyUser> list, BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(list);
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * 添加一对多关联 -> 创建评论并关联评论和帖子
+     *
+     * @param objectId 当前的动态的id
+     * @param hasAlias 是否是别名评论
+     * @param content  评论的内容
+     * @param listener 评论的监听器
+     */
+    public static void addOneToMore(String objectId, boolean hasAlias, String content, final OnAddCommentListener<String> listener) {
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        FriendCircle post = new FriendCircle();
+        post.setObjectId(objectId);
+        FriendCircleComment comment = new FriendCircleComment();
+        comment.setContent(content);
+        comment.setPost(post);
+        comment.setAuthor(user);
+        comment.setAlias(hasAlias);
+        comment.save(new SaveListener<String>() {
+            @Override
+            public void done(String commentTips, BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(commentTips);
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    public interface OnListener<T> {
+
+        void onSuccess(List<T> data);
+
+        void onError(int errorCode, String message);
+
+        void onSuccess(T data);
+
+    }
+
+    public interface OnAddCommentListener<T> {
+
+        void onError(int errorCode, String message);
+
+        void onSuccess(T data);
+
+    }
+
 
 }

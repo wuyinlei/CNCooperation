@@ -18,7 +18,7 @@ public class FriendCircleComment extends BmobObject {
     // 所评论的帖子 是一对多 一个评论对应一个帖子(一个帖子能有多个评论)
     private FriendCircle post;
 
-    private String alias;
+    private boolean alias;
 
     public String getContent() {
         return content;
@@ -42,5 +42,13 @@ public class FriendCircleComment extends BmobObject {
 
     public void setPost(FriendCircle post) {
         this.post = post;
+    }
+
+    public boolean isAlias() {
+        return alias;
+    }
+
+    public void setAlias(boolean alias) {
+        this.alias = alias;
     }
 }
