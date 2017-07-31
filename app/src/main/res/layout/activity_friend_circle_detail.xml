@@ -1,273 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                      xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                      xmlns:tl="http://schemas.android.com/apk/res-auto"
-                                                      xmlns:tools="http://schemas.android.com/tools"
-                                                      android:id="@+id/ll_rote"
-                                                      android:layout_width="match_parent"
-                                                      android:layout_height="match_parent"
-                                                      android:background="@color/white"
-                                                      android:orientation="vertical">
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tl="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/white"
+                                                 android:orientation="vertical">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/coord_container"
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:addStatesFromChildren="true"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:clipChildren="false">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar_layout"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clipChildren="false">
+            android:clipChildren="false"
+            app:contentScrim="@color/white"
+            app:expandedTitleMarginStart="10dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar_layout"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipChildren="false"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginStart="10dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:layout_marginTop="@dimen/len_50"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_10">
 
-
-                <android.support.v7.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tl:contentInsetLeft="0dp"
-                    tl:contentInsetStart="0dp"
-                    tl:layout_collapseMode="pin"
-                    tl:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    tl:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/len_50">
-
-                        <ImageView
-                            android:id="@+id/ic_back"
-                            android:layout_width="@dimen/len_30"
-                            android:layout_height="@dimen/len_30"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/len_10"
-                            android:src="@drawable/ic_back_new"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/dynamic_detail"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/font_18"/>
-
-
-                        <ImageView
-                            android:id="@+id/ic_report"
-                            android:layout_width="@dimen/len_30"
-                            android:layout_height="@dimen/len_30"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="@dimen/len_10"
-                            android:src="@drawable/img_lisks_more"/>
-                    </RelativeLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/divider_color"/>
-                </android.support.v7.widget.Toolbar>
+                <com.cainiao.common.widget.circleimage.CircleImageView
+                    android:id="@+id/iv_avatar"
+                    android:layout_width="@dimen/len_60"
+                    android:layout_height="@dimen/len_60"
+                    android:layout_marginLeft="@dimen/len_10"
+                    android:layout_marginTop="@dimen/len_10"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/len_50"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/len_10">
+                    android:layout_marginLeft="@dimen/len_10"
+                    android:orientation="vertical">
 
-                    <com.cainiao.common.widget.circleimage.CircleImageView
-                        android:id="@+id/iv_avatar"
-                        android:layout_width="@dimen/len_60"
-                        android:layout_height="@dimen/len_60"
-                        android:layout_marginLeft="@dimen/len_10"
-                        android:layout_marginTop="@dimen/len_10"/>
-
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/len_10"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <RelativeLayout
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxEms="9"
+                            android:maxLines="1"
+                            android:textColor="@color/text_color_2"
+                            android:textSize="@dimen/font_18"
+                            tools:text="陈超明"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:textColor="@color/textSecond"
+                            android:visibility="gone"
+                            tools:text="10-22 12-15"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/len_4"
+                            />
+
+                        <ImageView
+                            android:id="@+id/image_gender"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/len_10"
+                            android:layout_toRightOf="@+id/tv_name"
+                            />
+
+                    </RelativeLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/len_10"
+                        android:layout_marginTop="@dimen/len_10"
+                        android:ellipsize="end"
+                        android:maxLines="6"
+                        android:textColor="@color/text_color_2"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.cainiao.common.widget.nineimage.NineGridView
+                            android:id="@+id/nineGrid"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_marginBottom="8dp"
+                            app:ngv_gridSpacing="3dp"
+                            app:ngv_maxSize="9"
+                            app:ngv_mode="grid"
+                            app:ngv_singleImageRatio="1"
+                            app:ngv_singleImageSize="250dp"/>
 
-                            <TextView
-                                android:id="@+id/tv_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:maxEms="9"
-                                android:maxLines="1"
-                                android:textColor="@color/text_color_2"
-                                android:textSize="@dimen/font_18"
-                                tools:text="陈超明"/>
+                    </RelativeLayout>
 
-                            <TextView
-                                android:id="@+id/tv_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:textColor="@color/textSecond"
-                                tools:text="10-22 12-15"/>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/len_20"
+                        android:orientation="horizontal">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/len_4"
-                                android:layout_toLeftOf="@+id/tv_time"
-                                />
-
-                            <ImageView
-                                android:id="@+id/image_gender"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/len_10"
-                                android:layout_toRightOf="@+id/tv_name"
-                                />
-
-                        </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/iv_type"
+                            android:layout_width="@dimen/len_20"
+                            android:layout_height="@dimen/len_20"
+                            android:background="@drawable/eye"
+                            android:visibility="gone"/>
 
 
                         <TextView
-                            android:id="@+id/tv_content"
-                            android:layout_width="match_parent"
+                            android:id="@+id/tv_time"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/len_10"
-                            android:layout_marginTop="@dimen/len_10"
-                            android:ellipsize="end"
-                            android:maxLines="6"
-                            android:textColor="@color/text_color_2"/>
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/textSecond"
+                            android:textSize="@dimen/font_14"
+                            tools:text="其他"/>
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.cainiao.common.widget.nineimage.NineGridView
-                                android:id="@+id/nineGrid"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="8dp"
-                                app:ngv_gridSpacing="3dp"
-                                app:ngv_maxSize="9"
-                                app:ngv_mode="grid"
-                                app:ngv_singleImageRatio="1"
-                                app:ngv_singleImageSize="250dp"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/tv_comment_count"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/len_20"
-                            android:orientation="horizontal">
+                            android:layout_alignParentRight="true"
+                            android:text="0"
+                            android:textColor="@color/textSecond"/>
 
-                            <ImageView
-                                android:id="@+id/iv_type"
-                                android:layout_width="@dimen/len_20"
-                                android:layout_height="@dimen/len_20"
-                                android:background="@drawable/eye"
-                                android:visibility="gone"/>
+                        <ImageView
+                            android:id="@+id/iv_comment"
+                            android:layout_width="@dimen/len_20"
+                            android:layout_height="@dimen/len_20"
+                            android:layout_marginRight="@dimen/len_10"
+                            android:layout_toLeftOf="@+id/tv_comment_count"
+                            android:background="@drawable/commen_icon_de"/>
 
+                        <TextView
+                            android:id="@+id/tv_view_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/len_20"
+                            android:layout_toLeftOf="@+id/iv_comment"
+                            android:textColor="@color/textSecond"
+                            tools:text="34"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/len_6"
-                                android:layout_toRightOf="@+id/iv_type"
-                                android:textColor="@color/text_color_2"
-                                android:textSize="@dimen/font_14"
-                                tools:text="其他"/>
-
-                            <TextView
-                                android:id="@+id/tv_comment_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:text="0"
-                                android:textColor="@color/textSecond"/>
-
-                            <ImageView
-                                android:id="@+id/iv_comment"
-                                android:layout_width="@dimen/len_20"
-                                android:layout_height="@dimen/len_20"
-                                android:layout_marginRight="@dimen/len_10"
-                                android:layout_toLeftOf="@+id/tv_comment_count"
-                                android:background="@drawable/commen_icon_de"/>
-
-                            <TextView
-                                android:id="@+id/tv_view_count"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/len_20"
-                                android:layout_toLeftOf="@+id/iv_comment"
-                                android:textColor="@color/textSecond"
-                                tools:text="34"/>
-
-                            <ImageView
-                                android:layout_width="@dimen/len_20"
-                                android:layout_height="@dimen/len_20"
-                                android:layout_marginRight="@dimen/len_10"
-                                android:layout_toLeftOf="@+id/tv_view_count"
-                                android:background="@drawable/tucao_view"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="@dimen/len_20"
+                            android:layout_height="@dimen/len_20"
+                            android:layout_marginRight="@dimen/len_10"
+                            android:layout_toLeftOf="@+id/tv_view_count"
+                            android:background="@drawable/tucao_view"/>
+                    </RelativeLayout>
 
                 </LinearLayout>
 
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/divider_color"/>
+            </LinearLayout>
 
 
-        </android.support.design.widget.AppBarLayout>
-        <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1px"-->
-        <!--android:background="@color/divider" />-->
-
-        <LinearLayout
-            android:id="@+id/re_comment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
+            <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/len_20"
-                android:layout_marginTop="@dimen/len_6"
-                android:padding="@dimen/len_10"/>
+                android:background="@color/white"
+                tl:contentInsetLeft="0dp"
+                tl:contentInsetStart="0dp"
+                tl:layout_collapseMode="pin"
+                tl:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                tl:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/divider_color"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/len_50"
+                    android:background="@color/white">
+
+                    <ImageView
+                        android:id="@+id/ic_back"
+                        android:layout_width="@dimen/len_30"
+                        android:layout_height="@dimen/len_30"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/len_10"
+                        android:src="@drawable/ic_back_new"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/dynamic_detail"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/font_18"/>
 
 
-        </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
-</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+                    <ImageView
+                        android:id="@+id/ic_report"
+                        android:layout_width="@dimen/len_30"
+                        android:layout_height="@dimen/len_30"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/len_10"
+                        android:src="@drawable/img_lisks_more"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_color"/>
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+    <!--<View-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1px"-->
+    <!--android:background="@color/divider" />-->
+
+    <LinearLayout
+        android:id="@+id/re_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/len_48"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"/>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/len_20"
+            android:layout_marginTop="@dimen/len_6"
+            android:padding="@dimen/len_10"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/divider_color"/>
+
+
+    </LinearLayout>
+
+    <include layout="@layout/mind_circle_friend_detail_bottom_layout"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

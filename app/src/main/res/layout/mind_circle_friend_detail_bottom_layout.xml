@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="@dimen/len_48"
+              android:layout_gravity="bottom"
+              android:background="#f4f4f4"
+              android:baselineAligned="false"
+              android:orientation="horizontal">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/len_36"
+        android:layout_marginBottom="@dimen/len_6"
+        android:layout_marginLeft="@dimen/len_10"
+        android:layout_marginTop="@dimen/len_6"
+        android:background="@drawable/rect_editext_search"
+        android:gravity="center"
+        android:paddingRight="@dimen/len_26">
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="@dimen/len_18"
+            android:layout_height="@dimen/len_18"
+            android:layout_marginLeft="@dimen/len_6"
+            android:src="@drawable/ic_border_color_black_24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/len_6"
+            android:layout_toRightOf="@+id/iv_edit"
+            android:text="@string/write_your_comment"
+            android:textColor="@color/circle_bottom_color"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/len_10"
+        android:layout_marginRight="@dimen/len_10"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_comment_bg"
+            android:layout_width="@dimen/len_26"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingTop="@dimen/len_12"
+            android:src="@drawable/ic_chat_comment"/>
+
+        <ImageView
+            android:id="@+id/iv_favorite"
+            android:layout_width="@dimen/len_26"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingTop="@dimen/len_12"
+            android:src="@drawable/ic_favorite_normal"
+            tools:ignore="NestedWeights"/>
+
+
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="@dimen/len_26"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/len_12"
+            android:paddingTop="@dimen/len_12"
+            android:src="@drawable/ic_share_black_24dp"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

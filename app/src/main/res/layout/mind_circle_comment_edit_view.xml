@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/circle_comment_body"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:gravity="center_vertical"
+              android:orientation="vertical"
+              android:visibility="visible">
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.5dip"
+        android:background="@color/divider_color"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/len_40"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5.0dip"
+        >
+
+        <CheckBox
+            android:id="@+id/circle_comment_is_anonymous_ck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5.0dip"
+            android:background="@drawable/mind_circle_anon_selector"
+            android:button="@null"/>
+
+        <EditText
+            android:id="@+id/circle_comment_content_edit"
+            android:layout_width="0.0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/im_input_voice_bg_normal"
+            android:gravity="center|left"
+            android:hint="@string/say_something"
+            android:lineSpacingExtra="2.0dip"
+            android:maxLines="3"
+            android:paddingLeft="5.0dip"
+            android:paddingRight="5.0dip"
+            android:textColor="@color/text_color_2"
+            android:textColorHint="@color/hint_color"
+            android:textCursorDrawable="@null"
+            android:textScaleX="1.0"
+            android:textSize="@dimen/font_12"
+            android:visibility="visible"/>
+
+        <requestFocus/>
+
+        <ImageButton
+            android:id="@+id/circle_comment_send_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.0dip"
+            android:layout_marginRight="10.0dip"
+            android:background="@drawable/mind_circle_post_icon"/>
+    </LinearLayout>
+</LinearLayout>

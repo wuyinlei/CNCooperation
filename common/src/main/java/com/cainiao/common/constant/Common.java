@@ -50,7 +50,8 @@ public class Common {
         public int DYNAMIC_REQUEST_CODE = 0X100;
         public int DYNAMIC_RESULT_CODE = 0X101;
 
-
+        //分享的点击的链接
+        public String GITHUB_URL = "https://github.com/wuyinlei";
     }
 
     public static class Path {

@@ -118,6 +118,8 @@
     <string name="upload_dialog_title">确定不需要再编辑一下么？</string>
     <string name="upload_dialog_sure">确定</string>
     <string name="upload_dialog_quit">取消</string>
+    <string name="say_something">说点什么</string>
+    <string name="write_your_comment">写下你的评论吧...</string>
 
 
 </resources>

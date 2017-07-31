@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.FriendCricleDetailCommentAdapter;
+import com.cainiao.cncooperation.utils.ShareUtils;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
@@ -25,19 +26,15 @@ import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailPresenter;
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import q.rorbin.badgeview.Badge;
+import q.rorbin.badgeview.QBadgeView;
 
 public class FriendCircleDetailActivity extends BaseActivity implements DynamicDetailContract.View {
 
@@ -72,19 +69,28 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerCommentView;
 
+    @BindView(R.id.iv_comment_bg)
+    ImageView mIvComment;
 
-    @BindView(R.id.ll_rote)
-    TwinklingRefreshLayout mRefreshLayout;
+    @BindView(R.id.iv_share)
+    ImageView mIvShare;
+
+    @BindView(R.id.iv_favorite)
+    ImageView mIvFavorite;
+
+    Badge mBadgeCommentView, mBadgeFavorite;
 
     @OnClick(R.id.ic_back)
     public void back() {
         finish();
     }
 
+
     private DynamicDetailPresenter mDetailPresenter;
     private FriendCricleDetailCommentAdapter mCommentAdapter;
 
     private String objectId;
+    private int page = 1;
 
     public static void show(Context context, String objectId) {
         Intent intent = new Intent(context, FriendCircleDetailActivity.class);
@@ -102,36 +108,13 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     protected void initView() {
         super.initView();
 
-        mRefreshLayout.setEnableRefresh(false);  //不让下拉刷新
-        mRefreshLayout.setEnableOverScroll(false);  //是否允许开启越界回弹模式
         mDetailPresenter = new DynamicDetailPresenter(this);
         mCommentAdapter = new FriendCricleDetailCommentAdapter(this);
         mRecyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerCommentView.setAdapter(mCommentAdapter);
 
-        mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-            @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                //加载更多评论数据
-                Observable.timer(1000, TimeUnit.MILLISECONDS).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Long>() {
-                    @Override
-                    public void onCompleted() {
-                        Toast.makeText(FriendCircleDetailActivity.this, "加载更多评论完成", Toast.LENGTH_SHORT).show();
-                        mRefreshLayout.finishLoadmore();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Long aLong) {
-
-                    }
-                });
-            }
-        });
+        mBadgeCommentView = new QBadgeView(this).bindTarget(mIvComment);
+        mBadgeFavorite = new QBadgeView(this).bindTarget(mIvFavorite);
     }
 
     @Override
@@ -139,7 +122,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         super.initData();
 
         mDetailPresenter.requestDetailData(objectId);
-        mDetailPresenter.requestCommentData(10, objectId);
+        mDetailPresenter.requestCommentData(Common.Constance.LIMIT_COUNT, page, objectId);
 
 
     }
@@ -152,7 +135,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
      */
     private void updateViewCount(String viewCount, String objectId) {
 
-        mDetailPresenter.updateViewCount(viewCount,objectId);
+        mDetailPresenter.updateViewCount(viewCount, objectId);
 
     }
 
@@ -209,8 +192,10 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     }
 
+    private String content;
 
     private void updateUi(FriendCircle friendCircle) {
+
         ImageLoader.load(friendCircle.getAuthor().getAvatar(), mCircleIvatar);
         mTvName.setText(friendCircle.getAuthor().getUsername());
 
@@ -218,6 +203,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         createTime = createTime.substring(5, 16);
         mTvTime.setText(createTime);
 
+        content = friendCircle.getContent();
         mTvContent.setText(friendCircle.getContent());
 
         mTvCommentCount.setText(friendCircle.getComment() + "");
@@ -237,7 +223,18 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
             mNineGrid.setVisibility(View.GONE);
         }
 
+        mBadgeCommentView.setBadgeNumber(Integer.parseInt(friendCircle.getCommentSize()));
+        mBadgeCommentView.setBadgeGravity(Gravity.TOP);
+        mBadgeFavorite.setBadgeNumber(friendCircle.getLove());
+        mBadgeFavorite.setBadgeGravity(Gravity.TOP);
+
         updateViewCount(friendCircle.getViewcount(), friendCircle.getObjectId());
     }
+
+    @OnClick(R.id.iv_share)
+    public void share() {
+        ShareUtils.showShare(this, getString(R.string.dynamic_detail), Common.Constance.GITHUB_URL, content);
+    }
+
 
 }
