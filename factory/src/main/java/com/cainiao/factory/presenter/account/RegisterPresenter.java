@@ -1,6 +1,5 @@
 package com.cainiao.factory.presenter.account;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 

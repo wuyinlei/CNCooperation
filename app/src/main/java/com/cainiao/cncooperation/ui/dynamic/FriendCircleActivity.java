@@ -16,6 +16,7 @@ import com.cainiao.cncooperation.adapter.FriendCircleAdapter;
 import com.cainiao.cncooperation.ui.message.MessageActivity;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
+import com.cainiao.common.utils.TimeUtils;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.Account;
 import com.cainiao.factory.model.MyUser;
@@ -200,15 +201,15 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         ArrayList<String> images = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
         String content = data.getStringExtra(Common.Constance.DYNAMIC_CONTENT);
         String objectId = data.getStringExtra(Common.Constance.OBECJT_ID);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String currentTime = dateFormat.format(new Date());
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        String currentTime = dateFormat.format(new Date());
         //构造javabean数据
         CircleViewBean viewBean = new CircleViewBean();
         viewBean.setCommentcount("0");
         viewBean.setObjectId(objectId);
         viewBean.setContent(content);
         viewBean.setImages(images);
-        viewBean.setCreateDate(currentTime);
+        viewBean.setCreateDate(TimeUtils.currentTimeFormat());
         viewBean.setUsername(Account.getUserName());
         viewBean.setAvator(Account.getAvatar());
         viewBean.setViewcount("1");
