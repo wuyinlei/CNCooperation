@@ -46,21 +46,24 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
     @Override
     public void requestDetailData(String postId) {
-        BmobQuery<FriendCircle> query = new BmobQuery<>();
-        query.include("author,post.author");
-        query.getObject(postId, new QueryListener<FriendCircle>() {
 
-            @Override
-            public void done(FriendCircle friendCircle, BmobException e) {
-                if (e == null && friendCircle != null) {
-                    getView().requestDataSuccess(friendCircle);
-                } else {
-                    assert e != null;
-                    getView().onCommentFailure(e.getErrorCode(), e.getMessage());
-                }
-            }
+        BmobUtils.requestDetailData(postId,getView());
 
-        });
+//        BmobQuery<FriendCircle> query = new BmobQuery<>();
+//        query.include("author,post.author");
+//        query.getObject(postId, new QueryListener<FriendCircle>() {
+//
+//            @Override
+//            public void done(FriendCircle friendCircle, BmobException e) {
+//                if (e == null && friendCircle != null) {
+//                    getView().requestDataSuccess(friendCircle);
+//                } else {
+//                    assert e != null;
+//                    getView().onCommentFailure(e.getErrorCode(), e.getMessage());
+//                }
+//            }
+//
+//        });
     }
 
     @Override
@@ -122,21 +125,24 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     @Override
     public void updateViewCount(String viewCount, String objectId) {
 
-        FriendCircle friendCircle = new FriendCircle();
-        int random = new Random().nextInt(30);
-        if (viewCount == null) {
-            friendCircle.setViewcount(String.valueOf(random));
-        } else {
-            int count = Integer.parseInt(viewCount) + random;
-            friendCircle.setViewcount(String.valueOf(count));
-        }
-        friendCircle.update(objectId, new UpdateListener() {
 
-            @Override
-            public void done(BmobException e) {
+        BmobUtils.updateViewCount(viewCount,objectId);
 
-            }
-        });
+//        FriendCircle friendCircle = new FriendCircle();
+//        int random = new Random().nextInt(30);
+//        if (viewCount == null) {
+//            friendCircle.setViewcount(String.valueOf(random));
+//        } else {
+//            int count = Integer.parseInt(viewCount) + random;
+//            friendCircle.setViewcount(String.valueOf(count));
+//        }
+//        friendCircle.update(objectId, new UpdateListener() {
+//
+//            @Override
+//            public void done(BmobException e) {
+//
+//            }
+//        });
 
 
     }

@@ -197,7 +197,7 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
      * @param data Data
      */
     private void addComment(Intent data) {
-        ArrayList<String> image = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
+        ArrayList<String> images = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
         String content = data.getStringExtra(Common.Constance.DYNAMIC_CONTENT);
         String objectId = data.getStringExtra(Common.Constance.OBECJT_ID);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -207,6 +207,7 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         viewBean.setCommentcount("0");
         viewBean.setObjectId(objectId);
         viewBean.setContent(content);
+        viewBean.setImages(images);
         viewBean.setCreateDate(currentTime);
         viewBean.setUsername(Account.getUserName());
         viewBean.setAvator(Account.getAvatar());
@@ -215,6 +216,8 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
 
         //刷新数据
         mAdapter.addData(viewBean);
+
+        mCircleRecycler.smoothScrollToPosition(0);
     }
 
     @OnClick(R.id.action_mindcirrcle_publish)
