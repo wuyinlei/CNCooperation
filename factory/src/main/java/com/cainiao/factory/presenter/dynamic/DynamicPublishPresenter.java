@@ -3,9 +3,11 @@ package com.cainiao.factory.presenter.dynamic;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
+import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.FriendCircle;
+import com.cainiao.factory.utils.BmobUtils;
 
 import java.util.ArrayList;
 
@@ -29,35 +31,38 @@ public class DynamicPublishPresenter extends BasePresenter<DynamicPublishContrac
 
     @Override
     public void dynamicPublish(String content, ArrayList<String> images) {
-        MyUser user = BmobUser.getCurrentUser(MyUser.class);
-        final FriendCircle friendCircle = new FriendCircle();
-        if (checkContent(content)) {
-            getView().showError(R.string.mind_circle_content_not_null);
-            return;
-        }
-        friendCircle.setContent(content);
-        friendCircle.setAuthor(user);
-        friendCircle.setLove(0);
-        friendCircle.setHate(0);
-        friendCircle.setShare(0);
-        friendCircle.setComment(0);
-        friendCircle.setPass(true);
-        friendCircle.setViewcount("1");
-        friendCircle.setCommentSize("0");
-        if (images != null && images.size() > 0)
-            friendCircle.setCircleimages(images);
-        friendCircle.save(new SaveListener<String>() {
-            @Override
-            public void done(String postId, BmobException e) {
-                if (e == null) {
-                    getView().publishDynamicSuccess(postId,R.string.mind_circle_publish_success);
 
+        BmobUtils.dynamicPublish(content,images,getView());
 
-                } else {
-                    getView().onFailure(e.getErrorCode(), e.getMessage());
-                }
-            }
-        });
+//        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+//        final FriendCircle friendCircle = new FriendCircle();
+//        if (checkContent(content)) {
+//            getView().showError(R.string.mind_circle_content_not_null);
+//            return;
+//        }
+//        friendCircle.setContent(content);
+//        friendCircle.setAuthor(Account.getUser());
+//        friendCircle.setLove(0);
+//        friendCircle.setHate(0);
+//        friendCircle.setShare(0);
+//        friendCircle.setComment(0);
+//        friendCircle.setPass(true);
+//        friendCircle.setViewcount("1");
+//        friendCircle.setCommentSize("0");
+//        if (images != null && images.size() > 0)
+//            friendCircle.setCircleimages(images);
+//        friendCircle.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String postId, BmobException e) {
+//                if (e == null) {
+//                    getView().publishDynamicSuccess(postId,R.string.mind_circle_publish_success);
+//
+//
+//                } else {
+//                    getView().onFailure(e.getErrorCode(), e.getMessage());
+//                }
+//            }
+//        });
     }
 
 
