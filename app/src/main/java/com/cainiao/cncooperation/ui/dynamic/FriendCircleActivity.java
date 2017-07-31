@@ -185,27 +185,36 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         if (requestCode == Common.Constance.DYNAMIC_REQUEST_CODE && resultCode == Common.Constance.DYNAMIC_RESULT_CODE) {
             //模拟本地发动态  但是图片不行现在
 
-            ArrayList<String> image = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
-            String content = data.getStringExtra(Common.Constance.DYNAMIC_CONTENT);
-            String objectId = data.getStringExtra(Common.Constance.OBECJT_ID);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String currentTime = dateFormat.format(new Date());
-            //构造javabean数据
-            CircleViewBean viewBean = new CircleViewBean();
-            viewBean.setCommentcount("0");
-            viewBean.setObjectId(objectId);
-            viewBean.setContent(content);
-            viewBean.setCreateDate(currentTime);
-            viewBean.setUsername(Account.getUserName());
-            viewBean.setAvator(Account.getAvatar());
-            viewBean.setViewcount("1");
-            viewBean.setLikescount("0");
-
-            //刷新数据
-            mAdapter.addData(viewBean);
+            addComment(data);
 
         }
 
+    }
+
+    /**
+     * 添加本地评论  模拟添加 构造的数据由前一个编辑界面带来的数据
+     *
+     * @param data Data
+     */
+    private void addComment(Intent data) {
+        ArrayList<String> image = data.getStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE);
+        String content = data.getStringExtra(Common.Constance.DYNAMIC_CONTENT);
+        String objectId = data.getStringExtra(Common.Constance.OBECJT_ID);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = dateFormat.format(new Date());
+        //构造javabean数据
+        CircleViewBean viewBean = new CircleViewBean();
+        viewBean.setCommentcount("0");
+        viewBean.setObjectId(objectId);
+        viewBean.setContent(content);
+        viewBean.setCreateDate(currentTime);
+        viewBean.setUsername(Account.getUserName());
+        viewBean.setAvator(Account.getAvatar());
+        viewBean.setViewcount("1");
+        viewBean.setLikescount("0");
+
+        //刷新数据
+        mAdapter.addData(viewBean);
     }
 
     @OnClick(R.id.action_mindcirrcle_publish)
@@ -228,7 +237,7 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
 
     @Override
     public void showError(@StringRes int str) {
-
+        mRefreshLayout.finishLoadmore();
     }
 
     @Override

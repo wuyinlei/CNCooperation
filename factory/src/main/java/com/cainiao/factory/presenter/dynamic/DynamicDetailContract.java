@@ -109,7 +109,7 @@ public interface DynamicDetailContract {
          *
          * @param limit 第一页数据的个数
          */
-        void requestCommentData(int limit, String objectId);
+        void requestCommentData(int limit,int page, String objectId);
 
         /**
          * 请求下一页数据

@@ -31,6 +31,7 @@ public class CNApplication extends BaseApplication {
 //        Bmob.initialize(this, "d6bc5f51d6b9294f22c8d4a1a863f910");
 
         NineGridView.setImageLoader(new PicassoImageLoader());
+
     }
 
     /**

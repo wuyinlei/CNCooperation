@@ -7,6 +7,7 @@ import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
+import com.cainiao.factory.utils.BmobUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,35 +80,38 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     }
 
     @Override
-    public void requestCommentData(int limit, final String objectId) {
-        BmobQuery<FriendCircleComment> query = new BmobQuery<>();
-        ////用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
-        FriendCircle post = new FriendCircle();
-        post.setObjectId(objectId);
-        query.addWhereEqualTo("post", new BmobPointer(post));
-        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
-        query.include("author,post.author");
-        query.findObjects(new FindListener<FriendCircleComment>() {
+    public void requestCommentData(int limit, int page,final String objectId) {
+//        BmobQuery<FriendCircleComment> query = new BmobQuery<>();
+//        ////用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
+//        FriendCircle post = new FriendCircle();
+//        post.setObjectId(objectId);
+//        query.addWhereEqualTo("post", new BmobPointer(post));
+//        //希望同时查询该评论的发布者的信息，以及该帖子的作者的信息，这里用到上面`include`的并列对象查询和内嵌对象的查询
+//        query.include("author,post.author");
+//        query.findObjects(new FindListener<FriendCircleComment>() {
+//
+//            @Override
+//            public void done(List<FriendCircleComment> comments, BmobException e) {
+//                if (comments != null && e == null) {
+//                    List<DetailComment> detailComments = new ArrayList<>();
+//                    for (FriendCircleComment comment : comments) {
+//                        DetailComment detailComment = new DetailComment();
+//                        detailComment.setAvatar(comment.getAuthor().getAvatar());
+//                        detailComment.setContent(comment.getContent());
+//                        detailComment.setCreateDate(comment.getCreatedAt());
+//                        detailComment.setUsername(comment.getAuthor().getUsername());
+//                        detailComments.add(detailComment);
+//                    }
+//
+//                    getView().requestCommentDataSuccess(detailComments);
+//
+//
+//                }
+//            }
+//        });
 
-            @Override
-            public void done(List<FriendCircleComment> comments, BmobException e) {
-                if (comments != null && e == null) {
-                    List<DetailComment> detailComments = new ArrayList<>();
-                    for (FriendCircleComment comment : comments) {
-                        DetailComment detailComment = new DetailComment();
-                        detailComment.setAvatar(comment.getAuthor().getAvatar());
-                        detailComment.setContent(comment.getContent());
-                        detailComment.setCreateDate(comment.getCreatedAt());
-                        detailComment.setUsername(comment.getAuthor().getUsername());
-                        detailComments.add(detailComment);
-                    }
+        BmobUtils.queryAllComment(limit,page,objectId,getView());
 
-                    getView().requestCommentDataSuccess(detailComments);
-
-
-                }
-            }
-        });
     }
 
     @Override
