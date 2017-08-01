@@ -3,6 +3,8 @@ package com.cainiao.factory.presenter.dynamic;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
+import com.cainiao.factory.Account;
+import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
@@ -36,7 +38,21 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
     @Override
     public void publishComment(String postId, MyUser currentUser, String content,boolean isAlias) {
+        if(!checkContent(content)){
+            BmobUtils.addComment(postId, isAlias, content, new BmobUtils.OnAddCommentListener<String>() {
+                @Override
+                public void onError(int errorCode, String message) {
+                    getView().onCommentFailure(errorCode,message);
+                }
 
+                @Override
+                public void onSuccess(String data) {
+                    getView().onCommentSuccess(data);
+                }
+            });
+        } else {
+            getView().showError(R.string.say_something);
+        }
     }
 
     @Override

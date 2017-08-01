@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.main.CartFragment;
@@ -212,5 +213,6 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+
     }
 }

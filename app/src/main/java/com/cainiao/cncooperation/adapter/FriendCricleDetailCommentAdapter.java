@@ -23,7 +23,7 @@ public class FriendCricleDetailCommentAdapter extends SimpleAdapter<DetailCommen
 
     @Override
     protected void convert(BaseViewHolder viewHoder, DetailComment item, int position) {
-        viewHoder.getTextView(R.id.tv_name).setText(item.getUsername());
+        viewHoder.getTextView(R.id.tv_name).setText(item.isAlias() ? context.getResources().getString(R.string.alias_username) : item.getUsername());
         viewHoder.getTextView(R.id.tv_content).setText(item.getContent());
         ImageLoader.load(item.getAvatar(), (ImageView) viewHoder.getView(R.id.img_avatar));
         String createTime = item.getCreateDate();

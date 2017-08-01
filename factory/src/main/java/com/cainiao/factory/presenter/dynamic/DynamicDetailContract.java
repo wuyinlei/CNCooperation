@@ -50,9 +50,8 @@ public interface DynamicDetailContract {
         /**
          * 评论成功
          *
-         * @param str 提示信息
          */
-        void onCommentSuccess(@StringRes int str, String content);
+        void onCommentSuccess(String content);
 
 
         void requestDataSuccess(FriendCircle friendCircle);

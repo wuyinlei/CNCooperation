@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
@@ -15,12 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.FriendCricleDetailCommentAdapter;
 import com.cainiao.cncooperation.utils.ShareUtils;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
+import com.cainiao.common.utils.TimeUtils;
 import com.cainiao.common.widget.bottom.BottomDialog;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.comment.CommentEditText;
@@ -33,6 +35,7 @@ import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailPresenter;
+import com.cainiao.factory.utils.BmobUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,11 +94,15 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     private BottomDialog mBottomDialog;
 
+    List<DetailComment> mDetailComments = new ArrayList<>();
+
 
     //评论的view
     CheckBox mCircleCommentCheckBox;
     CommentEditText mCommentEditText;
     ImageButton mCircleCmsSend;
+    private int commentSize;
+
 
     @OnClick(R.id.ic_back)
     public void back() {
@@ -184,11 +191,49 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void onCommentFailure(int code, String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+//        hideSoftInput();
+        hideBottomDialog();
+    }
 
+    private void hideBottomDialog() {
+        if (mBottomDialog != null) {
+            mBottomDialog.dismiss();
+            mBottomDialog = null;
+        }
     }
 
     @Override
-    public void onCommentSuccess(@StringRes int str, String content) {
+    public void onCommentSuccess(String content) {
+
+
+        hideBottomDialog();
+
+        Toast.makeText(this, getString(R.string.comment_success), Toast.LENGTH_SHORT).show();
+        //这个时候评论成功了  要组织拼装评论数据了
+        DetailComment comment = new DetailComment();
+        comment.setUsername(Account.getUserName());
+        comment.setAlias(mCircleCommentCheckBox.isChecked());
+        comment.setAvatar(Account.getAvatar());
+        comment.setCreateDate(TimeUtils.currentTimeFormat());
+        comment.setContent(mCommentEditText.getText().toString());
+
+        commentSize++;
+
+
+        mDetailComments.add(comment);
+        if (mDetailComments.size() == 1) {
+            //第一次评论
+            mLlComment.setVisibility(View.VISIBLE);
+            mCommentAdapter.addData(comment);
+//            mCommentAdapter.notifyDataSetChanged();
+        } else {
+            mCommentAdapter.addData(comment);
+            //不是第一次评论 这个时候评论布局已经显示了
+//            mCommentAdapter.notifyDataSetChanged();
+        }
+
+        BmobUtils.updateComment(objectId, commentSize);
 
     }
 
@@ -200,11 +245,11 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void requestCommentDataSuccess(List<DetailComment> viewBeen) {
+        mDetailComments = viewBeen;
 
-
-        if (viewBeen.size() > 0) {
+        if (mDetailComments.size() > 0) {
             mLlComment.setVisibility(View.VISIBLE);
-            mCommentAdapter.addData(viewBeen);
+            mCommentAdapter.addData(mDetailComments);
         } else {
             mLlComment.setVisibility(View.GONE);
         }
@@ -212,7 +257,8 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void loadMoreCommentDataSuccess(List<DetailComment> viewBeen) {
-
+        mDetailComments.addAll(viewBeen);
+        mCommentAdapter.addData(viewBeen);
     }
 
 
@@ -261,7 +307,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
             public void onClick(View view) {
                 boolean isAlias = mCircleCommentCheckBox.isChecked();
                 String content = mCommentEditText.getText().toString();
-                mDetailPresenter.publishComment(objectId, Account.getUser(),content,isAlias);
+                mDetailPresenter.publishComment(objectId, Account.getUser(), content, isAlias);
             }
         });
 
@@ -281,6 +327,24 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
             }
         });
     }
+
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mBottomDialog != null) {
+            if (event.getKeyCode() == KeyEvent.KEYCODE_BACK
+                    && event.getAction() == KeyEvent.ACTION_DOWN) {  //有软键盘时: onBackPressed,onKeyDown都无效
+                //do something.......
+                if (mBottomDialog != null) {
+                    mBottomDialog.dismiss();
+                    mBottomDialog = null;
+                }
+                return true;
+            }
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
 
     /**
      * 吊起软键盘
@@ -326,8 +390,10 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
             mNineGrid.setVisibility(View.GONE);
         }
 
+        commentSize = Integer.parseInt(friendCircle.getCommentSize());
         //only support Gravity.START | Gravity.TOP , Gravity.END | Gravity.TOP , Gravity.START | Gravity.BOTTOM , Gravity.END | Gravity.BOTTOM , Gravity.CENTER , Gravity.CENTER | Gravity.TOP , Gravity.CENTER | Gravity.BOTTOM ,Gravity.CENTER | Gravity.START , Gravity.CENTER | Gravity.END
         mBadgeCommentView.setBadgeNumber(Integer.parseInt(friendCircle.getCommentSize()));
+
         mBadgeCommentView.setBadgeGravity(Gravity.END | Gravity.TOP);
         mBadgeFavorite.setBadgeNumber(friendCircle.getLove());
         mBadgeFavorite.setBadgeGravity(Gravity.END | Gravity.TOP);

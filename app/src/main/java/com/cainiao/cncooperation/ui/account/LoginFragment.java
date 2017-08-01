@@ -29,21 +29,18 @@ import butterknife.Unbinder;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-import static com.cainiao.cncooperation.R.id.et_name;
-import static com.cainiao.cncooperation.R.id.et_password;
-import static com.cainiao.cncooperation.R.id.keep_password;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LoginFragment extends BaseFragment{
+public class LoginFragment extends BaseFragment {
 
 
-    @BindView(et_name)
+    @BindView(R.id.et_name)
     EditText mEtName;
-    @BindView(et_password)
+    @BindView(R.id.et_password)
     EditText mEtPassword;
-    @BindView(keep_password)
+    @BindView(R.id.keep_password)
     CheckBox mKeepPassword;
     @BindView(R.id.btnLogin)
     Button mBtnLogin;
@@ -76,7 +73,7 @@ public class LoginFragment extends BaseFragment{
         super.initView(view);
         boolean isKeep = SharedUtils.getBoolean(getContext(), "keeppass", false);
         mKeepPassword.setChecked(isKeep);
-        if(isKeep){
+        if (isKeep) {
             String name = SharedUtils.getString(getContext(), "name", "");
             String password = SharedUtils.getString(getContext(), "password", "");
             mEtName.setText(name);
@@ -87,8 +84,8 @@ public class LoginFragment extends BaseFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        assert rootView != null;
         unbinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -98,7 +95,7 @@ public class LoginFragment extends BaseFragment{
         super.onDestroyView();
     }
 
-    @OnClick({R.id.btnLogin, R.id.btn_registered,R.id.tv_forget,R.id.login_qq})
+    @OnClick({R.id.btnLogin, R.id.btn_registered, R.id.tv_forget, R.id.login_qq})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
@@ -116,8 +113,7 @@ public class LoginFragment extends BaseFragment{
                         public void done(MyUser myUser, BmobException e) {
                             //判断结果
                             if (e == null) {
-                                    //跳转
-                                    startActivity(new Intent(getContext(), MainActivity.class));
+
                                 //保存状态
                                 SharedUtils.putBoolean(getContext(), "keeppass", mKeepPassword.isChecked());
 
@@ -130,6 +126,11 @@ public class LoginFragment extends BaseFragment{
                                     SharedUtils.deleShare(getContext(), "name");
                                     SharedUtils.deleShare(getContext(), "password");
                                 }
+                                //跳转
+                                startActivity(new Intent(getContext(), MainActivity.class));
+
+                                //结束
+                                getActivity().finish();
 
                             } else {
                                 Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT).show();
@@ -142,8 +143,7 @@ public class LoginFragment extends BaseFragment{
                 break;
             case R.id.btn_registered:
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                RegisterFragment registerFragment = new RegisterFragment();
-                mCurrentFragment = registerFragment;
+                mCurrentFragment = new RegisterFragment();
                 transaction.replace(R.id.lay_container, mCurrentFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
@@ -151,7 +151,7 @@ public class LoginFragment extends BaseFragment{
                 break;
 
             case R.id.tv_forget:
-                Intent intent = new Intent(getActivity(),ForgetPasswordActivity.class);
+                Intent intent = new Intent(getActivity(), ForgetPasswordActivity.class);
                 startActivity(intent);
                 break;
 
