@@ -209,6 +209,8 @@
     <!-- 灰色 -->
     <color name="grey">#808080</color>
     <!-- 灰色 -->
+    <color name="qianhuise">#303842</color>
+    <!-- 灰色 -->
     <color name="olive">#808000</color>
     <!-- 橄榄色 -->
     <color name="purple">#800080</color>
@@ -264,6 +266,7 @@
     <color name="limegreen">#32cd32</color>
     <!-- 橙绿色 -->
     <color name="darkslategray">#2f4f4f</color>
+    <color name="jizhu">#1D456E</color>
     <!-- 暗瓦灰色 -->
     <color name="darkslategrey">#2f4f4f</color>
     <!-- 暗瓦灰色 -->

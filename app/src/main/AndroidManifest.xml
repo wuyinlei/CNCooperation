@@ -33,13 +33,14 @@
         <activity
             android:name=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.Main">
+
+        </activity>
+        <activity android:name=".ui.account.AccountActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity android:name=".ui.account.AccountActivity">
         </activity>
         <activity android:name=".ui.activity.TestSelectImageActivity">
         </activity>
@@ -50,6 +51,7 @@
         </activity>
         <activity android:name=".ui.message.MessageActivity">
         </activity>
+        <activity android:name=".ui.account.ForgetPasswordActivity"/>
         <activity
             android:name=".ui.dynamic.DynamicPublishActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"/>

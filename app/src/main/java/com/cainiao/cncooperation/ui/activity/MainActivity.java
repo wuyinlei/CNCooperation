@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.main.CartFragment;
@@ -24,12 +23,8 @@ import com.cainiao.cncooperation.ui.main.VideoFragment;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
-import com.cainiao.factory.Account;
 
 import butterknife.BindView;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseActivity {
 
@@ -68,24 +63,24 @@ public class MainActivity extends BaseActivity {
 
         viewPagerSetting(mViewPager);
 
-        if (!Account.isLogin()) {
-            BmobUser bu2 = new BmobUser();
-            bu2.setUsername("若兰明月");
-            bu2.setPassword("123456asd");
-            bu2.login(new SaveListener<BmobUser>() {
-
-                @Override
-                public void done(BmobUser bmobUser, BmobException e) {
-                    if (e == null) {
-                        Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                        //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
-                        //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
-                    } else {
-//                        loge(e);
-                    }
-                }
-            });
-        }
+//        if (!Account.isLogin()) {
+//            BmobUser bu2 = new BmobUser();
+//            bu2.setUsername("若兰明月");
+//            bu2.setPassword("123456asd");
+//            bu2.login(new SaveListener<BmobUser>() {
+//
+//                @Override
+//                public void done(BmobUser bmobUser, BmobException e) {
+//                    if (e == null) {
+//                        Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+//                        //通过BmobUser user = BmobUser.getCurrentUser()获取登录成功后的本地用户信息
+//                        //如果是自定义用户对象MyUser，可通过MyUser user = BmobUser.getCurrentUser(MyUser.class)获取自定义用户信息
+//                    } else {
+////                        loge(e);
+//                    }
+//                }
+//            });
+//        }
 
     }
 
