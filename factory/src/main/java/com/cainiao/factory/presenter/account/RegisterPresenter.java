@@ -53,6 +53,9 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
             return;
         }
 
+        //注册中
+        mView.registering(R.string.register_ing);
+
         BmobSMS.verifySmsCode(phone, verifyCode, new UpdateListener() {
 
             @Override

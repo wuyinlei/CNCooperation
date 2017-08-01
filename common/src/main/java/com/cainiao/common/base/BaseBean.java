@@ -6,45 +6,51 @@ import java.io.Serializable;
  * Created by wuyinlei on 2017/7/23.
  */
 
-public class BaseBean <T> implements Serializable {
+public class BaseBean<T> implements Serializable {
 
-    private static final int SUCCESS = 1;
+    private static final int SUCCESS = 0;
 
-    private int errorCode;
+    private int code;
 
-    private String errorStr;
+    private String info;
 
-    private T results;
+    private String desc;
 
-    public boolean success() {
-        return errorStr.equals("success");
+    private T date;
+
+    public boolean isSuccess() {
+        return SUCCESS == code;
     }
 
-    public static int getSUCCESS() {
-        return SUCCESS;
+    public int getCode() {
+        return code;
     }
 
-    public int getErrorCode() {
-        return errorCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public String getInfo() {
+        return info;
     }
 
-    public String getErrorStr() {
-        return errorStr;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public void setErrorStr(String errorStr) {
-        this.errorStr = errorStr;
+    public String getDesc() {
+        return desc;
     }
 
-    public T getResults() {
-        return results;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public void setResults(T results) {
-        this.results = results;
+    public T getDate() {
+        return date;
+    }
+
+    public void setDate(T date) {
+        this.date = date;
     }
 }

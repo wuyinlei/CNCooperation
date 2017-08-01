@@ -42,6 +42,12 @@ public interface RegisterContract {
 
         void verifyCodeSuccess(@StringRes int str);
 
+        /**
+         * 注册中
+         * @param str  str
+         */
+        void registering(@StringRes int str);
+
 
     }
 

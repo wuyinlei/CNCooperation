@@ -31,13 +31,13 @@ public class RxResponseCompat {
                 return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {
                     @Override
                     public Observable<T> call(final BaseBean<T> tBaseBean) {
-                        if (tBaseBean.success()) {
+                        if (tBaseBean.isSuccess()) {
 
                             return Observable.create(new Observable.OnSubscribe<T>() {
                                 @Override
                                 public void call(Subscriber<? super T> subscriber) {
                                     try {
-                                        subscriber.onNext(tBaseBean.getResults());
+                                        subscriber.onNext(tBaseBean.getDate());
                                         subscriber.onCompleted();
                                     } catch (Exception e
                                             ) {
@@ -48,7 +48,7 @@ public class RxResponseCompat {
                             });
 
                         } else {
-                            return Observable.error(new ApiException(tBaseBean.getErrorCode(), tBaseBean.getErrorStr()));
+                            return Observable.error(new ApiException(tBaseBean.getCode(), tBaseBean.getDesc()));
                         }
                     }
                 }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());

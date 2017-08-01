@@ -81,6 +81,7 @@ public class BmobUtils {
                         detailComment.setContent(comment.getContent());
                         detailComment.setCreateDate(comment.getCreatedAt());
                         detailComment.setUsername(comment.getAuthor().getUsername());
+                        detailComment.setAlias(comment.isAlias());
                         detailComments.add(detailComment);
                     }
 
@@ -136,7 +137,7 @@ public class BmobUtils {
 
             @Override
             public void done(BmobException e) {
-                if (e == null){
+                if (e == null) {
                     Log.d("BmobUtils", "成功");
                 }
             }
@@ -428,7 +429,7 @@ public class BmobUtils {
      * @param content  评论的内容
      * @param listener 评论的监听器
      */
-    public static void addOneToMore(String objectId, boolean hasAlias, String content, final OnAddCommentListener<String> listener) {
+    public static void addComment(String objectId, boolean hasAlias, String content, final OnAddCommentListener<String> listener) {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         FriendCircle post = new FriendCircle();
         post.setObjectId(objectId);
@@ -447,6 +448,28 @@ public class BmobUtils {
                 }
             }
         });
+    }
+
+    /**
+     * 更新当前的动态的评论数
+     *
+     * @param objectId    objectId
+     * @param commentSize 当前的评论的size
+     */
+    public static void updateComment(String objectId, int commentSize) {
+
+        FriendCircle friendCircle = new FriendCircle();
+        friendCircle.setCommentSize(commentSize + "");
+        friendCircle.update(objectId, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Log.d("BmobUtils", "成功");
+                }
+            }
+        });
+
     }
 
     public interface OnListener<T> {

@@ -12,6 +12,7 @@ public class DetailComment {
     private String avatar;
     private String createDate;
     private String content;
+    private boolean isAlias;
 
     public String getUsername() {
         return username;
@@ -43,5 +44,13 @@ public class DetailComment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public boolean isAlias() {
+        return isAlias;
+    }
+
+    public void setAlias(boolean alias) {
+        isAlias = alias;
     }
 }

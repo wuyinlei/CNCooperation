@@ -111,10 +111,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
     @OnClick(R.id.bt_login)
     void toLogin() {
-        mBtLogin.setClickable(false);
-        mBtLogin.setBackgroundResource(R.color.white);
-        mBtLogin.setTextColor(R.color.colorPrimary);
-        mBtLogin.setText(getActivity().getString(R.string.register_ing));
+
         String name = mEtName.getText().toString().trim();
         String phone = mEtPhone.getText().toString().trim();
         String password = mEtPassword.getText().toString().trim();
@@ -279,6 +276,14 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     @Override
     public void verifyCodeSuccess(@StringRes int str) {
         Toast.makeText(getContext(), getActivity().getString(str), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void registering(@StringRes int str) {
+        mBtLogin.setClickable(false);
+        mBtLogin.setBackgroundResource(R.color.white);
+        mBtLogin.setTextColor(R.color.colorPrimary);
+        mBtLogin.setText(getActivity().getString(str));
     }
 
     @Override
