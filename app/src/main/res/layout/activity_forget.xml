@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:inputType="textPassword"
         android:layout_marginTop="10dp"
+
         android:background="@color/qianhuise"
         android:layout_height="50dp"
         android:hint="@string/change_password_old_new"/>
