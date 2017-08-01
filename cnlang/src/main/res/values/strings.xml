@@ -120,6 +120,7 @@
     <string name="upload_dialog_quit">取消</string>
     <string name="say_something">说点什么</string>
     <string name="write_your_comment">写下你的评论吧...</string>
+    <string name="exit_app">在按一次退出应用</string>
 
 
 </resources>
