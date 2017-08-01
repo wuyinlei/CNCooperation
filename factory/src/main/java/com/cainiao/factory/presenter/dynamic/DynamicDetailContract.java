@@ -72,8 +72,9 @@ public interface DynamicDetailContract {
          * @param postId      需要评论的朋友圈objectId
          * @param currentUser 当前用户
          * @param content     评论内容
+         * @param isAlias     是否需要别名(匿名发送)
          */
-        void publishComment(String postId, MyUser currentUser, String content);
+        void publishComment(String postId, MyUser currentUser, String content, boolean isAlias);
 
 
         /**
@@ -96,10 +97,11 @@ public interface DynamicDetailContract {
 
         /**
          * 点赞成功之后的更新喜欢的个数
-         * @param objectId  当前的动态objectId
+         *
+         * @param objectId   当前的动态objectId
          * @param likesCount 喜欢的个数
          */
-        void updateLikes(String objectId,String likesCount);
+        void updateLikes(String objectId, String likesCount);
 
 
         boolean checkContent(String content);
@@ -109,7 +111,7 @@ public interface DynamicDetailContract {
          *
          * @param limit 第一页数据的个数
          */
-        void requestCommentData(int limit,int page, String objectId);
+        void requestCommentData(int limit, int page, String objectId);
 
         /**
          * 请求下一页数据

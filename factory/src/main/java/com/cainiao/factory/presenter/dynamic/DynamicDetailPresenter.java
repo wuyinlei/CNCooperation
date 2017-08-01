@@ -35,7 +35,7 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 
 
     @Override
-    public void publishComment(String postId, MyUser currentUser, String content) {
+    public void publishComment(String postId, MyUser currentUser, String content,boolean isAlias) {
 
     }
 

@@ -136,7 +136,9 @@ public class BmobUtils {
 
             @Override
             public void done(BmobException e) {
-
+                if (e == null){
+                    Log.d("BmobUtils", "成功");
+                }
             }
         });
     }
@@ -337,11 +339,11 @@ public class BmobUtils {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         FriendCircle postss = new FriendCircle();
         postss.setObjectId(objectId);
-//将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
+        //将当前用户添加到Post表中的likes字段值中，表明当前用户喜欢该帖子
         BmobRelation relation = new BmobRelation();
-//将当前用户添加到多对多关联中
+        //将当前用户添加到多对多关联中
         relation.add(user);
-//多对多关联指向`post`的`likes`字段
+        //多对多关联指向`post`的`likes`字段
         postss.setLikes(relation);
         postss.update(new UpdateListener() {
             @Override

@@ -29,7 +29,7 @@
             android:background="@drawable/mind_circle_anon_selector"
             android:button="@null"/>
 
-        <EditText
+        <com.cainiao.common.widget.comment.CommentEditText
             android:id="@+id/circle_comment_content_edit"
             android:layout_width="0.0dip"
             android:layout_height="wrap_content"

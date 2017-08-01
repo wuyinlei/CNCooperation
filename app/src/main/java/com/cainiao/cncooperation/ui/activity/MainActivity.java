@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,6 +54,9 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.re_bg_layout)
     public RelativeLayout mReBgLayout;
+
+    private long EXIT_FLAG = 0;
+
 
     @Override
     protected void initView() {
@@ -191,5 +195,22 @@ public class MainActivity extends BaseActivity {
     public static void show(Context context) {
         Intent intent = new Intent(context,MainActivity.class);
         context.startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+
+            if ((System.currentTimeMillis() - EXIT_FLAG) > 2000) {
+                EXIT_FLAG = System.currentTimeMillis();
+                Toast.makeText(this, getString(R.string.exit_app), Toast.LENGTH_SHORT).show();
+            } else {
+
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
