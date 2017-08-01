@@ -72,7 +72,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--Background-->
-        <item name="android:windowBackground">@color/burlywood</item>
+        <item name="android:windowBackground">@color/white</item>
         <!--NoTitle-->
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>

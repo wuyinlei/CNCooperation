@@ -12,9 +12,6 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.ViewTarget;
 import com.cainiao.cncooperation.R;
-import com.cainiao.cncooperation.ui.account.AccountTrigger;
-import com.cainiao.cncooperation.ui.account.LoginFragment;
-import com.cainiao.cncooperation.ui.account.RegisterFragment;
 import com.cainiao.common.base.BaseActivity;
 
 import butterknife.BindView;
@@ -48,14 +45,14 @@ public class AccountActivity extends BaseActivity implements AccountTrigger {
         super.initView();
 
         overridePendingTransition(R.anim.login_activity_in, R.anim.login_activity_out);
-        mLoginFragment = mCurrentFragment = new RegisterFragment();
+        mLoginFragment = mCurrentFragment = new LoginFragment();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.lay_container, mCurrentFragment)
                 .commit();
 
         Glide.with(this)
-                .load(R.mipmap.login_register_bg)
+                .load(R.mipmap.user_component_bg_login)
                 .centerCrop()
                 .into(new ViewTarget<ImageView, GlideDrawable>(mIvBg) {
                     @Override
