@@ -1,20 +1,18 @@
 package com.cainiao.cncooperation.ui.main;
 
 
-import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.account.AccountActivity;
 import com.cainiao.cncooperation.ui.account.PersonalActivity;
 import com.cainiao.cncooperation.ui.dynamic.FriendCircleActivity;
+import com.cainiao.cncooperation.ui.setting.SettingActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.Account;
-import com.cainiao.factory.model.MyUser;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -31,7 +29,7 @@ public class MineFragment extends BaseFragment {
     CircleImageView mIvAvatar;
 
     @OnClick(R.id.ll_friend_circle)
-    public void jumpToFriendCircle(){
+    public void jumpToFriendCircle() {
 
         FriendCircleActivity.show(getContext());
     }
@@ -52,8 +50,8 @@ public class MineFragment extends BaseFragment {
     protected void initData() {
         super.initData();
 
-        if(Account.isLogin()){
-            ImageLoader.load(Account.getAvatar(),mIvAvatar);
+        if (Account.isLogin()) {
+            ImageLoader.load(Account.getAvatar(), mIvAvatar);
             mTvUserName.setText(Account.getUserName());
         } else {
             mTvUserName.setText(getActivity().getString(R.string.mine_login_immediately));
@@ -61,10 +59,16 @@ public class MineFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.tv_username,R.id.iv_avatar})
-    public void jumpToLoginOrPersonal(){
+    @OnClick({R.id.ll_set})
+    public void jumpSetting() {
+        SettingActivity.show(getContext());
 
-        if (Account.isLogin()){
+    }
+
+    @OnClick({R.id.tv_username, R.id.iv_avatar})
+    public void jumpToLoginOrPersonal() {
+
+        if (Account.isLogin()) {
             PersonalActivity.show(getContext(), Account.getUserName());
         } else {
             AccountActivity.show(getContext());

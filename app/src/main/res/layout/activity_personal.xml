@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.cainiao.cncooperation.ui.account.PersonalActivity">
+    tools:context="com.cainiao.cncooperation.ui.account.AccountActivity">
 
-    <!--<include layout="@layout/mind_circle_individual_list_item"/>-->
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"/>
+
+    <FrameLayout
+        android:id="@+id/lay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</FrameLayout>

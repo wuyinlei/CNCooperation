@@ -27,7 +27,7 @@
             android:hint="@string/circle_hint_publish"
             android:lines="4"
             android:padding="15.0sp"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/circle_text_color_second"
             android:textColorHint="@color/hint_color"
             android:textSize="15.0sp"/>
 
@@ -62,7 +62,7 @@
             android:layout_centerVertical="true"
             android:drawablePadding="5.0dip"
             android:text="悬赏红包"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/circle_text_color_second"
             android:textSize="14.0sp"/>
 
         <TextView
@@ -105,7 +105,7 @@
             android:drawableLeft="@drawable/mind_circle_location"
             android:drawablePadding="5.0dip"
             android:text="@string/circle_do_not_show_location"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/circle_text_color_second"
             android:textSize="14.0sp"/>
 
         <ImageView
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="@string/circle_anonymous_published"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/circle_text_color_second"
             android:textSize="18.0sp"/>
 
         <com.kyleduo.switchbutton.SwitchButton

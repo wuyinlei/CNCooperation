@@ -57,7 +57,7 @@
                             android:layout_height="wrap_content"
                             android:maxEms="9"
                             android:maxLines="1"
-                            android:textColor="@color/text_color_2"
+                            android:textColor="@color/circle_text_color_second"
                             android:textSize="@dimen/font_18"
                             tools:text="陈超明"/>
 
@@ -94,7 +94,7 @@
                         android:layout_marginTop="@dimen/len_10"
                         android:ellipsize="end"
                         android:maxLines="6"
-                        android:textColor="@color/text_color_2"/>
+                        android:textColor="@color/circle_text_color_second"/>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:text="0"
+                            tools:text="0"
                             android:textColor="@color/textSecond"/>
 
                         <ImageView

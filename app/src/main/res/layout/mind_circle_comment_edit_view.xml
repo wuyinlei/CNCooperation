@@ -41,7 +41,7 @@
             android:maxLines="3"
             android:paddingLeft="5.0dip"
             android:paddingRight="5.0dip"
-            android:textColor="@color/text_color_2"
+            android:textColor="@color/circle_text_color_second"
             android:textColorHint="@color/hint_color"
             android:textCursorDrawable="@null"
             android:textScaleX="1.0"

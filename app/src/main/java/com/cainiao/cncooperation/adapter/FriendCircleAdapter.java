@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.ui.account.AccountActivity;
 import com.cainiao.cncooperation.ui.account.PersonalActivity;
 import com.cainiao.cncooperation.ui.dynamic.FriendCircleDetailActivity;
 import com.cainiao.common.constant.Common;
@@ -18,6 +19,7 @@ import com.cainiao.common.widget.expandtextview.ExpandTextView;
 import com.cainiao.common.widget.nineimage.ImageInfo;
 import com.cainiao.common.widget.nineimage.NineGridClickViewAdapter;
 import com.cainiao.common.widget.nineimage.NineGridView;
+import com.cainiao.factory.Account;
 import com.cainiao.factory.model.circle.CircleViewBean;
 
 import java.util.ArrayList;
@@ -67,7 +69,7 @@ public class FriendCircleAdapter extends SimpleAdapter<CircleViewBean> {
 
         CircleImageView circleImageView = (CircleImageView) viewHoder.getView(R.id.iv_avatar);
 
-        viewHoder.getTextView(R.id.mind_circle_view).setText(String.format(context.getString(R.string.look_view_count),item.getViewcount()));
+        viewHoder.getTextView(R.id.mind_circle_view).setText(String.format(context.getString(R.string.look_view_count), item.getViewcount()));
 
         Glide.with(context)
                 .load(item.getAvator())
@@ -77,7 +79,11 @@ public class FriendCircleAdapter extends SimpleAdapter<CircleViewBean> {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PersonalActivity.show(context,item.getUsername());
+                if (Account.isLogin()) {
+                    PersonalActivity.show(context, item.getUsername());
+                } else {
+                    AccountActivity.show(context);
+                }
             }
         });
 
@@ -90,12 +96,10 @@ public class FriendCircleAdapter extends SimpleAdapter<CircleViewBean> {
         }
 
 
-
-
         viewHoder.getView(R.id.ll_layout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FriendCircleDetailActivity.show(context,item.getObjectId());
+                FriendCircleDetailActivity.show(context, item.getObjectId());
             }
         });
 

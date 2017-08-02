@@ -1,26 +1,13 @@
 package com.cainiao.factory.presenter.dynamic;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
-import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
-import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
-import com.cainiao.factory.model.circle.FriendCircleComment;
 import com.cainiao.factory.utils.BmobUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by wuyinlei on 2017/7/29.
@@ -30,19 +17,21 @@ import cn.bmob.v3.listener.UpdateListener;
 
 public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.View> implements DynamicDetailContract.Presenter {
 
+    private Context mContext;
 
     public DynamicDetailPresenter(DynamicDetailContract.View view) {
         super(view);
+        mContext = (Context) view;
     }
 
 
     @Override
-    public void publishComment(String postId, MyUser currentUser, String content,boolean isAlias) {
-        if(!checkContent(content)){
-            BmobUtils.addComment(postId, isAlias, content, new BmobUtils.OnAddCommentListener<String>() {
+    public void publishComment(String postId, MyUser currentUser, String content, boolean isAlias) {
+        if (!checkContent(content)) {
+            BmobUtils.addComment(mContext, postId, isAlias, content, new BmobUtils.OnListener<String>() {
                 @Override
                 public void onError(int errorCode, String message) {
-                    getView().onCommentFailure(errorCode,message);
+                    getView().onCommentFailure(errorCode, message);
                 }
 
                 @Override
@@ -63,7 +52,17 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     @Override
     public void requestDetailData(String postId) {
 
-        BmobUtils.requestDetailData(postId,getView());
+        BmobUtils.requestDetailData(postId, new BmobUtils.OnListener<FriendCircle>() {
+            @Override
+            public void onError(int errorCode, String message) {
+                getView().requestDataFailure(errorCode, message);
+            }
+
+            @Override
+            public void onSuccess(FriendCircle data) {
+                getView().requestDataSuccess(data);
+            }
+        });
 
 //        BmobQuery<FriendCircle> query = new BmobQuery<>();
 //        query.include("author,post.author");
@@ -83,13 +82,24 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     }
 
     @Override
-    public void collectLikes(String postId) {
+    public void collectLikes(String postId, int loveSize) {
+        BmobUtils.addLikes(mContext, postId, new BmobUtils.OnListener<String>() {
+            @Override
+            public void onError(int errorCode, String message) {
+                getView().onLikesFailure(errorCode, message);
+            }
 
+            @Override
+            public void onSuccess(String data) {
+                getView().onLikesSuccess(R.string.dynamic_like_success);
+            }
+        });
     }
 
-    @Override
-    public void updateLikes(String objectId, String likesCount) {
 
+    @Override
+    public void updateLikes(String objectId, int likesCount) {
+        BmobUtils.updateLikeSize(objectId, likesCount);
     }
 
     @Override
@@ -99,7 +109,7 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     }
 
     @Override
-    public void requestCommentData(int limit, int page,final String objectId) {
+    public void requestCommentData(int limit, int page, final String objectId) {
 //        BmobQuery<FriendCircleComment> query = new BmobQuery<>();
 //        ////用此方式可以构造一个BmobPointer对象。只需要设置objectId就行
 //        FriendCircle post = new FriendCircle();
@@ -129,7 +139,7 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
 //            }
 //        });
 
-        BmobUtils.queryAllComment(limit,page,objectId,getView());
+        BmobUtils.queryAllComment(limit, page, objectId, getView());
 
     }
 
@@ -142,7 +152,7 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     public void updateViewCount(String viewCount, String objectId) {
 
 
-        BmobUtils.updateViewCount(viewCount,objectId);
+        BmobUtils.updateViewCount(viewCount, objectId);
 
 //        FriendCircle friendCircle = new FriendCircle();
 //        int random = new Random().nextInt(30);

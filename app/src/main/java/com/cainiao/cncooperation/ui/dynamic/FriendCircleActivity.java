@@ -104,6 +104,11 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
     }
 
     @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
+    @Override
     protected void initData() {
         super.initData();
 

@@ -30,6 +30,7 @@ import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.common.widget.nineimage.ImageInfo;
 import com.cainiao.common.widget.nineimage.NineGridClickViewAdapter;
 import com.cainiao.common.widget.nineimage.NineGridView;
+import com.cainiao.common.widget.state.StateView;
 import com.cainiao.factory.Account;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
@@ -102,6 +103,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     CommentEditText mCommentEditText;
     ImageButton mCircleCmsSend;
     private int commentSize;
+    private int mLoveSize;
 
 
     @OnClick(R.id.ic_back)
@@ -112,6 +114,12 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     @OnClick(R.id.relayout_comment)
     public void comment() {
         addComment();
+    }
+
+
+    @OnClick(R.id.iv_favorite)
+    public void collect() {
+        collectDynamic();
     }
 
 
@@ -138,13 +146,21 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     protected void initView() {
         super.initView();
 
+        mStateView.showLoading();
+
         mDetailPresenter = new DynamicDetailPresenter(this);
         mCommentAdapter = new FriendCricleDetailCommentAdapter(this);
         mRecyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerCommentView.setAdapter(mCommentAdapter);
 
-        mBadgeCommentView = new QBadgeView(this).bindTarget(mIvComment);
-        mBadgeFavorite = new QBadgeView(this).bindTarget(mIvFavorite);
+        mBadgeCommentView = new QBadgeView(this).bindTarget(mIvComment).setBadgeGravity(Gravity.END | Gravity.TOP);
+        mBadgeFavorite = new QBadgeView(this).bindTarget(mIvFavorite).setBadgeGravity(Gravity.END | Gravity.TOP);
+
+    }
+
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
     }
 
     @Override
@@ -186,7 +202,9 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void onLikesSuccess(@StringRes int str) {
-
+        mBadgeFavorite.setBadgeNumber(++mLoveSize);
+        Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
+        mDetailPresenter.updateLikes(objectId, mLoveSize);
     }
 
     @Override
@@ -225,13 +243,12 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         if (mDetailComments.size() == 1) {
             //第一次评论
             mLlComment.setVisibility(View.VISIBLE);
-            mCommentAdapter.addData(comment);
-//            mCommentAdapter.notifyDataSetChanged();
-        } else {
-            mCommentAdapter.addData(comment);
-            //不是第一次评论 这个时候评论布局已经显示了
-//            mCommentAdapter.notifyDataSetChanged();
         }
+
+        mCommentAdapter.addData(comment);
+        mBadgeCommentView.setBadgeNumber(commentSize);
+        mTvCommentCount.setText(commentSize + "");
+
 
         BmobUtils.updateComment(objectId, commentSize);
 
@@ -239,6 +256,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void requestDataSuccess(FriendCircle friendCircle) {
+        mStateView.showContent();
         updateUi(friendCircle);
     }
 
@@ -259,6 +277,11 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     public void loadMoreCommentDataSuccess(List<DetailComment> viewBeen) {
         mDetailComments.addAll(viewBeen);
         mCommentAdapter.addData(viewBeen);
+    }
+
+    @Override
+    public void requestDataFailure(int errorCode, String message) {
+//        mStateView.showEmpty();
     }
 
 
@@ -361,6 +384,13 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     }
 
+    private void collectDynamic() {
+
+        mDetailPresenter.collectLikes(objectId, mLoveSize);
+
+
+    }
+
     private void updateUi(FriendCircle friendCircle) {
 
         ImageLoader.load(friendCircle.getAuthor().getAvatar(), mCircleIvatar);
@@ -392,11 +422,10 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
         commentSize = Integer.parseInt(friendCircle.getCommentSize());
         //only support Gravity.START | Gravity.TOP , Gravity.END | Gravity.TOP , Gravity.START | Gravity.BOTTOM , Gravity.END | Gravity.BOTTOM , Gravity.CENTER , Gravity.CENTER | Gravity.TOP , Gravity.CENTER | Gravity.BOTTOM ,Gravity.CENTER | Gravity.START , Gravity.CENTER | Gravity.END
-        mBadgeCommentView.setBadgeNumber(Integer.parseInt(friendCircle.getCommentSize()));
-
-        mBadgeCommentView.setBadgeGravity(Gravity.END | Gravity.TOP);
-        mBadgeFavorite.setBadgeNumber(friendCircle.getLove());
-        mBadgeFavorite.setBadgeGravity(Gravity.END | Gravity.TOP);
+        mBadgeCommentView.setBadgeNumber(commentSize);
+        mLoveSize = friendCircle.getLove();
+        mBadgeFavorite.setBadgeNumber(mLoveSize);
+        mTvCommentCount.setText(commentSize + "");
 
         updateViewCount(friendCircle.getViewcount(), friendCircle.getObjectId());
     }

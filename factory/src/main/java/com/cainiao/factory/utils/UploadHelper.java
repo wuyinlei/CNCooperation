@@ -1,4 +1,4 @@
-package com.cainiao.factory;
+package com.cainiao.factory.utils;
 
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -16,6 +16,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.HashUtil;
+import com.cainiao.factory.Factory;
 
 import java.io.File;
 import java.util.Date;

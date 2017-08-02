@@ -29,7 +29,7 @@
     <!--密码相关页面,登录注册、修改找回-->
     <string name="find_search_hint">点击搜索一下吧！！！</string>
     <string name="hint_name">请输入用户名</string>
-    <string name="hint_password">请设置密码，6-16位数字或字母</string>
+    <string name="hint_password">请设置密码，6–16位数字或字母</string>
     <string name="login">注册</string>
     <string name="send_message_code">发送验证码</string>
     <string name="hint_phone">请输入11位的手机号</string>
@@ -49,7 +49,7 @@
     <string name="change_password_old">旧密码</string>
     <string name="text_keep_password">记住密码</string>
     <string name="change_password_old_hint">请输入旧密码</string>
-    <string name="change_password_old_new_hint">请设置新密码，6-16位数字或字母</string>
+    <string name="change_password_old_new_hint">请设置新密码，6–16位数字或字母</string>
     <string name="change_password_old_new">新密码</string>
     <string name="shejiao_login">社交账号登录</string>
     <string name="text_editor_password">忘记重置商城账号</string>
@@ -68,7 +68,7 @@
     <string name="register_msg_failed">验证码发送失败：</string>
     <string name="register_phone_err">请填写正确手机号</string>
     <string name="register_code_error">验证码错误</string>
-    <string name="register_password_err">密码应该是6-16位数字或字母</string>
+    <string name="register_password_err">密码应该是6–16位数字或字母</string>
     <string name="register_had_phone">该手机号已注册，直接登录？</string>
     <string name="register_yes">确定</string>
     <string name="register_no">取消</string>
@@ -80,9 +80,9 @@
     <string name="change_password_old_err">旧密码输入错误</string>
     <string name="setting_quit_login">退出当前账号</string>
     <string name="setting_quit">退出成功</string>
-    <string name="login_ing">正在登录...</string>
-    <string name="register_ing">正在注册...</string>
-    <string name="findpsd_ing">正在提交...</string>
+    <string name="login_ing">正在登录…</string>
+    <string name="register_ing">正在注册…</string>
+    <string name="findpsd_ing">正在提交…</string>
     <string name="findpsd_re_send1">重新发送(</string>
     <string name="findpsd_forget">忘记密码</string>
     <string name="findpsd_suc">修改成功</string>
@@ -127,10 +127,49 @@
     <string name="upload_dialog_sure">确定</string>
     <string name="upload_dialog_quit">取消</string>
     <string name="say_something">说点什么</string>
-    <string name="write_your_comment">写下你的评论吧...</string>
+    <string name="write_your_comment">写下你的评论吧…</string>
     <string name="exit_app">在按一次退出应用</string>
     <string name="comment_success">评论成功</string>
     <string name="alias_username">匿名网友</string>
+    <string name="dynamic_like_success">点赞成功</string>
+
+
+    <!--用户资料相关资源-->
+    <string name="personal_bind_phone_number">绑定手机号</string>
+    <string name="personal_bind_phone_number_success">绑定手机号</string>
+    <string name="personal_phone_number">手机号</string>
+    <string name="personal_lazy_desc">这家伙很懒，什么都没留下</string>
+    <string name="personal_update_desc">点击更改签名</string>
+    <string name="personal_desc">个性签名</string>
+    <string name="personal_birth">生日</string>
+    <string name="personal_gender">性别</string>
+    <string name="personal_address">用户地址</string>
+    <string name="personal_alias">昵称</string>
+    <string name="personal_avatar">头像</string>
+
+    <!--app设置相关资源-->
+    <string name="setting_update_password">修改密码</string>
+    <string name="setting_clear_data">清理缓存数据</string>
+    <string name="setting_message_tip">消息提醒</string>
+    <string name="setting_feed_back">意见反馈</string>
+    <string name="setting_to_score">我来评分</string>
+    <string name="setting_share_to_friend">分享好友</string>
+    <string name="setting_current_version">当前版本</string>
+    <string name="setting_version_code">版本号</string>
+    <string name="setting_use_boot">使用手册</string>
+    <string name="setting_about_author">关于</string>
+    <string name="setting_login_out">退出帐号</string>
+    <string name="setting_contack_us">联系我们</string>
+    <string name="update_userinfo_success">信息保存成功</string>
+    <string name="cancel_unlike_success">取消喜欢成功</string>
+    <string name="add_comment_success">评论成功</string>
+    <string name="circle_add_like_success">收藏成功</string>
+    <string name="tv_userinfo_save">保存</string>
+    <string name="userinfo_update">编辑资料</string>
+    <string name="setting">设置</string>
+    <string name="empty_data">没有数据</string>
+    <string name="text_empty">抱歉！！！ 暂时没有数据</string>
+    <string name="text_retry">点击重新加载数据</string>
 
 
 </resources>

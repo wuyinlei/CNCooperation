@@ -20,7 +20,6 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/circle_banner"
         android:layout_marginRight="@dimen/len_20"
-
         android:background="@color/antiquewhite"
         android:layout_marginTop="-50.0dip"
         android:padding="0.100000024dip"/>

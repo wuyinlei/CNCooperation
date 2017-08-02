@@ -15,6 +15,11 @@ public class MessageActivity extends BaseActivity {
     }
 
     @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
+    @Override
     protected int getContentLayoutId() {
         return R.layout.activity_message;
     }

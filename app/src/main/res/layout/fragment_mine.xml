@@ -5,7 +5,7 @@
               android:background="#ffeeeeee"
               android:orientation="vertical">
 
-    <ScrollView
+    <com.cainiao.common.widget.elasticity.ElasticityScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:scrollbars="none">
@@ -349,36 +349,6 @@
                     android:background="@drawable/mycenter_arrous"/>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_set"
-                android:layout_width="fill_parent"
-                android:layout_height="@dimen/len_50"
-                android:layout_marginTop="0.8000001dip"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/len_20"
-                android:paddingRight="@dimen/len_20">
-
-                <ImageView
-                    android:layout_width="@dimen/len_24"
-                    android:layout_height="@dimen/len_24"
-                    android:background="@drawable/mycenter_set"/>
-
-                <TextView
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10.0dip"
-                    android:layout_weight="1.0"
-                    android:text="@string/mine_setting"
-                    android:textColor="@color/lightslategrey"
-                    android:textSize="@dimen/font_16"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/mycenter_arrous"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_share"
@@ -412,9 +382,41 @@
                     android:contentDescription="@string/app_name"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/ll_set"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/len_50"
+                android:layout_marginTop="0.8000001dip"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/len_20"
+                android:paddingRight="@dimen/len_20">
+
+                <ImageView
+                    android:layout_width="@dimen/len_24"
+                    android:layout_height="@dimen/len_24"
+                    android:background="@drawable/mycenter_set"/>
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_weight="1.0"
+                    android:text="@string/mine_setting"
+                    android:textColor="@color/lightslategrey"
+                    android:textSize="@dimen/font_16"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/mycenter_arrous"/>
+            </LinearLayout>
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/len_100"/>
         </LinearLayout>
-    </ScrollView>
+    </com.cainiao.common.widget.elasticity.ElasticityScrollView>
 </LinearLayout>

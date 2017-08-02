@@ -13,9 +13,12 @@ public class MyUser extends BmobUser {
 
     private Boolean sex;
     private String avatar;
+    private String alias;
     private Integer age;
     private String address;
     private String description;  //描述
+    private String birthday; //生日
+
 
     private BmobRelation favorite;
 
@@ -33,6 +36,14 @@ public class MyUser extends BmobUser {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getAlias() {
+        return alias;
     }
 
     public Integer getAge() {
@@ -65,5 +76,13 @@ public class MyUser extends BmobUser {
 
     public void setFavorite(BmobRelation favorite) {
         this.favorite = favorite;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

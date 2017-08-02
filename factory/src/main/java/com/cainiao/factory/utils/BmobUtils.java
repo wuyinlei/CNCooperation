@@ -3,7 +3,6 @@ package com.cainiao.factory.utils;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
@@ -38,8 +37,6 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by wuyinlei on 2017/7/31.
@@ -96,10 +93,11 @@ public class BmobUtils {
     /**
      * 登录逻辑
      *
+     * @param context  上下文
      * @param username 用户名
      * @param password 密码
      */
-    public static void login(String username, String password) {
+    public static void login(final Context context, String username, String password, final OnListener listener) {
         BmobUser bu2 = new BmobUser();
         bu2.setUsername(username);
         bu2.setPassword(password);
@@ -108,9 +106,9 @@ public class BmobUtils {
             @Override
             public void done(BmobUser bmobUser, BmobException e) {
                 if (e == null) {
-
+                    listener.onSuccess(context.getResources().getString(R.string.login_suc));
                 } else {
-//                        loge(e);
+                    listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
         });
@@ -147,10 +145,10 @@ public class BmobUtils {
     /**
      * 请求数据  这个是请求的当个动态的数据 不包含评论
      *
-     * @param postId 当前冬天的objectId
-     * @param view   当前view
+     * @param postId   当前冬天的objectId
+     * @param listener 监听
      */
-    public static void requestDetailData(String postId, final DynamicDetailContract.View view) {
+    public static void requestDetailData(String postId, final OnListener<FriendCircle> listener) {
         BmobQuery<FriendCircle> query = new BmobQuery<>();
         query.include("author,post.author");
         query.getObject(postId, new QueryListener<FriendCircle>() {
@@ -158,10 +156,10 @@ public class BmobUtils {
             @Override
             public void done(FriendCircle friendCircle, BmobException e) {
                 if (e == null && friendCircle != null) {
-                    view.requestDataSuccess(friendCircle);
+                    listener.onSuccess(friendCircle);
                 } else {
                     assert e != null;
-                    view.onCommentFailure(e.getErrorCode(), e.getMessage());
+                    listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
 
@@ -171,16 +169,14 @@ public class BmobUtils {
     /**
      * 发布动态
      *
-     * @param content 发送的动态内容
-     * @param images  图片数组
-     * @param view    当前view也就是View层
+     * @param context  上下文
+     * @param content  发送的动态内容
+     * @param images   图片数组
+     * @param listener 监听
      */
-    public static void dynamicPublish(String content, ArrayList<String> images, final DynamicPublishContract.View view) {
+    public static void dynamicPublish(final Context context, String content, ArrayList<String> images, final OnListener<String> listener) {
         final FriendCircle friendCircle = new FriendCircle();
-        if (checkContent(content)) {
-            view.showError(R.string.mind_circle_content_not_null);
-            return;
-        }
+
         friendCircle.setContent(content);
         friendCircle.setAuthor(Account.getUser());
         friendCircle.setLove(0);
@@ -196,26 +192,16 @@ public class BmobUtils {
             @Override
             public void done(String postId, BmobException e) {
                 if (e == null) {
-                    view.publishDynamicSuccess(postId, R.string.mind_circle_publish_success);
+
+                    String result = postId + "=" + context.getResources().getString(R.string.mind_circle_publish_success);
+                    listener.onSuccess(result);
 
                 } else {
-                    view.onFailure(e.getErrorCode(), e.getMessage());
+                    listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
         });
     }
-
-    /**
-     * 检测发送的文字是否为空
-     *
-     * @param content 发送的内容
-     * @return false  true
-     */
-    private static boolean checkContent(String content) {
-
-        return TextUtils.isEmpty(content);
-    }
-
 
     /**
      * 请求朋友圈的数据
@@ -249,7 +235,7 @@ public class BmobUtils {
                             subscriber.onNext(list);
                             subscriber.onCompleted();
                         } else {
-//                            subscriber.onError(e);
+                            subscriber.onError(e);
                         }
                     }
                 });
@@ -333,10 +319,9 @@ public class BmobUtils {
     /**
      * 添加点赞
      *
-     * @param context  上下文
      * @param objectId 当前动态的id
      */
-    public static void addLikes(final Context context, String objectId) {
+    public static void addLikes(final Context context, String objectId, final OnListener<String> listener) {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         FriendCircle postss = new FriendCircle();
         postss.setObjectId(objectId);
@@ -350,11 +335,9 @@ public class BmobUtils {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Toast.makeText(context, "点赞成功", Toast.LENGTH_SHORT).show();
-
-//                    Log.i("bmob","多对多关联添加成功");
+                    listener.onSuccess(context.getResources().getString(R.string.circle_add_like_success));
                 } else {
-                    Log.i("bmob", "失败：" + e.getMessage());
+                    listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
 
@@ -368,7 +351,7 @@ public class BmobUtils {
      * @param page     当前页数
      * @param listener 监听器
      */
-    public static void queryAllUserDynamic(int limit, int page, final OnListener<FriendCircle> listener) {
+    public static void queryAllUserDynamic(int limit, int page, final OnDataListener<FriendCircle> listener) {
         //查询一个用户发表的所以帖子
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         BmobQuery<FriendCircle> query = new BmobQuery<>();
@@ -380,9 +363,10 @@ public class BmobUtils {
         query.findObjects(new FindListener<FriendCircle>() {
 
             @Override
-            public void done(List<FriendCircle> object, BmobException e) {
+            public void done(List<FriendCircle> datas, BmobException e) {
                 if (e == null) {
-                    listener.onSuccess(object);
+                    if (datas.size() > 0)
+                        listener.onSuccess(datas);
                 } else {
                     listener.onError(e.getErrorCode(), e.getMessage());
                 }
@@ -400,7 +384,7 @@ public class BmobUtils {
      * @param page     当前页数
      * @param listener 查询的监听
      */
-    public static void queryAllCollectUser(String objectId, final int limit, int page, final OnListener<MyUser> listener) {
+    public static void queryAllCollectUser(String objectId, final int limit, int page, final OnDataListener<MyUser> listener) {
         //查询搜藏该帖子的所有人
         BmobQuery<MyUser> query = new BmobQuery<>();
         FriendCircle posts = new FriendCircle();
@@ -424,12 +408,13 @@ public class BmobUtils {
     /**
      * 添加一对多关联 -> 创建评论并关联评论和帖子
      *
+     * @param context  上下文
      * @param objectId 当前的动态的id
      * @param hasAlias 是否是别名评论
      * @param content  评论的内容
      * @param listener 评论的监听器
      */
-    public static void addComment(String objectId, boolean hasAlias, String content, final OnAddCommentListener<String> listener) {
+    public static void addComment(final Context context, String objectId, boolean hasAlias, String content, final OnListener<String> listener) {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         FriendCircle post = new FriendCircle();
         post.setObjectId(objectId);
@@ -442,12 +427,39 @@ public class BmobUtils {
             @Override
             public void done(String commentTips, BmobException e) {
                 if (e == null) {
-                    listener.onSuccess(commentTips);
+                    listener.onSuccess(context.getResources().getString(R.string.add_comment_success));
                 } else {
                     listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
         });
+    }
+
+    /**
+     * 取消喜欢
+     *
+     * @param objectId 当前动态的objectId
+     */
+    public static void cancelLike(final Context context, String objectId, final OnListener listener) {
+        FriendCircle post = new FriendCircle();
+        post.setObjectId(objectId);
+        MyUser user = BmobUser.getCurrentUser(MyUser.class);
+        BmobRelation relation = new BmobRelation();
+        relation.remove(user);
+        post.setLikes(relation);
+        post.update(new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(context.getResources().getString(R.string.cancel_unlike_success));
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+
+        });
+
     }
 
     /**
@@ -472,17 +484,110 @@ public class BmobUtils {
 
     }
 
-    public interface OnListener<T> {
+    /**
+     * 更新动态的喜欢个数
+     *
+     * @param objectId   当前动态的id
+     * @param likesCount 当前喜欢的个数
+     */
+    public static void updateLikeSize(String objectId, int likesCount) {
+
+        FriendCircle friendCircle = new FriendCircle();
+        friendCircle.setLove(likesCount);
+        friendCircle.update(objectId, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Log.d("BmobUtils", "成功");
+                }
+            }
+        });
+
+
+    }
+
+    /**
+     * 绑定手机号
+     *
+     * @param context  上下文
+     * @param phone    手机号
+     * @param listener 监听
+     */
+    public static void bingUserPhone(final Context context, String phone, final OnListener<String> listener) {
+        MyUser user = new MyUser();
+        user.setMobilePhoneNumber(phone);
+        user.setMobilePhoneNumberVerified(true);
+        MyUser cur = BmobUser.getCurrentUser(MyUser.class);
+        user.update(cur.getObjectId(), new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(context.getResources().getString(R.string.personal_bind_phone_number_success));
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param context  上下文
+     * @param avatar   用户头像
+     * @param desc     用户描述  类似签名
+     * @param address  用户地址
+     * @param sex      用户性别
+     * @param alias    用户别名 类似网名
+     * @param birthday 用户生日
+     * @param age      用户年龄
+     */
+    public static void updateUserInfo(final Context context,
+                                      String avatar,
+                                      String desc,
+                                      String address,
+                                      boolean sex,
+                                      String alias,
+                                      String birthday,
+                                      Integer age,
+                                      final OnListener listener) {
+        MyUser newUser = new MyUser();
+        if (!TextUtils.isEmpty(avatar))
+            newUser.setAvatar(avatar);
+        if (!TextUtils.isEmpty(desc))
+            newUser.setDescription(desc);
+        if (!TextUtils.isEmpty(alias))
+            newUser.setAlias(alias);
+        if (!TextUtils.isEmpty(birthday))
+            newUser.setBirthday(birthday);
+        if (age != 0)
+            newUser.setAge(age);
+        newUser.setSex(sex);
+        BmobUser bmobUser = BmobUser.getCurrentUser(MyUser.class);
+        newUser.update(bmobUser.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(context.getResources().getString(R.string.update_userinfo_success));
+                } else {
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    public interface OnDataListener<T> {
 
         void onSuccess(List<T> data);
 
         void onError(int errorCode, String message);
 
-        void onSuccess(T data);
-
     }
 
-    public interface OnAddCommentListener<T> {
+    public interface OnListener<T> {
 
         void onError(int errorCode, String message);
 
