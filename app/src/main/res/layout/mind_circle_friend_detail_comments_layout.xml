@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/len_10"
         android:layout_toRightOf="@+id/img_avatar"
         tools:text="陈芷涵"
-        android:textColor="@color/text_color_2"
+        android:textColor="@color/circle_text_color_second"
         android:textSize="@dimen/font_16"/>
 
 

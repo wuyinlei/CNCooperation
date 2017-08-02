@@ -3,24 +3,9 @@ package com.cainiao.factory.presenter.dynamic;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
-import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
-import com.cainiao.factory.model.circle.DetailComment;
-import com.cainiao.factory.model.circle.FriendCircle;
-import com.cainiao.factory.model.circle.FriendCircleComment;
 import com.cainiao.factory.utils.BmobUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.UpdateListener;
 
 /**
  * Created by wuyinlei on 2017/7/29.
@@ -83,13 +68,24 @@ public class DynamicDetailPresenter extends BasePresenter<DynamicDetailContract.
     }
 
     @Override
-    public void collectLikes(String postId) {
+    public void collectLikes(String postId, int loveSize) {
+        BmobUtils.addLikes(postId, new BmobUtils.OnAddCommentListener<String>() {
+            @Override
+            public void onError(int errorCode, String message) {
+                getView().onLikesFailure(errorCode,message);
+            }
 
+            @Override
+            public void onSuccess(String data) {
+                getView().onLikesSuccess(R.string.dynamic_like_success);
+            }
+        });
     }
 
-    @Override
-    public void updateLikes(String objectId, String likesCount) {
 
+    @Override
+    public void updateLikes(String objectId, int likesCount) {
+        BmobUtils.updateLikeSize(objectId,likesCount);
     }
 
     @Override

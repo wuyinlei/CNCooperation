@@ -92,7 +92,7 @@ public interface DynamicDetailContract {
         void requestDetailData(String postId);
 
 
-        void collectLikes(String postId);
+        void collectLikes(String postId, int loveSize);
 
         /**
          * 点赞成功之后的更新喜欢的个数
@@ -100,7 +100,7 @@ public interface DynamicDetailContract {
          * @param objectId   当前的动态objectId
          * @param likesCount 喜欢的个数
          */
-        void updateLikes(String objectId, String likesCount);
+        void updateLikes(String objectId, int likesCount);
 
 
         boolean checkContent(String content);

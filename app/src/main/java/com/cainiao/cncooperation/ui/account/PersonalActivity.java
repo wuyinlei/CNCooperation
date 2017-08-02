@@ -26,7 +26,6 @@ public class PersonalActivity extends BaseActivity {
 
     /**
      * 进入到当前的user的个人页面
-     * @param context 上下文
      */
 //    public static void show(Context context) {
 //        Intent intent = new Intent(context, FriendCircleDetailActivity.class);

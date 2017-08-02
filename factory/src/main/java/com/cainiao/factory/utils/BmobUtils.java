@@ -333,10 +333,9 @@ public class BmobUtils {
     /**
      * 添加点赞
      *
-     * @param context  上下文
      * @param objectId 当前动态的id
      */
-    public static void addLikes(final Context context, String objectId) {
+    public static void addLikes(String objectId, final OnAddCommentListener<String> listener) {
         MyUser user = BmobUser.getCurrentUser(MyUser.class);
         FriendCircle postss = new FriendCircle();
         postss.setObjectId(objectId);
@@ -350,11 +349,9 @@ public class BmobUtils {
             @Override
             public void done(BmobException e) {
                 if (e == null) {
-                    Toast.makeText(context, "点赞成功", Toast.LENGTH_SHORT).show();
-
-//                    Log.i("bmob","多对多关联添加成功");
+                    listener.onSuccess(null);
                 } else {
-                    Log.i("bmob", "失败：" + e.getMessage());
+                    listener.onError(e.getErrorCode(),e.getMessage());
                 }
             }
 
@@ -469,6 +466,23 @@ public class BmobUtils {
                 }
             }
         });
+
+    }
+
+    public static void updateLikeSize(String objectId, int likesCount) {
+
+        FriendCircle friendCircle = new FriendCircle();
+        friendCircle.setLove(likesCount);
+        friendCircle.update(objectId, new UpdateListener() {
+
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    Log.d("BmobUtils", "成功");
+                }
+            }
+        });
+
 
     }
 
