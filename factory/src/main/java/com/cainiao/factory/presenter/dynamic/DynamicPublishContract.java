@@ -34,7 +34,7 @@ public interface DynamicPublishContract {
          * @param postId
          * @param str  提示信息
          */
-        void publishDynamicSuccess(String postId, @StringRes int str);
+        void publishDynamicSuccess(String postId, String str);
 
 
     }

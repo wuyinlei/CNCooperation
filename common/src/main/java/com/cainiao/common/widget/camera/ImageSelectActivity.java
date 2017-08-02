@@ -122,6 +122,11 @@ public class ImageSelectActivity extends BaseActivity implements
     }
 
     @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
+    @Override
     protected void initListener() {
         super.initListener();
         mIvClose.setOnClickListener(this);

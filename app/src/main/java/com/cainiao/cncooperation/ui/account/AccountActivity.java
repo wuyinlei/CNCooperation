@@ -66,6 +66,11 @@ public class AccountActivity extends BaseActivity implements AccountTrigger {
                 });
     }
 
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

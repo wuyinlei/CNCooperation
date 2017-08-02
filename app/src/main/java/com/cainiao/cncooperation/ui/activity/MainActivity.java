@@ -25,8 +25,12 @@ import com.cainiao.cncooperation.ui.main.VideoFragment;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
+import com.cainiao.factory.Account;
 
 import butterknife.BindView;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends BaseActivity {
 
@@ -58,6 +62,10 @@ public class MainActivity extends BaseActivity {
 
     private long EXIT_FLAG = 0;
 
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
 
     @Override
     protected void initView() {

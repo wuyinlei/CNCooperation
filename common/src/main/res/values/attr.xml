@@ -28,4 +28,10 @@
         <attr name="collapseDrawable" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="StateView">
+        <attr name="emptyResource" format="reference" />
+        <attr name="retryResource" format="reference" />
+        <attr name="loadingResource" format="reference" />
+    </declare-styleable>
+
 </resources>

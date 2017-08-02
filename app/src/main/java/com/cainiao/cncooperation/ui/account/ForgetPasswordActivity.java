@@ -49,6 +49,11 @@ public class ForgetPasswordActivity extends BaseActivity{
         ButterKnife.bind(this);
     }
 
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
     @OnClick(R.id.btn_update_password)
     public void onViewClicked(View view) {
         switch (view.getId()) {

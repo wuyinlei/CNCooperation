@@ -30,6 +30,7 @@ import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.common.widget.nineimage.ImageInfo;
 import com.cainiao.common.widget.nineimage.NineGridClickViewAdapter;
 import com.cainiao.common.widget.nineimage.NineGridView;
+import com.cainiao.common.widget.state.StateView;
 import com.cainiao.factory.Account;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
@@ -122,8 +123,6 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
 
-
-
     private DynamicDetailPresenter mDetailPresenter;
     private FriendCricleDetailCommentAdapter mCommentAdapter;
 
@@ -147,6 +146,8 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     protected void initView() {
         super.initView();
 
+        mStateView.showLoading();
+
         mDetailPresenter = new DynamicDetailPresenter(this);
         mCommentAdapter = new FriendCricleDetailCommentAdapter(this);
         mRecyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
@@ -155,6 +156,11 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
         mBadgeCommentView = new QBadgeView(this).bindTarget(mIvComment).setBadgeGravity(Gravity.END | Gravity.TOP);
         mBadgeFavorite = new QBadgeView(this).bindTarget(mIvFavorite).setBadgeGravity(Gravity.END | Gravity.TOP);
 
+    }
+
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
     }
 
     @Override
@@ -198,7 +204,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     public void onLikesSuccess(@StringRes int str) {
         mBadgeFavorite.setBadgeNumber(++mLoveSize);
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
-        mDetailPresenter.updateLikes(objectId,mLoveSize);
+        mDetailPresenter.updateLikes(objectId, mLoveSize);
     }
 
     @Override
@@ -250,6 +256,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     @Override
     public void requestDataSuccess(FriendCircle friendCircle) {
+        mStateView.showContent();
         updateUi(friendCircle);
     }
 
@@ -270,6 +277,11 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     public void loadMoreCommentDataSuccess(List<DetailComment> viewBeen) {
         mDetailComments.addAll(viewBeen);
         mCommentAdapter.addData(viewBeen);
+    }
+
+    @Override
+    public void requestDataFailure(int errorCode, String message) {
+//        mStateView.showEmpty();
     }
 
 
@@ -374,7 +386,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     private void collectDynamic() {
 
-        mDetailPresenter.collectLikes(objectId,mLoveSize);
+        mDetailPresenter.collectLikes(objectId, mLoveSize);
 
 
     }

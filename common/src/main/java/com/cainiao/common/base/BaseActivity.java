@@ -1,11 +1,14 @@
 package com.cainiao.common.base;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.cainiao.common.R;
+import com.cainiao.common.widget.state.StateView;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -19,6 +22,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private Unbinder mUnbinder;
+    protected StateView mStateView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -32,6 +36,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             //设置界面layoutId
             setContentView(getContentLayoutId());
 
+            mStateView = StateView.inject(injectTarget());
+
             initView();
             initListener();
 
@@ -41,6 +47,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
     }
+
+    protected abstract BaseActivity injectTarget();
 
     /**
      * 用于子类设置各种监听

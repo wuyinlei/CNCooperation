@@ -1,5 +1,6 @@
 package com.cainiao.factory.presenter.dynamic;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
@@ -8,6 +9,8 @@ import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.utils.BmobUtils;
+
+import org.apache.http.client.params.ClientPNames;
 
 import java.util.ArrayList;
 
@@ -24,15 +27,33 @@ import cn.bmob.v3.listener.SaveListener;
 public class DynamicPublishPresenter extends BasePresenter<DynamicPublishContract.View>
         implements DynamicPublishContract.Presenter {
 
+    private Context mContext;
 
     public DynamicPublishPresenter(DynamicPublishContract.View view) {
         super(view);
+        this.mContext = (Context) view;
     }
 
     @Override
     public void dynamicPublish(String content, ArrayList<String> images) {
 
-        BmobUtils.dynamicPublish(content,images,getView());
+        if (checkContent(content)){
+            getView().showError(R.string.mind_circle_content_not_null);
+            return;
+        }
+
+        BmobUtils.dynamicPublish(mContext,content, images, new BmobUtils.OnListener<String>() {
+            @Override
+            public void onError(int errorCode, String message) {
+
+            }
+
+            @Override
+            public void onSuccess(String data) {
+                String[] split = data.split("=");
+                getView().publishDynamicSuccess(split[0], split[1]);
+            }
+        });
 
 //        MyUser user = BmobUser.getCurrentUser(MyUser.class);
 //        final FriendCircle friendCircle = new FriendCircle();

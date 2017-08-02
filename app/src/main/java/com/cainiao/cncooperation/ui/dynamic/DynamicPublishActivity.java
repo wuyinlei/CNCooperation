@@ -9,6 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -21,7 +22,7 @@ import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.luban.Luban;
 import com.cainiao.common.widget.camera.ImageSelectActivity;
-import com.cainiao.factory.UploadHelper;
+import com.cainiao.factory.utils.UploadHelper;
 import com.cainiao.factory.model.UploadImage;
 import com.cainiao.factory.presenter.dynamic.DynamicPublishContract;
 import com.cainiao.factory.presenter.dynamic.DynamicPublishPresenter;
@@ -148,6 +149,10 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
 
     }
 
+    @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -301,9 +306,10 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
+
     @Override
-    public void publishDynamicSuccess(String postId, @StringRes int str) {
-        Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
+    public void publishDynamicSuccess(String postId,  String str) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
         //这样的话可以模拟本地发表
         intent.putStringArrayListExtra(Common.Constance.DYNAMIC_IMAGE, mImageResults);

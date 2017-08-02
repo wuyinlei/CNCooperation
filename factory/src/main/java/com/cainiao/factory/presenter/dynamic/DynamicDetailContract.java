@@ -60,6 +60,7 @@ public interface DynamicDetailContract {
 
         void loadMoreCommentDataSuccess(List<DetailComment> viewBeen);
 
+        void requestDataFailure(int errorCode, String message);
     }
 
 

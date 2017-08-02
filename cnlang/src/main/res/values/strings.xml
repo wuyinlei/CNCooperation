@@ -136,6 +136,7 @@
 
     <!--用户资料相关资源-->
     <string name="personal_bind_phone_number">绑定手机号</string>
+    <string name="personal_bind_phone_number_success">绑定手机号</string>
     <string name="personal_phone_number">手机号</string>
     <string name="personal_lazy_desc">这家伙很懒，什么都没留下</string>
     <string name="personal_update_desc">点击更改签名</string>
@@ -159,6 +160,16 @@
     <string name="setting_about_author">关于</string>
     <string name="setting_login_out">退出帐号</string>
     <string name="setting_contack_us">联系我们</string>
+    <string name="update_userinfo_success">信息保存成功</string>
+    <string name="cancel_unlike_success">取消喜欢成功</string>
+    <string name="add_comment_success">评论成功</string>
+    <string name="circle_add_like_success">收藏成功</string>
+    <string name="tv_userinfo_save">保存</string>
+    <string name="userinfo_update">编辑资料</string>
+    <string name="setting">设置</string>
+    <string name="empty_data">没有数据</string>
+    <string name="text_empty">抱歉！！！ 暂时没有数据</string>
+    <string name="text_retry">点击重新加载数据</string>
 
 
 </resources>

@@ -58,7 +58,12 @@
             android:name=".ui.dynamic.FriendCircleDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
-        <activity android:name=".ui.account.PersonalActivity">
+        <activity android:name=".ui.account.PersonalActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
+
+        <activity android:name=".ui.setting.SettingActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
         <!-- ShareSDK的activity -->
@@ -108,8 +113,7 @@
             android:name="Mob-AppSecret"
             android:value="caff30558433c093786ec6940f22d9df"/>
 
-        <activity android:name=".ui.setting.SettingActivity">
-        </activity>
+
     </application>
 
 </manifest>
