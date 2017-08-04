@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.cainiao.cncooperation.R;
 
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 /**

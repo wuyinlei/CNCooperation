@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.cainiao.common.widget.elasticity.ElasticityScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/main_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="20.0dip"
+                android:paddingTop="20.0dip"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/circlemind_pub_no_image"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.0dip"
+                android:layout_weight="1.0"
+                android:background="@color/main_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/about_terms_web_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@drawable/list_item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="官网"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_web"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/font_14"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:src="@drawable/grey_right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+
+                <LinearLayout
+                    android:id="@+id/about_terms_weibo_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@drawable/list_item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="微博"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_weibo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_detail_gray"
+                        android:textSize="@dimen/font_14"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:src="@drawable/grey_right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="微信"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_weixin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25.0dip"
+                        android:textColor="@color/text_detail_gray"
+                        android:textSize="@dimen/font_14"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+
+                <LinearLayout
+                    android:id="@+id/qq_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@drawable/list_item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="QQ"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_qq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_detail_gray"
+                        android:textSize="@dimen/font_14"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:src="@drawable/grey_right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+
+                <LinearLayout
+                    android:id="@+id/about_terms_hezuo_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@drawable/list_item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="合作"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_hezuo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_detail_gray"
+                        android:textSize="@dimen/font_14"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:src="@drawable/grey_right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+
+                <LinearLayout
+                    android:id="@+id/about_terms_qiuzhi_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="60.0dip"
+                    android:background="@drawable/list_item_selector"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20.0dip"
+                        android:text="求职"
+                        android:textColor="@color/black2"
+                        android:textSize="@dimen/font_14"/>
+
+                    <View
+                        android:layout_width="0.0dip"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:orientation="horizontal"/>
+
+                    <TextView
+                        android:id="@+id/about_terms_qiuzhi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/text_detail_gray"
+                        android:textSize="@dimen/font_14"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10.0dip"
+                        android:src="@drawable/grey_right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dip"
+                    android:layout_marginLeft="10.0dip"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/line"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30.0dip"
+                android:gravity="center"
+                android:text="@string/copyright"
+                android:textColor="@color/gray_bfbfbf"
+                android:textSize="@dimen/font_12"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10.0dip"
+                android:gravity="center"
+                android:text="@string/company"
+                android:textColor="@color/gray_bfbfbf"
+                android:textSize="@dimen/font_12"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="30.0dip"/>
+        </LinearLayout>
+    </com.cainiao.common.widget.elasticity.ElasticityScrollView>
+</LinearLayout>

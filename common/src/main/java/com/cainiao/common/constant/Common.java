@@ -50,6 +50,17 @@ public class Common {
         public int DYNAMIC_REQUEST_CODE = 0X100;
         public int DYNAMIC_RESULT_CODE = 0X101;
 
+        public int USER_INFO_REQUEST_CODE = 0X102;
+        public int USER_INFO_RESULT_CODE = 0X103;
+
+        public String USER_UPDATE_INFO_TYPE = "USER_UPDATE_INFO_TYPE";
+        public int USER_NICK_NAME_TYPE = 1;
+        public int USER_ADDRESS_TYPE = 2;
+        public int USER_DESC_TYPE = 3;
+        public int USER_PHONE_TYPE = 4;
+        public String USER_UPDATE_INFO_EXTRA = "USER_UPDATE_INFO_EXTRA";
+
+
         //分享的点击的链接
         public String GITHUB_URL = "https://github.com/wuyinlei";
     }

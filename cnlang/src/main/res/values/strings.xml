@@ -170,6 +170,14 @@
     <string name="empty_data">没有数据</string>
     <string name="text_empty">抱歉！！！ 暂时没有数据</string>
     <string name="text_retry">点击重新加载数据</string>
+    <string name="select_from_album">从相册中选取</string>
+    <string name="cancel">取消</string>
+    <string name="take_pictures">拍照</string>
+
+    <string name="company">北京家里蹲小学幼儿园</string>
+    <string name="copyright">Copyright(C)2015</string>
+
+
 
 
 </resources>
