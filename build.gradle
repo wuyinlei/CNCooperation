@@ -3,11 +3,12 @@
 buildscript {
     repositories {
         jcenter()
+//        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.6.0'
-        classpath 'com.android.tools.build:gradle:1.2.3'
+//        classpath 'com.android.tools.build:gradle:1.2.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -18,7 +19,7 @@ allprojects {
     repositories {
         jcenter()
         mavenCentral()
-
+        maven { url "https://www.jitpack.io" }
         //Bmob的maven仓库地址--必填
         maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
@@ -50,5 +51,6 @@ ext {
     rxjavaVersion = "2.1.1"
     rxandroidVersion = "2.0.1"
     ucropVersion = "2.2.0-native"
+    dbflowVersion = "4.0.3"
 
 }

@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_48"
+        android:layout_alignParentTop="true"
+        android:background="@color/common_top_bar_blue" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="菜鸟通讯"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/iv_add"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/main_activity_add" />
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="56dp"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_add"
+            android:clickable="true"
+            android:src="@drawable/main_activity_search" />
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_below="@+id/title"
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent"
+        android:layout_above="@+id/view"
+        android:layout_weight="2"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/alphaIndicator"
+        android:layout_marginBottom="5dp"
+        android:background="#888"/>
+
+
+    <com.cainiao.common.widget.alpha.AlphaIndicator
+        android:id="@+id/alphaIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <com.cainiao.common.widget.alpha.AlphaView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:av_tabIconNormal="@mipmap/home_normal"
+            app:av_tabIconSelected="@mipmap/home_selected"
+            app:av_tabText="微信"
+            app:av_tabTextSize="14sp"
+            app:av_textColorNormal="#999999"
+            app:av_textColorSelected="#46c01b"/>
+
+        <com.cainiao.common.widget.alpha.AlphaView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:av_tabIconNormal="@mipmap/category_normal"
+            app:av_tabIconSelected="@mipmap/category_selected"
+            app:av_tabText="通讯录"
+            app:av_tabTextSize="14sp"
+            app:av_textColorNormal="#999999"
+            app:av_textColorSelected="#46c01b"/>
+
+        <com.cainiao.common.widget.alpha.AlphaView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:av_tabIconNormal="@mipmap/service_normal"
+            app:av_tabIconSelected="@mipmap/service_selected"
+            app:av_tabText="发现"
+            app:av_tabTextSize="14sp"
+            app:av_textColorNormal="#999999"
+            app:av_textColorSelected="#46c01b"/>
+
+        <com.cainiao.common.widget.alpha.AlphaView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="5dp"
+            app:av_tabIconNormal="@mipmap/mine_normal"
+            app:av_tabIconSelected="@mipmap/mine_selected"
+            app:av_tabText="我"
+            app:av_tabTextSize="14sp"
+            app:av_textColorNormal="#999999"
+            app:av_textColorSelected="#46c01b"/>
+    </com.cainiao.common.widget.alpha.AlphaIndicator>
+
+
+
+</RelativeLayout>
