@@ -38,7 +38,12 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     //glide图片加载器
-    compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
+//    compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
+
+    //极光开源的聊天输入组件
+    compile 'cn.jiguang.imui:chatinput:0.4.3'
+    //极光开源的消息列表组件
+    compile 'cn.jiguang.imui:messagelist:0.4.3'
     //图片裁剪库
     //    compile "com.yalantis:ucrop:$rootProject.ext.ucropVersion"
     //圆形图片

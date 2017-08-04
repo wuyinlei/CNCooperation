@@ -22,15 +22,13 @@ import com.cainiao.cncooperation.ui.main.HomeFragment;
 import com.cainiao.cncooperation.ui.main.MineFragment;
 import com.cainiao.cncooperation.ui.main.NewsFragment;
 import com.cainiao.cncooperation.ui.main.VideoFragment;
+import com.cainiao.cncooperation.ui.im.IMActivity;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
-import com.cainiao.factory.Account;
 
 import butterknife.BindView;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
@@ -206,6 +204,11 @@ public class MainActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
+
+    @OnClick(R.id.iv_message)
+    public void message(){
+        IMActivity.show(this);
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

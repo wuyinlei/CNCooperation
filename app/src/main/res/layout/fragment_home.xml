@@ -6,9 +6,34 @@
 
     <Button
         android:id="@+id/btnRequest"
-        android:text="请求数据"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="请求数据"/>
+
+
+    <Button
+        android:id="@+id/collectRongCloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/len_50"
+        android:text="连接融云服务器"/>
+
+    <Button
+        android:id="@+id/sendTextMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/len_100"
+        android:text="发送文本消息"/>
+
+    <Button
+        android:id="@+id/conversationData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="@dimen/len_156"
+        android:text="获取本地会话"/>
 
 </FrameLayout>
