@@ -334,6 +334,12 @@
     <color name="text_color_blue">#ff65ccce</color>
     <color name="circle_bottom_color">#888888</color>
 
+    <color name="main_content">#fff5f5f5</color>
+    <color name="gray_bfbfbf">#ffbfbfbf</color>
+    <color name="text_detail_gray">#ff777777</color>
+    <color name="reserve_green">#ff65ccce</color>
+
+
 
 
 </resources>

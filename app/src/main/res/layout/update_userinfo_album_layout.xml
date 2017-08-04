@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/bg_transparent">
+
+    <LinearLayout
+        android:id="@+id/ll_popup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffffff"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0dip"
+            android:background="#ffff495a"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/item_popupwindows_camera"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/bt_nobgd"
+                android:text="@string/take_pictures"
+                android:textColor="#ff585858"
+                android:textSize="18.0sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginLeft="80.0dip"
+            android:background="#fff2f2f2"/>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/item_popupwindows_Photo"
+                android:layout_width="fill_parent"
+                android:layout_height="55.0dip"
+                android:background="@drawable/bt_nobgd"
+                android:text="@string/select_from_album"
+                android:textColor="#ff585858"
+                android:textSize="18.0sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="2.0dip"
+            android:background="#fff3f3f3"/>
+
+        <Button
+            android:id="@+id/item_popupwindows_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="55.0dip"
+            android:background="@drawable/bt_nobgd"
+            android:text="@string/cancel"
+            android:textColor="#ff585858"
+            android:textSize="18.0sp"/>
+    </LinearLayout>
+</RelativeLayout>

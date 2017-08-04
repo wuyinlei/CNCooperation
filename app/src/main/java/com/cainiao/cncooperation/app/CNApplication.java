@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.cainiao.common.base.BaseApplication;
 import com.cainiao.common.widget.nineimage.NineGridView;
+import com.cainiao.factory.FactoryApplication;
 
 import cn.bmob.v3.Bmob;
+import io.rong.imlib.RongIMClient;
 
 /**
  * Created by wuyinlei on 2017/7/22.
@@ -24,6 +26,8 @@ public class CNApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
+//        RongIM.init(this);
+        RongIMClient.init(this, "sfci50a7s1b2i");
 
         //第一：默认初始化
         Bmob.initialize(this, "d6bc5f51d6b9294f22c8d4a1a863f910");

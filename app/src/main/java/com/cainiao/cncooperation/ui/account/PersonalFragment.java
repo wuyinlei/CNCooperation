@@ -1,7 +1,6 @@
 package com.cainiao.cncooperation.ui.account;
 
 
-import android.net.Uri;
 import android.support.annotation.StringRes;
 import android.util.Log;
 import android.widget.TextView;
@@ -9,6 +8,7 @@ import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
+import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.Account;
@@ -92,7 +92,7 @@ public class PersonalFragment extends BaseFragment implements PersonalContract.V
 
     @OnClick(R.id.profile_nickname_layout)
     public void clickUpdateAlias(){
-
+        EditorInfoActivity.show(getActivity(), Common.Constance.USER_NICK_NAME_TYPE,getActivity().getResources().getString(R.string.alias_username));
     }
 
     //点击更改地址

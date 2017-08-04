@@ -38,5 +38,7 @@ dependencies {
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'q.rorbin:badgeview:1.1.2'
-    compile 'com.android.support:support-v4:25.3.1'
+//    compile 'com.android.support:support-v4:25.3.1'
+
+//    compile project(':IMkit')
 }
