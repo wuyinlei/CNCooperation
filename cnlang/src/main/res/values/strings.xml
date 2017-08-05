@@ -176,8 +176,9 @@
 
     <string name="company">北京家里蹲小学幼儿园</string>
     <string name="copyright">Copyright(C)2015</string>
-
-
+    <string name="btn_preview">预览</string>
+    <string name="btn_send">发送</string>
+    <string name="gallery_selected_size">已选择%s</string>
 
 
 </resources>

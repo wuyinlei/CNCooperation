@@ -8,7 +8,9 @@ import com.cainiao.common.widget.logger.CNLogger;
 
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
+import io.rong.message.ContactNotificationMessage;
 import io.rong.message.FileMessage;
+import io.rong.message.GroupNotificationMessage;
 import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 import io.rong.message.VoiceMessage;
@@ -19,7 +21,7 @@ import io.rong.message.VoiceMessage;
  * @function AppContext
  */
 
-public class AppContext{
+public class AppContext {
     private static final String TAG = "AppContext";
     private int mMessageId;
 
@@ -29,7 +31,7 @@ public class AppContext{
     private AppContext() {
     }
 
-   public static AppContext getInstance() {
+    public static AppContext getInstance() {
         return appContext;
     }
 
@@ -55,17 +57,45 @@ public class AppContext{
     private RongIMClient.OnReceiveMessageListener onReceiveMessageListener = new RongIMClient.OnReceiveMessageListener() {
         @Override
         public boolean onReceived(Message message, int i) {
-            if (message.getContent() instanceof TextMessage) {
+            if (message.getContent() instanceof ContactNotificationMessage) {
+                ContactNotificationMessage contactNotificationMessage = (ContactNotificationMessage) message.getContent();
+
+                if (contactNotificationMessage.getOperation().equals(ContactNotificationMessage.CONTACT_OPERATION_REQUEST)) {
+                    //对方发送来的好友请求信息
+                } else {
+                    //对方同意我的好友请求信息
+
+                }
+            } else if (message.getContent() instanceof GroupNotificationMessage) {
+                //群组消息信息
+                GroupNotificationMessage groupNotificationMessage = (GroupNotificationMessage) message.getContent();
+                String groupId = message.getTargetId();
+//                GroupNotificationMessageData data = null;
+
+                //群组创建的消息
+                if (groupNotificationMessage.getOperation().equals(GroupNotificationMessage.GROUP_OPERATION_CREATE)) {
+
+                }else if (groupNotificationMessage.getOperation().equals(GroupNotificationMessage.GROUP_OPERATION_DISMISS)) {
+                    //解散
+
+                }else if (groupNotificationMessage.getOperation().equals(GroupNotificationMessage.GROUP_OPERATION_KICKED)) {
+                    //剔除群
+
+                }
+
+            }
+
+            else if (message.getContent() instanceof TextMessage) {
                 CNLogger.d(TAG, "收到文本消息: " + ((TextMessage) message.getContent()).getContent());
                 CNLogger.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
                 setMessageRead(message); //设置收到的消息为已读消息
             } else if (message.getContent() instanceof ImageMessage) {
                 CNLogger.d(TAG, "收到图片消息, Uri --> " + ((ImageMessage) message.getContent()).getThumUri() + '\n');
             } else if (message.getContent() instanceof VoiceMessage) {
-                CNLogger.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage)message.getContent()).getUri());
-                CNLogger.d(TAG, "语音消息时长: " + ((VoiceMessage)message.getContent()).getDuration() + '\n');
+                CNLogger.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage) message.getContent()).getUri());
+                CNLogger.d(TAG, "语音消息时长: " + ((VoiceMessage) message.getContent()).getDuration() + '\n');
             } else if (message.getContent() instanceof FileMessage) {
-                CNLogger.d(TAG, "服务端 Uri --> " + ((FileMessage)message.getContent()).getFileUrl() + '\n');
+                CNLogger.d(TAG, "服务端 Uri --> " + ((FileMessage) message.getContent()).getFileUrl() + '\n');
             } else if (message.getContent() instanceof CustomizeMessage) {
                 CNLogger.d(TAG, "成功发送自定义消息，它的时间戳: " + ((CustomizeMessage) message.getContent()).getSendTime());
                 CNLogger.d(TAG, "自定义消息的内容: " + ((CustomizeMessage) message.getContent()).getContent() + '\n');
@@ -84,7 +114,8 @@ public class AppContext{
             status.setRead();
             message.setReceivedStatus(status);
             RongIMClient.getInstance().setMessageReceivedStatus(message.getMessageId(), status, null);
-            Toast.makeText(mContext, "该条消息已设置为已读", Toast.LENGTH_LONG).show();
+//            Toast.makeText(mContext, "该条消息已设置为已读", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "该条消息已设置为已读");
         }
     }
 }

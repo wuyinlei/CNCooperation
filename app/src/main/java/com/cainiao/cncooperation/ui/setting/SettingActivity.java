@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.ui.account.AccountActivity;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.factory.model.MyUser;
+
+import butterknife.OnClick;
 
 public class SettingActivity extends BaseActivity {
 
@@ -30,5 +34,11 @@ public class SettingActivity extends BaseActivity {
         Intent intent = new Intent(context, SettingActivity.class);
         context.startActivity(intent);
 
+    }
+
+    @OnClick(R.id.loginout)
+    public void loginout(){
+        MyUser.logOut();
+        AccountActivity.show(this);
     }
 }

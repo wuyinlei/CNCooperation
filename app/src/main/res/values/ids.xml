@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="fragment_container" type="id">注册和登录的容器AC</item>
+
+    <!--<item name="title_tv" type="id"/>-->
+    <!--<item name="msg_list" type="id"/>-->
+    <!--<item name="chat_input" type="id"/>-->
 </resources>

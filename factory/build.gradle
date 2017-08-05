@@ -53,6 +53,8 @@ dependencies {
     //    compile files('src/main/jniLibs/BmobSDK_3.5.0_20160627.jar')
     compile files('libs/Rong_IMLib.jar')
 
+//    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
+
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.dbflowVersion}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.dbflowVersion}"
 }
