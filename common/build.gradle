@@ -54,4 +54,6 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     compile 'com.kyleduo.switchbutton:library:1.4.6'
+
+    compile "net.qiujuer.widget:airpanel:$rootProject.ext.airpanelVersion"
 }

@@ -194,8 +194,11 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".ui.im.IMActivity"
+        <activity
+            android:name=".ui.im.IMActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <activity android:name=".ui.im.ChatActivity">
         </activity>
     </application>
 

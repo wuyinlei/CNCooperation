@@ -184,6 +184,18 @@ public class GalleryView extends RecyclerView {
     }
 
     /**
+     * 清楚选择的数据
+     */
+    public void clear() {
+        for (Image image : mSelectImages) {
+            image.isSelect = false;
+        }
+        mSelectImages.clear();
+        mImageAdapter.notifyDataSetChanged();
+    }
+
+
+    /**
      * 用于实际数据加载的Loader
      */
     private class LoaderCallback implements LoaderManager.LoaderCallbacks<Cursor> {

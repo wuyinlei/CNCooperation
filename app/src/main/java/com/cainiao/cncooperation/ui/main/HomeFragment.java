@@ -7,37 +7,24 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.ui.im.ChatActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.widget.logger.CNLogger;
-import com.cainiao.factory.Account;
-import com.cainiao.factory.model.MyUser;
-import com.cainiao.factory.model.circle.FriendCircle;
-import com.cainiao.factory.model.circle.FriendCircleComment;
 import com.cainiao.factory.rongyun.FakeServer;
 import com.cainiao.factory.rongyun.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobDate;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.TextMessage;
-
-import static io.rong.imlib.statistics.Statistics.TAG;
 
 /**
  * @function 首页界面
@@ -83,6 +70,7 @@ public class HomeFragment extends BaseFragment {
              */
             @Override
             public void onSuccess(String userid) {
+                Toast.makeText(getContext(), "连接融云成功---onSuccess---用户ID:" + userid + '\n', Toast.LENGTH_SHORT).show();
                 Log.d("HomeFragment", "连接融云成功---onSuccess---用户ID:" + userid + '\n');
             }
 
@@ -132,51 +120,11 @@ public class HomeFragment extends BaseFragment {
      */
     @OnClick(R.id.conversationData)
     public void getConversation() {
-//        RongIMClient.getInstance().getConversation(Conversation.ConversationType.PRIVATE, "80cf8a6a7e",
-//                new RongIMClient.ResultCallback<Conversation>() {
-//                    @Override
-//                    public void onSuccess(Conversation conversation) {
-//                        if (conversation != null) {
-//                            Log.d(TAG, "获取的会话信息:");
-//                            Log.d(TAG, "会话类型: " + conversation.getConversationType());
-//                            Log.d(TAG, "发送者ID: " + conversation.getSenderUserId());
-//                            Log.d(TAG, "接收者ID: " + conversation.getTargetId());
-//                            Log.d(TAG, "最新一条消息的ID: " + conversation.getLatestMessageId());
-//                            Log.d(TAG, "最新一条消息内容:");
-////                            handleMessage(conversation.getLatestMessage());
-//                            Log.d(TAG, "消息提醒状态: " + ((conversation.getNotificationStatus().getValue() == 1) ? "接收消息" : "消息免打扰"));
-//                            Log.d(TAG, "未读消息数: " + conversation.getUnreadMessageCount() + '\n');
-//                        } else
-//                            Log.d(TAG, "会话不存在" + '\n');
-//                    }
-//
-//                    @Override
-//                    public void onError(RongIMClient.ErrorCode errorCode) {
-//                        Log.d(TAG, "获取会话信息失败，错误码: " + errorCode.getValue() + '\n');
-//                    }
-//                });
 
-        /**
-         * 读取远程服务器的消息
-         */
-            RongIMClient.getInstance().getRemoteHistoryMessages(Conversation.ConversationType.PRIVATE, "80cf8a6a7e", 0, 10, new RongIMClient.ResultCallback<List<Message>>() {
-                @Override
-                public void onSuccess(List<Message> messages) {
-                    if (messages != null) {
-                        Log.d(TAG, "远端服务器存储的历史消息个数为 " + messages.size());
+        ChatActivity.show(getActivity());
 
-                        for (Message message: messages) {
-//                            handleMessage(message.getContent());
-                        }
-                    } else
-                        Log.d(TAG, "远端服务器存储的历史消息个数为 0" + '\n');
-                }
 
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                    Log.d(TAG, "读取远端服务器存储的历史消息失败，错误码: " + errorCode.getValue() + '\n');
-                }
-            });
+
     }
 
     @OnClick(R.id.btnRequest)
