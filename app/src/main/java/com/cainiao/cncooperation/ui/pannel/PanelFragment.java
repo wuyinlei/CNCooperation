@@ -18,7 +18,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @function 表情面板的无缝切换
  */
 public class PanelFragment extends BaseFragment  {
 
@@ -30,9 +30,6 @@ public class PanelFragment extends BaseFragment  {
     public PanelFragment() {
         // Required empty public constructor
     }
-
-
-
 
 
     @Override

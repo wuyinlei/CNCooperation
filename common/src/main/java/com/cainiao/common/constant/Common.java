@@ -63,6 +63,14 @@ public class Common {
 
         //分享的点击的链接
         public String GITHUB_URL = "https://github.com/wuyinlei";
+
+        //接收者id
+        public String RECEIVER_ID = "RECEIVER_ID";
+
+
+        public String CHAT_TYPE = "CHAT_TYPE";
+        public final static int GROUP_TYPE = 0X105;  //群聊
+        public final static int SINGLE_TYPE = 0X106;  //单聊
     }
 
     public static class Path {

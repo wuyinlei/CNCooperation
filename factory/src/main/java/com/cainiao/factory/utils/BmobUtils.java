@@ -11,6 +11,7 @@ import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
+import com.cainiao.factory.model.im.UserInfo;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
 import com.cainiao.factory.presenter.dynamic.DynamicPublishContract;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
@@ -574,6 +575,26 @@ public class BmobUtils {
                     listener.onSuccess(context.getResources().getString(R.string.update_userinfo_success));
                 } else {
                     listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+    /**
+     * 通过用户的ObjectId来查询用户
+     *
+     * @param userId 用户的ObjectId
+     */
+    public static void queryUserInfo(final String userId, final OnListener<UserInfo> listener) {
+        BmobQuery<MyUser> query = new BmobQuery<>();
+        query.addWhereEqualTo("objectId", "lucky");
+        query.findObjects(new FindListener<MyUser>() {
+            @Override
+            public void done(List<MyUser> object, BmobException e) {
+                if (e == null) {
+                    listener.onSuccess(new UserInfo(userId,object.get(0).getUsername(),object.get(0).getAvatar()));
+                } else {
+                    listener.onError(e.getErrorCode(),e.getMessage());
                 }
             }
         });

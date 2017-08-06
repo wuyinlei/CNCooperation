@@ -5,5 +5,6 @@
     <item name="expand_collapse" type="id"/>
     <item name="expand_status" type="id"/>
     <item name="ll_expand" type="id"/>
+    <item name="view_tag" type="id">recycler_view_tag</item>
 
 </resources>

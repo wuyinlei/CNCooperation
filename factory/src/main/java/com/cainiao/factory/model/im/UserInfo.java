@@ -11,7 +11,7 @@ import cn.bmob.v3.BmobObject;
  * @function 数据库保存的好友信息
  */
 
-public class UserModel extends BmobObject {
+public class UserInfo extends BmobObject {
 
 
     private String userid;
@@ -20,7 +20,7 @@ public class UserModel extends BmobObject {
     private String joinAt;
     private String alias;
 
-    public UserModel(String userid, String name, String portrail, String joinAt, String alias) {
+    public UserInfo(String userid, String name, String portrail, String joinAt, String alias) {
         this.userid = userid;
         this.name = name;
         this.portrail = portrail;
@@ -28,11 +28,18 @@ public class UserModel extends BmobObject {
         this.alias = alias;
     }
 
-    public UserModel(String userid, String name, String portrail, String alias) {
+    public UserInfo(String userid, String name, String portrail, String alias) {
         this.userid = userid;
         this.name = name;
         this.portrail = portrail;
         this.alias = alias;
+        this.joinAt = TimeUtils.currentTimeFormat();
+    }
+
+    public UserInfo(String userid, String name, String portrail) {
+        this.userid = userid;
+        this.name = name;
+        this.portrail = portrail;
         this.joinAt = TimeUtils.currentTimeFormat();
     }
 
