@@ -56,4 +56,9 @@ public class Factory {
         });
     }
 
+
+    public static void dispathPushMessage(){
+
+    }
+
 }

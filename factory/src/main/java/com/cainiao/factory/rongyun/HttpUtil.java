@@ -1,5 +1,7 @@
 package com.cainiao.factory.rongyun;
 
+import com.cainiao.common.widget.logger.CNLogger;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -8,6 +10,8 @@ import java.util.Random;
 
 /**
  * Created by wuyinlei on 2017/8/4.
+ *
+ * @function HttpUtil
  */
 
 public class HttpUtil {
@@ -28,8 +32,10 @@ public class HttpUtil {
         final String timeStamp = Long.toString(System.currentTimeMillis());
         final String signature = SHA1Tool.SHA1(appSecret + nonce + timeStamp);
 
+        CNLogger.d("HomeFragment",signature);
         new Thread() {
             private HttpURLConnection httpURLConnection;
+
             @Override
             public void run() {
                 try {
@@ -54,7 +60,7 @@ public class HttpUtil {
 
                     InputStream inputStream;
                     int code = httpURLConnection.getResponseCode();
-                    if(code == 200)
+                    if (code == 200)
                         inputStream = httpURLConnection.getInputStream();
                     else
                         inputStream = httpURLConnection.getErrorStream();

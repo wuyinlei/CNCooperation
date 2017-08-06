@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.im.ChatActivity;
 import com.cainiao.common.base.BaseFragment;
+import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.logger.CNLogger;
 import com.cainiao.factory.rongyun.FakeServer;
 import com.cainiao.factory.rongyun.HttpUtil;
@@ -121,7 +122,9 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.conversationData)
     public void getConversation() {
 
-        ChatActivity.show(getActivity());
+        ChatActivity.show(getActivity(),"f168dd00b6", Common.Constance.SINGLE_TYPE);
+
+
 
 
 

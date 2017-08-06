@@ -198,7 +198,8 @@
             android:name=".ui.im.IMActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
-        <activity android:name=".ui.im.ChatActivity">
+        <activity android:name=".ui.im.ChatActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
     </application>
 
