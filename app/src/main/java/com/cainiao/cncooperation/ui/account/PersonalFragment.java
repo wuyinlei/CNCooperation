@@ -11,7 +11,7 @@ import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.PersonalContract;
 

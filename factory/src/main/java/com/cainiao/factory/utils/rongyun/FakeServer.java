@@ -1,4 +1,4 @@
-package com.cainiao.factory.rongyun;
+package com.cainiao.factory.utils.rongyun;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

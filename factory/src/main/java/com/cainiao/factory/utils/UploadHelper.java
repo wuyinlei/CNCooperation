@@ -16,7 +16,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.HashUtil;
-import com.cainiao.factory.Factory;
+import com.cainiao.factory.app.Factory;
 
 import java.io.File;
 import java.util.Date;

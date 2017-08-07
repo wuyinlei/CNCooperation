@@ -12,7 +12,7 @@ import com.cainiao.cncooperation.ui.setting.SettingActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 
 import butterknife.BindView;
 import butterknife.OnClick;

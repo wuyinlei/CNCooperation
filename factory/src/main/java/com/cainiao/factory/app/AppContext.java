@@ -1,14 +1,12 @@
-package com.cainiao.factory;
+package com.cainiao.factory.app;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.cainiao.common.widget.logger.CNLogger;
+import com.cainiao.factory.model.im.CustomizeMessage;
 import com.cainiao.factory.db.DataSource;
 import com.cainiao.factory.helper.MessageHelper;
-
-import java.util.List;
 
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
@@ -132,7 +130,7 @@ public class AppContext {
                 mCallback.onDataLoaded(message);
             }
 
-//            MessageHelper.disposeMessage(message);
+            MessageHelper.disposeMessage(message);
 
         }
     }

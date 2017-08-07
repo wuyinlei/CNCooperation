@@ -11,7 +11,6 @@ import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.account.AccountActivity;
 import com.cainiao.cncooperation.ui.account.PersonalActivity;
 import com.cainiao.cncooperation.ui.dynamic.FriendCircleDetailActivity;
-import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.adapter.BaseViewHolder;
 import com.cainiao.common.widget.adapter.SimpleAdapter;
 import com.cainiao.common.widget.circleimage.CircleImageView;
@@ -19,7 +18,7 @@ import com.cainiao.common.widget.expandtextview.ExpandTextView;
 import com.cainiao.common.widget.nineimage.ImageInfo;
 import com.cainiao.common.widget.nineimage.NineGridClickViewAdapter;
 import com.cainiao.common.widget.nineimage.NineGridView;
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.circle.CircleViewBean;
 
 import java.util.ArrayList;

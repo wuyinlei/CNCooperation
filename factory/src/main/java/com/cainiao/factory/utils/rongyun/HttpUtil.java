@@ -1,4 +1,4 @@
-package com.cainiao.factory.rongyun;
+package com.cainiao.factory.utils.rongyun;
 
 import com.cainiao.common.widget.logger.CNLogger;
 

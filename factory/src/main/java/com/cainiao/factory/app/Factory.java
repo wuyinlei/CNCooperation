@@ -1,11 +1,13 @@
-package com.cainiao.factory;
+package com.cainiao.factory.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import com.cainiao.common.base.BaseApplication;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -23,13 +25,8 @@ public class Factory {
 
     private static final Factory instance;
 
-
     static {
         instance = new Factory();
-    }
-
-    public Factory() {
-        defaultExecutor = Executors.newFixedThreadPool(4);//新建一个线程池
     }
 
 
@@ -55,6 +52,22 @@ public class Factory {
             }
         });
     }
+
+    public Factory() {
+        defaultExecutor = Executors.newFixedThreadPool(4);//新建一个线程池
+    }
+
+    /**
+     * Factory中的初始化
+     */
+    public static void setUp() {
+
+        FlowManager.init(new FlowConfig.Builder(app())
+                .openDatabasesOnInit(true)  //数据库初始化的时候打开数据库
+                .build());
+
+    }
+
 
 
     public static void dispathPushMessage(){
