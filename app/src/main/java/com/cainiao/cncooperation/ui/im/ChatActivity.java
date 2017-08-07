@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.TextWatcherAdapter;
 import com.cainiao.cncooperation.ui.pannel.PanelFragment;
@@ -26,11 +25,10 @@ import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
 import com.cainiao.factory.Account;
-import com.cainiao.factory.helper.UserHelper;
-import com.cainiao.factory.model.im.UserInfo;
+import com.cainiao.factory.AppContext;
+import com.cainiao.factory.db.DataSource;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
-import com.cainiao.factory.utils.BmobUtils;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
@@ -47,9 +45,8 @@ import io.rong.imlib.model.Message;
 import io.rong.message.TextMessage;
 
 
-
 public class ChatActivity extends BaseActivity implements
-        PanelFragment.PanelCallback ,ChatMessageContract.ChatView{
+        PanelFragment.PanelCallback, ChatMessageContract.ChatView, DataSource.SuccessCallback<Message> {
 
 
     private PanelFragment mPanelContent;
@@ -89,7 +86,11 @@ public class ChatActivity extends BaseActivity implements
     protected void initView() {
         super.initView();
 
-        mPresenter = new ChatMessagePresenter(this,receiverId, Conversation.ConversationType.PRIVATE);
+        AppContext.getInstance().init(this);
+
+        AppContext.getInstance().setCallback(this);
+
+        mPresenter = new ChatMessagePresenter(this, receiverId, Conversation.ConversationType.PRIVATE);
 
         mPanelBoss = (AirPanel.Boss) findViewById(R.id.lay_container);
         mPanelBoss.setPanelListener(new AirPanel.Listener() {
@@ -133,8 +134,6 @@ public class ChatActivity extends BaseActivity implements
         mAdapter = new Adapter();
 
         mRecyclerView.setAdapter(mAdapter);
-
-
 
 
     }
@@ -246,6 +245,18 @@ public class ChatActivity extends BaseActivity implements
 
     @Override
     public void scrollRecyclerToPosition(int position) {
+        mRecyclerView.smoothScrollToPosition(position);
+    }
+
+    @Override
+    public void onDataLoaded(final Message data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.add(data);
+                mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+            }
+        });
 
     }
 
@@ -273,7 +284,8 @@ public class ChatActivity extends BaseActivity implements
         protected int getItemType(int position, Message message) {
 
 
-            boolean isRight = Objects.equals(message.getTargetId(),
+            //判断是否应该显示的是右侧布局还是左侧布局
+            boolean isRight = Objects.equals(message.getSenderUserId(),
                     Account.getUser().getObjectId());
 
             if (message.getContent() instanceof TextMessage) {
@@ -308,7 +320,8 @@ public class ChatActivity extends BaseActivity implements
         @Override
         public void bindData(Message data) {
 
-            ImageLoader.load(data.getExtra(),mPortraitView);
+            ImageLoader.load(Account.getAvatar(), mPortraitView);
+            mLoading.setVisibility(View.GONE);
 
 
 //            UserHelper.searchUser(data.getSenderUserId(), new BmobUtils.OnListener<UserInfo>() {
@@ -339,7 +352,7 @@ public class ChatActivity extends BaseActivity implements
         public void bindData(Message data) {
             super.bindData(data);
 
-            mContent.setText(((TextMessage)data.getContent()).getContent());
+            mContent.setText(((TextMessage) data.getContent()).getContent());
         }
     }
 

@@ -5,6 +5,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.cainiao.common.widget.logger.CNLogger;
+import com.cainiao.factory.db.DataSource;
+import com.cainiao.factory.helper.MessageHelper;
+
+import java.util.List;
 
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
@@ -105,6 +109,14 @@ public class AppContext {
         }
     };
 
+
+    //和presenter交互的回调
+    private DataSource.SuccessCallback<Message> mCallback;
+
+    public void setCallback(DataSource.SuccessCallback<Message> callback) {
+        mCallback = callback;
+    }
+
     /**
      * 设置消息为已读消息
      */
@@ -114,8 +126,14 @@ public class AppContext {
             status.setRead();
             message.setReceivedStatus(status);
             RongIMClient.getInstance().setMessageReceivedStatus(message.getMessageId(), status, null);
-//            Toast.makeText(mContext, "该条消息已设置为已读", Toast.LENGTH_LONG).show();
             Log.d(TAG, "该条消息已设置为已读");
+
+            if (mCallback != null){
+                mCallback.onDataLoaded(message);
+            }
+
+//            MessageHelper.disposeMessage(message);
+
         }
     }
 }

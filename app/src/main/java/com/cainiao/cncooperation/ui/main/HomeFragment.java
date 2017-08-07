@@ -11,6 +11,7 @@ import com.cainiao.cncooperation.ui.im.ChatActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.logger.CNLogger;
+import com.cainiao.factory.Account;
 import com.cainiao.factory.rongyun.FakeServer;
 import com.cainiao.factory.rongyun.HttpUtil;
 
@@ -127,14 +128,13 @@ public class HomeFragment extends BaseFragment {
 
 
 
-
     }
 
     @OnClick(R.id.btnRequest)
     public void btnRequest() {
 
         //80cf8a6a7e     f168dd00b6
-        FakeServer.getToken("80cf8a6a7e", "若兰or明月", "http://loveruolan.oss-cn-shanghai.aliyuncs.com/portrait/201707/6e8ad1e62302f9c446b78c00d51b9cff.jpg", new HttpUtil.OnResponse() {
+        FakeServer.getToken(Account.getUser().getObjectId(), Account.getUserName(), "http://loveruolan.oss-cn-shanghai.aliyuncs.com/portrait/201707/6e8ad1e62302f9c446b78c00d51b9cff.jpg", new HttpUtil.OnResponse() {
             @Override
             public void onResponse(int code, String body) {
                 if (code == 200) {

@@ -1,12 +1,17 @@
 package com.cainiao.factory.presenter.message;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
 import com.cainiao.common.widget.logger.CNLogger;
 import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
+
+import java.util.List;
 
 import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
@@ -49,13 +54,23 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
 
         TextMessage message = TextMessage.obtain(content);
 
-        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, mReceiverId,
-                message, null, null, new IRongCallback.ISendMessageCallback() {
+        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE,
+                mReceiverId,
+                message,
+                null,
+                null,
+                new RongIMClient.SendMessageCallback() {
+
                     @Override
-                    public void onAttached(Message message) {
-                        CNLogger.d(TAG, "发送的文本消息已保存至本地数据库中");
+                    public void onSuccess(Integer integer) {
+//                        updateMessageStatus(integer);
                     }
 
+                    @Override
+                    public void onError(Integer integer, RongIMClient.ErrorCode errorCode) {
+
+                    }
+                }, new RongIMClient.ResultCallback<Message>() {
                     @Override
                     public void onSuccess(Message message) {
                         if (message.getContent() instanceof TextMessage) {
@@ -64,18 +79,46 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
 
                             getView().getRecyclerViewAadpter().add(message);
 
+                            getView().scrollRecyclerToPosition(getView().getRecyclerViewAadpter().getItemCount() - 1);
+
                             CNLogger.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
                             CNLogger.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
                         }
                     }
 
                     @Override
-                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                    public void onError(RongIMClient.ErrorCode errorCode) {
                         CNLogger.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
                     }
                 });
 
     }
+
+    private void updateMessageStatus(int messageId) {
+        RongIMClient.getInstance().getMessage(messageId, new RongIMClient.ResultCallback<Message>() {
+            @Override
+            public void onSuccess(Message message) {
+
+                List<Message> items = getView().getRecyclerViewAadpter().getItems();
+
+                for (int i = 0; i < items.size(); i++) {
+                    Message msg = items.get(i);
+                    if (msg.getMessageId() == message.getMessageId()) {
+                        items.remove(i);
+                        items.add(i, message);
+                        getView().getRecyclerViewAadpter().replace(items);
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+
+            }
+        });
+    }
+
 
     @Override
     public void pushAudio(String path, long time) {
@@ -94,4 +137,6 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
 
         return false;
     }
+
+
 }
