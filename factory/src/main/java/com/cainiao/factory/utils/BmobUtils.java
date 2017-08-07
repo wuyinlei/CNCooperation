@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.R;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
@@ -13,7 +13,6 @@ import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
 import com.cainiao.factory.model.im.UserInfo;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
-import com.cainiao.factory.presenter.dynamic.DynamicPublishContract;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
 
 import java.util.ArrayList;

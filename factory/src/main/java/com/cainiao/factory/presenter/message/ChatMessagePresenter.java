@@ -1,22 +1,20 @@
 package com.cainiao.factory.presenter.message;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
 import com.cainiao.common.widget.logger.CNLogger;
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.R;
 
 import java.util.List;
 
-import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.UserInfo;
 import io.rong.message.TextMessage;
 
 /**
@@ -53,6 +51,12 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
         }
 
         TextMessage message = TextMessage.obtain(content);
+        UserInfo userInfo = new UserInfo(Account.getUser().getObjectId(),
+                Account.getUserName(),
+                Uri.parse(Account.getAvatar()));
+
+        //设置用户信息
+        message.setUserInfo(userInfo);
 
         RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE,
                 mReceiverId,

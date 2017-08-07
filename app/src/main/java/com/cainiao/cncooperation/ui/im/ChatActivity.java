@@ -16,19 +16,21 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.TextWatcherAdapter;
 import com.cainiao.cncooperation.ui.pannel.PanelFragment;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
-import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
-import com.cainiao.factory.Account;
-import com.cainiao.factory.AppContext;
-import com.cainiao.factory.db.DataSource;
+import com.cainiao.factory.app.Account;
+import com.cainiao.factory.event.MessageEvent;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
+import com.cainiao.common.rxbus.RxBus;
+import com.cainiao.common.rxbus.RxBusSubscriber;
+import com.cainiao.common.rxbus.helper.RxSubscriptions;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
@@ -43,10 +45,12 @@ import butterknife.OnClick;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.message.TextMessage;
+import rx.Subscription;
+import rx.functions.Func1;
 
 
 public class ChatActivity extends BaseActivity implements
-        PanelFragment.PanelCallback, ChatMessageContract.ChatView, DataSource.SuccessCallback<Message> {
+        PanelFragment.PanelCallback, ChatMessageContract.ChatView {
 
 
     private PanelFragment mPanelContent;
@@ -86,9 +90,6 @@ public class ChatActivity extends BaseActivity implements
     protected void initView() {
         super.initView();
 
-        AppContext.getInstance().init(this);
-
-        AppContext.getInstance().setCallback(this);
 
         mPresenter = new ChatMessagePresenter(this, receiverId, Conversation.ConversationType.PRIVATE);
 
@@ -135,6 +136,14 @@ public class ChatActivity extends BaseActivity implements
 
         mRecyclerView.setAdapter(mAdapter);
 
+
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
+
+        subscribeEvent();
 
     }
 
@@ -248,17 +257,17 @@ public class ChatActivity extends BaseActivity implements
         mRecyclerView.smoothScrollToPosition(position);
     }
 
-    @Override
-    public void onDataLoaded(final Message data) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.add(data);
-                mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
-            }
-        });
-
-    }
+//    @Override
+//    public void onDataLoaded(final Message data) {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                mAdapter.add(data);
+//                mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+//            }
+//        });
+//
+//    }
 
 
     class Adapter extends RecyclerAdapter<Message> {
@@ -320,8 +329,13 @@ public class ChatActivity extends BaseActivity implements
         @Override
         public void bindData(Message data) {
 
-            ImageLoader.load(Account.getAvatar(), mPortraitView);
-            mLoading.setVisibility(View.GONE);
+            Glide.with(ChatActivity.this)
+                    .load(data.getContent().getUserInfo().getPortraitUri())
+                    .asBitmap()
+                    .into(mPortraitView);
+
+//            ImageLoader.load(data.getContent().getUserInfo().getPortraitUri(),mPortraitView);
+//            mLoading.setVisibility(View.GONE);
 
 
 //            UserHelper.searchUser(data.getSenderUserId(), new BmobUtils.OnListener<UserInfo>() {
@@ -354,6 +368,42 @@ public class ChatActivity extends BaseActivity implements
 
             mContent.setText(((TextMessage) data.getContent()).getContent());
         }
+    }
+
+
+    private Subscription mRxSub;
+
+    /**
+     * 接受到事件并做相关处理
+     */
+    private void subscribeEvent() {
+        RxSubscriptions.remove(mRxSub);
+        mRxSub = RxBus.getDefault().toObservable(MessageEvent.class)
+                .map(new Func1<MessageEvent, MessageEvent>() {
+                    @Override
+                    public MessageEvent call(MessageEvent userEvent) {
+                        return userEvent;
+                    }
+                })
+                .subscribe(new RxBusSubscriber<MessageEvent>() {
+                    @Override
+                    public void onEvent(final MessageEvent userEvent) {
+                        if (userEvent != null) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mAdapter.add(userEvent.mMessage);
+                                    mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                    }
+                });
     }
 
 

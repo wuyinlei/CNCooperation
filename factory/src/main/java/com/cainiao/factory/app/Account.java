@@ -1,4 +1,4 @@
-package com.cainiao.factory;
+package com.cainiao.factory.app;
 
 
 import com.cainiao.factory.model.MyUser;

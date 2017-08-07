@@ -4,19 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
-import com.cainiao.factory.Account;
 import com.cainiao.factory.R;
-import com.cainiao.factory.model.MyUser;
-import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.utils.BmobUtils;
 
-import org.apache.http.client.params.ClientPNames;
-
 import java.util.ArrayList;
-
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by wuyinlei on 2017/7/28.

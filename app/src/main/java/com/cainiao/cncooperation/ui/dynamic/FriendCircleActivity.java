@@ -2,7 +2,6 @@ package com.cainiao.cncooperation.ui.dynamic;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.SystemClock;
 import android.support.annotation.StringRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +17,7 @@ import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.TimeUtils;
 import com.cainiao.common.widget.imageloader.ImageLoader;
-import com.cainiao.factory.Account;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
@@ -27,9 +26,7 @@ import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;

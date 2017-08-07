@@ -1,4 +1,4 @@
-package com.cainiao.factory;
+package com.cainiao.factory.model.im;
 
 import android.os.Parcel;
 

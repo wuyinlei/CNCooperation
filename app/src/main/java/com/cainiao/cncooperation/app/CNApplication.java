@@ -8,8 +8,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.cainiao.common.base.BaseApplication;
 import com.cainiao.common.widget.nineimage.NineGridView;
-import com.cainiao.factory.AppContext;
-import com.cainiao.factory.CustomizeMessage;
+import com.cainiao.factory.app.AppContext;
+import com.cainiao.factory.model.im.CustomizeMessage;
+import com.cainiao.factory.app.Factory;
 
 import cn.bmob.v3.Bmob;
 import io.rong.imlib.AnnotationNotFoundException;
@@ -31,6 +32,8 @@ public class CNApplication extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        Factory.setUp();
 
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。

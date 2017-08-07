@@ -3,7 +3,7 @@
 //import android.content.Context;
 //import android.content.DialogInterface;
 //import android.os.Handler;
-//import android.os.Message;
+//import android.os.DbMessage;
 //import android.support.annotation.StringRes;
 //
 //import com.cainiao.common.widget.CustomProgress;
@@ -48,7 +48,7 @@
 //    }
 //
 //    @Override
-//    public void handleMessage(Message msg) {
+//    public void handleMessage(DbMessage msg) {
 //        switch (msg.what) {
 //            case SHOW_PROGRESS_DIALOG:
 //                showProgressDialog();

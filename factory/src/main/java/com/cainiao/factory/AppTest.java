@@ -5,8 +5,9 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.cainiao.factory.rongyun.FakeServer;
-import com.cainiao.factory.rongyun.HttpUtil;
+import com.cainiao.factory.model.im.CustomizeMessage;
+import com.cainiao.factory.utils.rongyun.FakeServer;
+import com.cainiao.factory.utils.rongyun.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;

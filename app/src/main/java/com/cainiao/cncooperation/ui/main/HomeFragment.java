@@ -11,9 +11,9 @@ import com.cainiao.cncooperation.ui.im.ChatActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.logger.CNLogger;
-import com.cainiao.factory.Account;
-import com.cainiao.factory.rongyun.FakeServer;
-import com.cainiao.factory.rongyun.HttpUtil;
+import com.cainiao.factory.app.Account;
+import com.cainiao.factory.utils.rongyun.FakeServer;
+import com.cainiao.factory.utils.rongyun.HttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,11 +22,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.rong.imlib.IRongCallback;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.message.TextMessage;
 
 /**
  * @function 首页界面
@@ -91,29 +88,42 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.sendTextMessage)
     public void sendTxtMessage(){
 
-        TextMessage message = TextMessage.obtain("Hello Daibai");
-        message.setExtra("若兰dddd");
+//        TextMessage message = TextMessage.obtain("Hello Daibai");
+//        message.setExtra("若兰dddd");
+//
+//        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "f168dd00b6",
+//                message, null, null, new IRongCallback.ISendMessageCallback() {
+//                    @Override
+//                    public void onAttached(Message message) {
+//                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Message message) {
+//                        if (message.getContent() instanceof TextMessage) {
+//                            Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
+//                            Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+//                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
+//                    }
+//                });
 
-        RongIMClient.getInstance().sendMessage(Conversation.ConversationType.PRIVATE, "f168dd00b6",
-                message, null, null, new IRongCallback.ISendMessageCallback() {
-                    @Override
-                    public void onAttached(Message message) {
-                        Log.d(TAG, "发送的文本消息已保存至本地数据库中");
+            RongIMClient.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
+                @Override
+                public void onSuccess(List<Conversation> conversations) {
+                    if (conversations != null && conversations.size() > 0) {
+                        Log.d(TAG, "conversations.size():" + conversations.size());
                     }
+                }
 
-                    @Override
-                    public void onSuccess(Message message) {
-                        if (message.getContent() instanceof TextMessage) {
-                            Log.d(TAG, "成功发送文本消息: " + ((TextMessage) message.getContent()).getContent());
-                            Log.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
-                        }
-                    }
-
-                    @Override
-                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                        Log.d(TAG, "发送消息失败，错误码: " + errorCode.getValue() + '\n');
-                    }
-                });
+                @Override
+                public void onError(RongIMClient.ErrorCode errorCode) {
+                }
+            });
     }
 
 
