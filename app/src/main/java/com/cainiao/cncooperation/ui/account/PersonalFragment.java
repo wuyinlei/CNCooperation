@@ -8,12 +8,14 @@ import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseFragment;
+import com.cainiao.common.base.PresenterFragment;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.PersonalContract;
+import com.cainiao.factory.presenter.account.RegisterContract;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -22,7 +24,8 @@ import butterknife.OnClick;
  * @author wuyinlei
  * @function 这个是用户自己的详情界面
  */
-public class PersonalFragment extends BaseFragment implements PersonalContract.View{
+public class PersonalFragment extends PresenterFragment<PersonalContract.Presenter>
+        implements PersonalContract.View{
 
 
     @BindView(R.id.profile_avatar)
@@ -134,6 +137,18 @@ public class PersonalFragment extends BaseFragment implements PersonalContract.V
     public void showError(@StringRes int str) {
 
     }
+
+    @Override
+    protected PersonalContract.Presenter initPresenter() {
+        return null;
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+
 
     @Override
     public void onSaveFailure(int errorCode, String errMsg) {

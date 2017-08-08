@@ -21,15 +21,16 @@ import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.TextWatcherAdapter;
 import com.cainiao.cncooperation.ui.pannel.PanelFragment;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.base.PresenterActivity;
 import com.cainiao.common.constant.Common;
+import com.cainiao.common.rxbus.RxBus;
+import com.cainiao.common.rxbus.RxBusSubscriber;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.event.MessageEvent;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
-import com.cainiao.common.rxbus.RxBus;
-import com.cainiao.common.rxbus.RxBusSubscriber;
 import com.cainiao.common.rxbus.helper.RxSubscriptions;
 
 import net.qiujuer.widget.airpanel.AirPanel;
@@ -49,7 +50,7 @@ import rx.Subscription;
 import rx.functions.Func1;
 
 
-public class ChatActivity extends BaseActivity implements
+public class ChatActivity extends PresenterActivity<ChatMessageContract.Presenter> implements
         PanelFragment.PanelCallback, ChatMessageContract.ChatView {
 
 
@@ -84,14 +85,11 @@ public class ChatActivity extends BaseActivity implements
         return R.layout.chat_view_layout;
     }
 
-    private ChatMessagePresenter mPresenter;
-
     @Override
     protected void initView() {
         super.initView();
 
 
-        mPresenter = new ChatMessagePresenter(this, receiverId, Conversation.ConversationType.PRIVATE);
 
         mPanelBoss = (AirPanel.Boss) findViewById(R.id.lay_container);
         mPanelBoss.setPanelListener(new AirPanel.Listener() {
@@ -180,7 +178,9 @@ public class ChatActivity extends BaseActivity implements
     public void onBackPressed() {
         if (mPanelBoss.isOpen()) {
             mPanelBoss.closePanel();
+            return;
         }
+        super.onBackPressed();
     }
 
     @OnClick(R.id.btn_record)
@@ -229,6 +229,12 @@ public class ChatActivity extends BaseActivity implements
     @Override
     public void showError(@StringRes int str) {
 
+    }
+
+
+    @Override
+    protected ChatMessageContract.Presenter initPresenter() {
+        return new ChatMessagePresenter(this,receiverId, Conversation.ConversationType.PRIVATE);
     }
 
     @Override
@@ -379,12 +385,6 @@ public class ChatActivity extends BaseActivity implements
     private void subscribeEvent() {
         RxSubscriptions.remove(mRxSub);
         mRxSub = RxBus.getDefault().toObservable(MessageEvent.class)
-                .map(new Func1<MessageEvent, MessageEvent>() {
-                    @Override
-                    public MessageEvent call(MessageEvent userEvent) {
-                        return userEvent;
-                    }
-                })
                 .subscribe(new RxBusSubscriber<MessageEvent>() {
                     @Override
                     public void onEvent(final MessageEvent userEvent) {
@@ -397,11 +397,6 @@ public class ChatActivity extends BaseActivity implements
                                 }
                             });
                         }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
                     }
                 });
     }

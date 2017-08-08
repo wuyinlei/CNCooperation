@@ -71,6 +71,9 @@ public class Common {
         public String CHAT_TYPE = "CHAT_TYPE";
         public final static int GROUP_TYPE = 0X105;  //群聊
         public final static int SINGLE_TYPE = 0X106;  //单聊
+
+        public final static String RONGYUNG_IM_TOKEN = "RONGYUNG_IM_TOKEN";  //TOKEN
+
     }
 
     public static class Path {

@@ -18,7 +18,7 @@ import java.util.List;
 
 public interface FriendCircleContract {
 
-    public interface View extends BaseContract.View<RegisterContract.Presenter> {
+    public interface View extends BaseContract.View<Presenter> {
 
         //显示字符串错误
         void showError(@StringRes int str);

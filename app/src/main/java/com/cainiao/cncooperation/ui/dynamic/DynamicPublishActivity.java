@@ -9,7 +9,6 @@ import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -19,13 +18,14 @@ import android.widget.Toast;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.PublishImageAdapter;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.base.PresenterActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.luban.Luban;
 import com.cainiao.common.widget.camera.ImageSelectActivity;
-import com.cainiao.factory.utils.UploadHelper;
 import com.cainiao.factory.model.UploadImage;
 import com.cainiao.factory.presenter.dynamic.DynamicPublishContract;
 import com.cainiao.factory.presenter.dynamic.DynamicPublishPresenter;
+import com.cainiao.factory.utils.UploadHelper;
 import com.kyleduo.switchbutton.SwitchButton;
 
 import java.io.File;
@@ -48,7 +48,7 @@ import rx.schedulers.Schedulers;
  * @function 动态发布界面
  */
 
-public class DynamicPublishActivity extends BaseActivity implements DynamicPublishContract.View {
+public class DynamicPublishActivity extends PresenterActivity<DynamicPublishContract.Presenter> implements DynamicPublishContract.View {
 
     @BindView(R.id.action_mindcirrcle_message)
     RelativeLayout mActionBack;
@@ -77,7 +77,6 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     @BindView(R.id.circle_anon_switch)
     SwitchButton mCircleAnonSwitch;
 
-    private DynamicPublishPresenter mPublishPresenter;
 
     //选择的图片
     private ArrayList<String> mImageResults = new ArrayList<>();
@@ -126,7 +125,7 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
 
             String content = mCircleContentEdit.getText().toString().trim();
 
-            mPublishPresenter.dynamicPublish(content, mServerUrls);
+            mPresenter.dynamicPublish(content, mServerUrls);
 
             Log.d("DynamicPublishActivity", "mServerUrls.size():" + mServerUrls.size());
             Log.d("DynamicPublishActivity", "mImageResults.size():" + mImageResults.size());
@@ -145,7 +144,6 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
         mActionBarTitle.setText(getString(R.string.circle_content_publish));
         mActionImagePublish.setBackgroundResource(R.drawable.mind_circle_post_icon);
 
-        mPublishPresenter = new DynamicPublishPresenter(this);
 
     }
 
@@ -300,6 +298,19 @@ public class DynamicPublishActivity extends BaseActivity implements DynamicPubli
     public void showError(@StringRes int str) {
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected DynamicPublishContract.Presenter initPresenter() {
+        return new DynamicPublishPresenter(this);
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+
+
 
     @Override
     public void onFailure(int code, String msg) {

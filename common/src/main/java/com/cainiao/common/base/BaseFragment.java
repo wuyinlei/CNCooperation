@@ -1,11 +1,14 @@
 package com.cainiao.common.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.cainiao.common.presenter.BaseContract;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -20,6 +23,18 @@ public abstract class BaseFragment extends Fragment {
 
     private View mRoot;
     private Unbinder mUnbinder;
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        initArgus(getArguments());
+    }
+
+    private void initArgus(Bundle arguments) {
+
+    }
+
 
     @Nullable
     @Override
@@ -41,10 +56,11 @@ public abstract class BaseFragment extends Fragment {
         return mRoot = view;
     }
 
+
     /**
      * 初始化数据  也就是请求数据
      */
-    protected  void initData(){
+    protected void initData() {
 
     }
 
@@ -52,16 +68,17 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 设置Listener
      */
-    protected  void initListener(){
+    protected void initListener() {
 
     }
 
 
     /**
      * 初始化View
-     * @param view  根布局view
+     *
+     * @param view 根布局view
      */
-    protected  void initView(View view){
+    protected void initView(View view) {
         mUnbinder = ButterKnife.bind(this, view);
     }
 
@@ -74,8 +91,10 @@ public abstract class BaseFragment extends Fragment {
                 mUnbinder.unbind();
             mRoot = null;
         }
+
+
     }
 
 
-    public abstract int  setLayoutId();
+    public abstract int setLayoutId();
 }

@@ -2,15 +2,12 @@ package com.cainiao.cncooperation.ui.account;
 
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
-import com.cainiao.common.base.BaseFragment;
+import com.cainiao.common.base.PresenterFragment;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.RegisterContract;
 import com.cainiao.factory.presenter.account.RegisterPresenter;
@@ -26,7 +23,6 @@ import com.cainiao.factory.presenter.account.RegisterPresenter;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.bmob.v3.exception.BmobException;
@@ -40,7 +36,7 @@ import rx.functions.Func1;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends BaseFragment implements RegisterContract.View, View.OnClickListener {
+public class RegisterFragment extends PresenterFragment<RegisterContract.Presenter> implements RegisterContract.View, View.OnClickListener {
 
     @BindView(R.id.tv_inputLayout_name)
     TextInputLayout mTvInputName;
@@ -86,13 +82,10 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
         mAccountTrigger = (AccountTrigger) context;
     }
 
-    private RegisterPresenter mRegisterPresenter;
 
     @Override
     protected void initView(View view) {
         super.initView(view);
-
-        mRegisterPresenter = new RegisterPresenter(this);
         mTxtGoLogin.setOnClickListener(this);
     }
 
@@ -149,7 +142,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
 
     @OnClick(R.id.bt_send_code)
     void sendVerityCode() {
-        mRegisterPresenter.sendVerifyCode(mEtPhone.getText().toString().trim());
+        mPresenter.sendVerifyCode(mEtPhone.getText().toString().trim());
 
         final int count = 60;
         Observable.interval(0, 1, TimeUnit.SECONDS)
@@ -234,6 +227,16 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     }
 
     @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    protected RegisterContract.Presenter initPresenter() {
+        return new RegisterPresenter(this);
+    }
+
+    @Override
     public void onFailure(int code, String msg) {
         //注册失败
         mBtLogin.setClickable(true);
@@ -284,21 +287,6 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
         mBtLogin.setBackgroundResource(R.color.white);
         mBtLogin.setTextColor(R.color.colorPrimary);
         mBtLogin.setText(getActivity().getString(str));
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mRegisterPresenter = null;
-        unbinder.unbind();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
     }
 
     @Override

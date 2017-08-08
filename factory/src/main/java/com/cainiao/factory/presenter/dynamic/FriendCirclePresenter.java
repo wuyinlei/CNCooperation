@@ -32,6 +32,7 @@ import rx.schedulers.Schedulers;
 
 public class FriendCirclePresenter extends BasePresenter<FriendCircleContract.View>
         implements FriendCircleContract.Presenter {
+
     public FriendCirclePresenter(FriendCircleContract.View view) {
         super(view);
     }

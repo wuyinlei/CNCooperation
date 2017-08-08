@@ -1,13 +1,10 @@
 package com.cainiao.common.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.bumptech.glide.Glide;
-import com.cainiao.common.R;
 import com.cainiao.common.widget.state.StateView;
 
 import butterknife.ButterKnife;
@@ -31,22 +28,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         Glide.get(this).clearMemory();
 
 
-
         if (initArgs(getIntent().getExtras())) {
             //设置界面layoutId
             setContentView(getContentLayoutId());
 
             mStateView = StateView.inject(injectTarget());
 
+            initBefore();
+
             initView();
+
             initListener();
 
             initData();
+
         } else {
             finish();
         }
 
     }
+
+    protected  void initBefore(){}
 
     protected abstract BaseActivity injectTarget();
 
