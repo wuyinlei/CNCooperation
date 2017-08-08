@@ -4,19 +4,14 @@ package com.cainiao.cncooperation.ui.main;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.im.ChatActivity;
 import com.cainiao.common.base.BaseFragment;
 import com.cainiao.common.constant.Common;
+import com.cainiao.common.utils.SharedUtils;
 import com.cainiao.common.widget.logger.CNLogger;
-import com.cainiao.factory.app.Account;
 import com.cainiao.factory.utils.rongyun.FakeServer;
-import com.cainiao.factory.utils.rongyun.HttpUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -49,44 +44,18 @@ public class HomeFragment extends BaseFragment {
     protected void initView(View view) {
         super.initView(view);
 
+        token = SharedUtils.getString(getContext(), Common.Constance.RONGYUNG_IM_TOKEN, "");
+
     }
 
     @OnClick(R.id.collectRongCloud)
     public void collectRong() {
-        RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
 
-            /**
-             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
-             */
-            @Override
-            public void onTokenIncorrect() {
-                CNLogger.d("HomeFragment", "Token 错误---onTokenIncorrect---" + '\n');
-            }
-
-            /**
-             * 连接融云成功
-             * @param userid 当前 token
-             */
-            @Override
-            public void onSuccess(String userid) {
-                Toast.makeText(getContext(), "连接融云成功---onSuccess---用户ID:" + userid + '\n', Toast.LENGTH_SHORT).show();
-                Log.d("HomeFragment", "连接融云成功---onSuccess---用户ID:" + userid + '\n');
-            }
-
-            /**
-             * 连接融云失败
-             * @param errorCode 错误码，可到官网 查看错误码对应的注释
-             */
-            @Override
-            public void onError(RongIMClient.ErrorCode errorCode) {
-                Log.d("HomeFragment", "连接融云失败, 错误码: " + errorCode + '\n');
-            }
-        });
 
     }
 
     @OnClick(R.id.sendTextMessage)
-    public void sendTxtMessage(){
+    public void sendTxtMessage() {
 
 //        TextMessage message = TextMessage.obtain("Hello Daibai");
 //        message.setExtra("若兰dddd");
@@ -112,18 +81,18 @@ public class HomeFragment extends BaseFragment {
 //                    }
 //                });
 
-            RongIMClient.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
-                @Override
-                public void onSuccess(List<Conversation> conversations) {
-                    if (conversations != null && conversations.size() > 0) {
-                        Log.d(TAG, "conversations.size():" + conversations.size());
-                    }
+        RongIMClient.getInstance().getConversationList(new RongIMClient.ResultCallback<List<Conversation>>() {
+            @Override
+            public void onSuccess(List<Conversation> conversations) {
+                if (conversations != null && conversations.size() > 0) {
+                    Log.d(TAG, "conversations.size():" + conversations.size());
                 }
+            }
 
-                @Override
-                public void onError(RongIMClient.ErrorCode errorCode) {
-                }
-            });
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+            }
+        });
     }
 
 
@@ -133,34 +102,49 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.conversationData)
     public void getConversation() {
 
-        ChatActivity.show(getActivity(),"f168dd00b6", Common.Constance.SINGLE_TYPE);
+        RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+
+            /**
+             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+             */
+            @Override
+            public void onTokenIncorrect() {
+                CNLogger.d("HomeFragment", "Token 错误---onTokenIncorrect---" + '\n');
+                FakeServer.getRongYunToken(getActivity());
+
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token
+             */
+            @Override
+            public void onSuccess(String userid) {
+//                Toast.makeText(getContext(), "连接融云成功---onSuccess---用户ID:" + userid + '\n', Toast.LENGTH_SHORT).show();
+                Log.d("HomeFragment", "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+
+                //链接成功之后开启聊天
+                ChatActivity.show(getActivity(), "f168dd00b6", Common.Constance.SINGLE_TYPE);
+
+            }
+
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("HomeFragment", "连接融云失败, 错误码: " + errorCode + '\n');
 
 
+            }
+        });
 
 
     }
 
     @OnClick(R.id.btnRequest)
     public void btnRequest() {
-
-        //80cf8a6a7e     f168dd00b6
-        FakeServer.getToken(Account.getUser().getObjectId(), Account.getUserName(), "http://loveruolan.oss-cn-shanghai.aliyuncs.com/portrait/201707/6e8ad1e62302f9c446b78c00d51b9cff.jpg", new HttpUtil.OnResponse() {
-            @Override
-            public void onResponse(int code, String body) {
-                if (code == 200) {
-                    JSONObject jsonObj = null;
-                    try {
-                        jsonObj = new JSONObject(body);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    token = jsonObj.optString("token");
-                    Log.i("HomeFragment", "获取的 token 值为:\n" + token + '\n');
-                } else {
-                    Log.i("HomeFragment", "获取 token 失败" + '\n');
-                }
-            }
-        });
 
 
     }

@@ -12,7 +12,7 @@ import com.cainiao.factory.model.MyUser;
 
 public interface PersonalContract {
 
-    public interface View extends BaseContract.View<RegisterContract.Presenter> {
+    public interface View extends BaseContract.View<PersonalContract.Presenter> {
 
         void onSaveFailure(int errorCode,String errMsg);
 

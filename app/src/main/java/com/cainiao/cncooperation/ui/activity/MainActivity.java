@@ -3,10 +3,13 @@ package com.cainiao.cncooperation.ui.activity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -17,15 +20,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
+import com.cainiao.cncooperation.adapter.PublishImageAdapter;
 import com.cainiao.cncooperation.ui.main.CartFragment;
 import com.cainiao.cncooperation.ui.main.HomeFragment;
 import com.cainiao.cncooperation.ui.main.MineFragment;
 import com.cainiao.cncooperation.ui.main.NewsFragment;
 import com.cainiao.cncooperation.ui.main.VideoFragment;
 import com.cainiao.cncooperation.ui.im.IMActivity;
+import com.cainiao.cncooperation.utils.ShareUtils;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.constant.Common;
+import com.cainiao.common.utils.SharedUtils;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
+import com.cainiao.factory.app.Account;
+import com.cainiao.factory.utils.rongyun.FakeServer;
+import com.cainiao.factory.utils.rongyun.HttpUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -60,6 +73,8 @@ public class MainActivity extends BaseActivity {
 
     private long EXIT_FLAG = 0;
 
+    private String token;
+
     @Override
     protected BaseActivity injectTarget() {
         return this;
@@ -93,7 +108,39 @@ public class MainActivity extends BaseActivity {
 //            });
 //        }
 
+        //判断本地是否有这个token
+        token = SharedUtils.getString(this, Common.Constance.RONGYUNG_IM_TOKEN, "");
+        if (TextUtils.isEmpty(token)) {
+            FakeServer.getRongYunToken(this);
+        }
     }
+//
+//    /**
+//     * 获取到链接的tokan
+//     */
+//    private void getRongYunToken() {
+//        //80cf8a6a7e     f168dd00b6
+//        FakeServer.getToken(Account.getUser().getObjectId(), Account.getUserName(), "http://loveruolan.oss-cn-shanghai.aliyuncs.com/portrait/201707/6e8ad1e62302f9c446b78c00d51b9cff.jpg", new HttpUtil.OnResponse() {
+//            @Override
+//            public void onResponse(int code, String body) {
+//                if (code == 200) {
+//                    JSONObject jsonObj = null;
+//                    try {
+//                        jsonObj = new JSONObject(body);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    token = jsonObj.optString("token");
+//                    SharedUtils.putString(MainActivity.this, Common.Constance.RONGYUNG_IM_TOKEN, token);
+//
+//                    Log.i("HomeFragment", "获取的 token 值为:\n" + token + '\n');
+//                } else {
+//                    Log.i("HomeFragment", "获取 token 失败" + '\n');
+//                }
+//            }
+//        });
+//
+//    }
 
     private void viewPagerSetting(ViewPager viewPager) {
 
@@ -200,13 +247,13 @@ public class MainActivity extends BaseActivity {
 
 
     public static void show(Context context) {
-        Intent intent = new Intent(context,MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
 
 
     @OnClick(R.id.iv_message)
-    public void message(){
+    public void message() {
         IMActivity.show(this);
     }
 
@@ -224,6 +271,7 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-
     }
+
+
 }

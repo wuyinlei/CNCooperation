@@ -14,12 +14,14 @@ import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.FriendCircleAdapter;
 import com.cainiao.cncooperation.ui.message.MessageActivity;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.base.PresenterActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.TimeUtils;
 import com.cainiao.common.widget.imageloader.ImageLoader;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
+import com.cainiao.factory.presenter.account.RegisterContract;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
 import com.cainiao.factory.presenter.dynamic.FriendCirclePresenter;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
@@ -32,7 +34,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FriendCircleActivity extends BaseActivity implements FriendCircleContract.View {
+public class FriendCircleActivity extends PresenterActivity<FriendCircleContract.Presenter>
+        implements FriendCircleContract.View {
 
     @BindView(R.id.action_mindcirrcle_message)
     RelativeLayout mActionBack;
@@ -67,7 +70,6 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
     @BindView(R.id.recycler_view)
     RecyclerView mCircleRecycler;
 
-    private FriendCirclePresenter mCirclePresenter;
     private FriendCircleAdapter mAdapter;
     private int index;
     private boolean hasMore, isFirst;
@@ -96,7 +98,6 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         mActionImagePublish.setBackgroundResource(R.drawable.mind_circle_action_camera);
         mRefreshLayout.setTargetView(mCircleRecycler);
 
-        mCirclePresenter = new FriendCirclePresenter(this);
 
     }
 
@@ -116,7 +117,7 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         ImageLoader.load(user.getAvatar(), mCircleAvatar);
         mCircleNameTxt.setText(Account.getUser().getUsername());
 
-        mCirclePresenter.requestData(Common.Constance.LIMIT_COUNT);
+        mPresenter.requestData(Common.Constance.LIMIT_COUNT);
 
 
     }
@@ -149,14 +150,14 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
         mRefreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                mCirclePresenter.requestData(10);
+                mPresenter.requestData(10);
             }
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
                 if (hasMore) {
 
-                    mCirclePresenter.loadMoreData(10, 10 * ++index);
+                    mPresenter.loadMoreData(10, 10 * ++index);
                 } else {
                     //已经加载完所有数据
                     mRefreshLayout.finishLoadmore();
@@ -245,6 +246,12 @@ public class FriendCircleActivity extends BaseActivity implements FriendCircleCo
     public void showError(@StringRes int str) {
         mRefreshLayout.finishLoadmore();
     }
+
+    @Override
+    protected FriendCircleContract.Presenter initPresenter() {
+        return new FriendCirclePresenter(this);
+    }
+
 
     @Override
     public void onLikesFailure(int code, String msg) {

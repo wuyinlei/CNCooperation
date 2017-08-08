@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/fragment_container"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginBottom="@dimen/len_2"
+             android:layout_marginTop="@dimen/len_2"
+             android:clickable="true"
+             android:foreground="@drawable/ic_touch_back"
+             android:orientation="horizontal"
+             android:paddingBottom="@dimen/len_10"
+             android:paddingEnd="@dimen/len_16"
+             android:paddingStart="@dimen/len_16"
+             android:paddingTop="@dimen/len_10">
+
+    <ImageView
+        android:id="@+id/iv_portrait"
+        android:layout_width="@dimen/len_40"
+        android:layout_height="@dimen/len_40"
+        android:layout_gravity="start|center_vertical"
+        android:src="@mipmap/ic_home"/>
+
+    <com.cainiao.common.widget.nineimage.NineGridView
+        android:id="@+id/nineGrid"
+        android:visibility="gone"
+        android:layout_width="@dimen/len_40"
+        android:layout_height="@dimen/len_40"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginEnd="@dimen/len_40"
+        android:layout_marginStart="@dimen/len_52"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/textSecond"
+        android:textSize="@dimen/font_16"
+        tools:text="产品小分队"/>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginEnd="@dimen/len_40"
+        android:layout_marginStart="@dimen/len_52"
+        android:layout_marginTop="@dimen/len_24"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:maxLength="32"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/textSecond"
+        android:textSize="@dimen/font_12"
+        tools:text="我要开始发表了啊啊"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/len_10"
+        android:layout_marginStart="@dimen/len_52"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/textSecond"
+        android:textSize="@dimen/font_12"
+        tools:text="早上8：20"/>
+
+    <ImageView
+        android:id="@+id/iv_message"
+        android:layout_width="@dimen/len_16"
+        android:layout_height="@dimen/len_16"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/len_10"
+        android:layout_marginStart="@dimen/len_52"
+        android:layout_marginTop="@dimen/len_24"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:src="@drawable/ic_notifications_black_24dp"
+        android:maxLength="32"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/textSecond"
+        android:textSize="@dimen/font_12"
+        tools:text="我要开始发表了啊啊"/>
+
+</FrameLayout>

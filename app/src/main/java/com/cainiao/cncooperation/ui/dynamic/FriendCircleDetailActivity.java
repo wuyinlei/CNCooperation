@@ -21,6 +21,7 @@ import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.FriendCricleDetailCommentAdapter;
 import com.cainiao.cncooperation.utils.ShareUtils;
 import com.cainiao.common.base.BaseActivity;
+import com.cainiao.common.base.PresenterActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.TimeUtils;
 import com.cainiao.common.widget.bottom.BottomDialog;
@@ -45,7 +46,8 @@ import butterknife.OnClick;
 import q.rorbin.badgeview.Badge;
 import q.rorbin.badgeview.QBadgeView;
 
-public class FriendCircleDetailActivity extends BaseActivity implements DynamicDetailContract.View {
+public class FriendCircleDetailActivity extends PresenterActivity<DynamicDetailContract.Presenter>
+        implements DynamicDetailContract.View {
 
     @BindView(R.id.iv_avatar)
     CircleImageView mCircleIvatar;
@@ -122,7 +124,6 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
 
-    private DynamicDetailPresenter mDetailPresenter;
     private FriendCricleDetailCommentAdapter mCommentAdapter;
 
     private String objectId;
@@ -142,12 +143,16 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
     @Override
+    protected BaseActivity injectTarget() {
+        return this;
+    }
+
+    @Override
     protected void initView() {
         super.initView();
 
         mStateView.showLoading();
 
-        mDetailPresenter = new DynamicDetailPresenter(this);
         mCommentAdapter = new FriendCricleDetailCommentAdapter(this);
         mRecyclerCommentView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerCommentView.setAdapter(mCommentAdapter);
@@ -157,17 +162,13 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     }
 
-    @Override
-    protected BaseActivity injectTarget() {
-        return this;
-    }
 
     @Override
     protected void initData() {
         super.initData();
 
-        mDetailPresenter.requestDetailData(objectId);
-        mDetailPresenter.requestCommentData(Common.Constance.LIMIT_COUNT, page, objectId);
+        mPresenter.requestDetailData(objectId);
+        mPresenter.requestCommentData(Common.Constance.LIMIT_COUNT, page, objectId);
 
 
     }
@@ -180,7 +181,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
      */
     private void updateViewCount(String viewCount, String objectId) {
 
-        mDetailPresenter.updateViewCount(viewCount, objectId);
+        mPresenter.updateViewCount(viewCount, objectId);
 
     }
 
@@ -195,6 +196,13 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     }
 
     @Override
+    protected DynamicDetailContract.Presenter initPresenter() {
+        return new DynamicDetailPresenter(this);
+    }
+
+
+
+    @Override
     public void onLikesFailure(int code, String msg) {
 
     }
@@ -203,7 +211,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
     public void onLikesSuccess(@StringRes int str) {
         mBadgeFavorite.setBadgeNumber(++mLoveSize);
         Toast.makeText(this, getString(str), Toast.LENGTH_SHORT).show();
-        mDetailPresenter.updateLikes(objectId, mLoveSize);
+        mPresenter.updateLikes(objectId, mLoveSize);
     }
 
     @Override
@@ -329,7 +337,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
             public void onClick(View view) {
                 boolean isAlias = mCircleCommentCheckBox.isChecked();
                 String content = mCommentEditText.getText().toString();
-                mDetailPresenter.publishComment(objectId, Account.getUser(), content, isAlias);
+                mPresenter.publishComment(objectId, Account.getUser(), content, isAlias);
             }
         });
 
@@ -385,7 +393,7 @@ public class FriendCircleDetailActivity extends BaseActivity implements DynamicD
 
     private void collectDynamic() {
 
-        mDetailPresenter.collectLikes(objectId, mLoveSize);
+        mPresenter.collectLikes(objectId, mLoveSize);
 
 
     }

@@ -179,6 +179,7 @@
     <string name="btn_preview">预览</string>
     <string name="btn_send">发送</string>
     <string name="gallery_selected_size">已选择%s</string>
+    <string name="prompt_loading">Loading...</string>
 
 
 </resources>

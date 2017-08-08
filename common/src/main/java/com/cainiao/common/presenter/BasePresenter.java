@@ -9,6 +9,7 @@ package com.cainiao.common.presenter;
 public abstract class BasePresenter<T extends BaseContract.View> implements BaseContract.Presenter {
 
 
+
     private T mView;
 
     public BasePresenter(T view) {
@@ -23,6 +24,7 @@ public abstract class BasePresenter<T extends BaseContract.View> implements Base
     @SuppressWarnings("unchecked")
     protected void setView(T view) {
         this.mView = view;
+        this.mView.setPresenter(this);
     }
 
     /**
@@ -38,7 +40,7 @@ public abstract class BasePresenter<T extends BaseContract.View> implements Base
     public void start() {
         T view = mView;
         if (view != null) {
-//            view.showLoading();
+            view.showLoading();
         }
 
     }
@@ -48,6 +50,7 @@ public abstract class BasePresenter<T extends BaseContract.View> implements Base
         T view = mView;
         if (view != null) {
             //view销毁的时候  设置为null
+            view.setPresenter(null);
             mView = null;
         }
     }
