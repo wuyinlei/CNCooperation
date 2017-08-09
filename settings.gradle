@@ -1,1 +1,1 @@
-include ':app', ':common', ':cnlang', ':factory'
+include ':app', ':common', ':cnlang', ':factory', ':cnface'

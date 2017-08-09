@@ -2,7 +2,6 @@ package com.cainiao.cncooperation.ui.im;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
@@ -32,8 +31,10 @@ import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.event.MessageEvent;
+import com.cainiao.factory.model.im.UserInfo;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
+import com.cainiao.factory.utils.BmobUtils;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
@@ -82,7 +83,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
     private List<Message> mMessages = new ArrayList<>();
     private String receiverId;  //接收者id
-    private int CHAT_TYPE = Common.Constance.SINGLE_TYPE;
+    private Conversation.ConversationType CHAT_TYPE = Conversation.ConversationType.PRIVATE;
 
     @Override
     protected BaseActivity injectTarget() {
@@ -101,7 +102,11 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
         initPanel();
 
+
         subscribeEvent();
+
+        //设置会话已读
+        RongIMClient.getInstance().clearMessagesUnreadStatus(CHAT_TYPE, receiverId);
 
 
         initToolbar();
@@ -121,7 +126,20 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
             actionBar.setDisplayShowTitleEnabled(false);
         }
 
-        mToolbar.setTitle("单聊");
+        if (CHAT_TYPE == Conversation.ConversationType.PRIVATE) {
+            BmobUtils.queryUserInfo(receiverId, new BmobUtils.OnListener<UserInfo>() {
+                @Override
+                public void onError(int errorCode, String message) {
+
+                }
+
+                @Override
+                public void onSuccess(UserInfo data) {
+                    mToolbar.setTitle(data.getName());
+                }
+            });
+        }
+//        mToolbar.setTitle("单聊");
         mToolbar.setTitleTextColor(R.color.white);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,13 +191,17 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     }
 
     private void initPanel() {
+
+        //没用啊   我擦
         mPanelBoss = (AirPanel.Boss) findViewById(R.id.lay_container);
-        mPanelBoss.setPanelListener(new AirPanel.Listener() {
-            @Override
-            public void requestHideSoftKeyboard() {
-                Util.hideKeyboard(mEtContent);
-            }
-        });
+//        mPanelBoss.setPanelListener(new AirPanel.Listener() {
+//            @Override
+//            public void requestHideSoftKeyboard() {
+//                Util.hideKeyboard(mEtContent);
+//            }
+//        });
+
+
 
 
         PanelFragment fragment = (PanelFragment) getSupportFragmentManager().findFragmentById(R.id.frag_panel);
@@ -197,6 +219,8 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         mAdapter = new Adapter();
 
         mRecyclerView.setAdapter(mAdapter);
+
+        mPresenter.request();
 
     }
 
@@ -224,11 +248,11 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     @Override
     protected boolean initArgs(Bundle bundle) {
         receiverId = bundle.getString(Common.Constance.RECEIVER_ID);
-        CHAT_TYPE = bundle.getInt(Common.Constance.CHAT_TYPE);
+        CHAT_TYPE = (Conversation.ConversationType) bundle.get(Common.Constance.CHAT_TYPE);
         return true;
     }
 
-    public static void show(Context context, String receiverId, int type) {
+    public static void show(Context context, String receiverId, Conversation.ConversationType type) {
         Intent intent = new Intent(context, ChatActivity.class);
         intent.putExtra(Common.Constance.RECEIVER_ID, receiverId);
         intent.putExtra(Common.Constance.CHAT_TYPE, type);
@@ -310,7 +334,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
     @Override
     protected ChatMessageContract.Presenter initPresenter() {
-        return new ChatMessagePresenter(this, receiverId, Conversation.ConversationType.PRIVATE);
+        return new ChatMessagePresenter(this, receiverId, CHAT_TYPE);
     }
 
     @Override
@@ -329,10 +353,10 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         return mAdapter;
     }
 
-    @Override
-    public void onAdapterDataChanged() {
-
-    }
+//    @Override
+//    public void onAdapterDataChanged() {
+//
+//    }
 
     @Override
     public void scrollRecyclerToPosition(int position) {
@@ -406,6 +430,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     class BaseHolder extends RecyclerAdapter.AdapterViewHolder<Message> {
 
 
+
         CircleImageView mPortraitView;
 
         //允许为空  左边没有 右边有
@@ -415,6 +440,13 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
             super(itemView);
             mPortraitView = (CircleImageView) itemView.findViewById(R.id.iv_portrait);
             mLoading = (ProgressBar) itemView.findViewById(R.id.loading);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Util.hideKeyboard(mEtContent);
+                }
+            });
         }
 
         @Override
@@ -490,7 +522,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
             //当是图片类型的时候  content中就是具体的地址
 //
-//            Glide.with(ChatFragment.this)
+//            Glide.with(RecentSessionFragment.this)
 //                    .load(content)
 //                    .fitCenter()
 //                    .into(mIvPic);
@@ -529,4 +561,6 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         super.onDestroy();
         mRxSub.unsubscribe();
     }
+
+
 }

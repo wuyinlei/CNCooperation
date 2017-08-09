@@ -4,7 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.cainiao.cncooperation.ui.im.ChatFragment;
+import com.cainiao.cncooperation.ui.im.RecentSessionFragment;
 import com.cainiao.cncooperation.ui.im.ContactFragment;
 import com.cainiao.cncooperation.ui.im.DiscoverFragment;
 import com.cainiao.cncooperation.ui.im.ProfileFragment;
@@ -18,7 +18,7 @@ public class MainAdapter extends FragmentPagerAdapter {
 
     public MainAdapter(FragmentManager fm) {
         super(fm);
-        fragments.add(new ChatFragment());
+        fragments.add(new RecentSessionFragment());
         fragments.add(new ContactFragment());
         fragments.add(new DiscoverFragment());
         fragments.add(new ProfileFragment());

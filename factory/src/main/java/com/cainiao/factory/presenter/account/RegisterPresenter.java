@@ -78,6 +78,8 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         bu.setUsername(name);
         bu.setPassword(HashUtil.getMD5String(password));
         bu.setMobilePhoneNumber(phone);
+        //刚开始的时候初始一个头像地址
+        bu.setAvatar("http://loveruolan.oss-cn-shanghai.aliyuncs.com/portrait/201707/avatar_def.png");
 //注意：不能用save方法进行注册
         bu.signUp(new SaveListener<MyUser>() {
             @Override

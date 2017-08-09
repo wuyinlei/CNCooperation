@@ -29,6 +29,8 @@ public interface ChatMessageContract {
 
         //重新发送一个消息  是否调度成功
         boolean rePush(Message message);
+
+        void request();
     }
 
 
