@@ -180,6 +180,9 @@
     <string name="btn_send">发送</string>
     <string name="gallery_selected_size">已选择%s</string>
     <string name="prompt_loading">Loading...</string>
+    <string name="SET_TEXT_TYPING_TITLE">对方正在输入</string>
+    <string name="SET_VOICE_TYPING_TITLE">对方正在讲话</string>
+
 
 
 </resources>

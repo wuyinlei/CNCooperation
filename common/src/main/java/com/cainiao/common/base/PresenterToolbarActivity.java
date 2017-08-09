@@ -12,7 +12,7 @@ import com.cainiao.common.presenter.BaseContract;
  * @function PresenterToolbarActivity
  */
 
-public abstract class PresenterToolbarActivity extends PresenterActivity<BaseContract.Presenter> {
+public abstract class PresenterToolbarActivity<Presenter extends BaseContract.Presenter> extends PresenterActivity<BaseContract.Presenter> {
 
     protected Toolbar mToolbar;
 

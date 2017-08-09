@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingBottom="@dimen/len_4"
+             android:paddingEnd="@dimen/len_56"
+             android:paddingStart="@dimen/len_16"
+             android:paddingTop="@dimen/len_4"
+    >
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/len_20"
+        android:background="@drawable/cell_main_bg"
+        android:minHeight="@dimen/len_40"
+        android:paddingBottom="@dimen/len_8"
+        android:paddingEnd="@dimen/len_8"
+        android:paddingStart="@dimen/len_28"
+        android:paddingTop="@dimen/len_8">
+
+        <ImageView
+            android:id="@+id/iv_pic"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/len_76"
+            android:gravity="center_vertical"
+            android:maxWidth="@dimen/len_128"
+            android:minHeight="@dimen/len_48"
+            android:scaleType="fitCenter"
+            />
+
+    </FrameLayout>
+
+
+    <com.cainiao.common.widget.circleimage.CircleImageView
+        android:id="@+id/iv_portrait"
+        android:layout_width="@dimen/len_40"
+        android:layout_height="@dimen/len_40"
+        android:layout_gravity="start"
+        android:padding="1px"
+        android:src="@mipmap/ic_launcher"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="2dp"/>
+
+
+</FrameLayout>

@@ -123,8 +123,8 @@ public class HomeFragment extends BaseFragment {
 //                Toast.makeText(getContext(), "连接融云成功---onSuccess---用户ID:" + userid + '\n', Toast.LENGTH_SHORT).show();
                 Log.d("HomeFragment", "连接融云成功---onSuccess---用户ID:" + userid + '\n');
 
-                //链接成功之后开启聊天
-                ChatActivity.show(getActivity(), "f168dd00b6", Common.Constance.SINGLE_TYPE);
+                //链接成功之后开启聊天 80cf8a6a7e       f168dd00b6   大白思密达
+                ChatActivity.show(getActivity(), "80cf8a6a7e", Common.Constance.SINGLE_TYPE);
 
             }
 

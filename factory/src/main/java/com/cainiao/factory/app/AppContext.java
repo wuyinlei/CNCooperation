@@ -93,6 +93,7 @@ public class AppContext {
                 setMessageRead(message); //设置收到的消息为已读消息
             } else if (message.getContent() instanceof ImageMessage) {
                 CNLogger.d(TAG, "收到图片消息, Uri --> " + ((ImageMessage) message.getContent()).getThumUri() + '\n');
+                setMessageRead(message);
             } else if (message.getContent() instanceof VoiceMessage) {
                 CNLogger.d(TAG, "收到语音消息,Uri --> " + ((VoiceMessage) message.getContent()).getUri());
                 CNLogger.d(TAG, "语音消息时长: " + ((VoiceMessage) message.getContent()).getDuration() + '\n');

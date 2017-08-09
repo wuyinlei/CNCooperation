@@ -2,6 +2,7 @@ package com.cainiao.cncooperation.ui.im;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,29 +27,36 @@ import com.cainiao.common.base.PresenterActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.common.rxbus.RxBus;
 import com.cainiao.common.rxbus.RxBusSubscriber;
+import com.cainiao.common.rxbus.helper.RxSubscriptions;
 import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.event.MessageEvent;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
-import com.cainiao.common.rxbus.helper.RxSubscriptions;
 
 import net.qiujuer.widget.airpanel.AirPanel;
 import net.qiujuer.widget.airpanel.Util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imlib.MessageTag;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.TypingMessage.TypingStatus;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
+import io.rong.imlib.model.MessageContent;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
+import io.rong.message.VoiceMessage;
 import rx.Subscription;
-import rx.functions.Func1;
 
 
 public class ChatActivity extends PresenterActivity<ChatMessageContract.Presenter> implements
@@ -90,7 +99,80 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         super.initView();
 
 
+        initPanel();
 
+        subscribeEvent();
+
+
+        initToolbar();
+
+
+        initTitleType();
+
+
+    }
+
+    private void initToolbar() {
+
+        setSupportActionBar(mToolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+
+        mToolbar.setTitle("单聊");
+        mToolbar.setTitleTextColor(R.color.white);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+
+    /**
+     * 监听和改变toolbar的显示状态
+     */
+    private void initTitleType() {
+        RongIMClient.setTypingStatusListener(new RongIMClient.TypingStatusListener() {
+            @Override
+            public void onTypingStatusChanged(Conversation.ConversationType conversationType, String targetId, Collection<TypingStatus> typingStatusSet) {
+                //当输入状态的会话类型和targetID与当前会话一致时，才需要显示
+                if (conversationType == Conversation.ConversationType.PRIVATE && targetId.equals(receiverId)) {
+                    //count表示当前会话中正在输入的用户数量，目前只支持单聊，所以判断大于0就可以给予显示
+                    int count = typingStatusSet.size();
+                    if (count > 0) {
+                        Iterator<TypingStatus> iterator = typingStatusSet.iterator();
+                        TypingStatus status = iterator.next();
+                        String objectName = status.getTypingContentType();
+
+                        MessageTag textTag = TextMessage.class.getAnnotation(MessageTag.class);
+                        MessageTag voiceTag = VoiceMessage.class.getAnnotation(MessageTag.class);
+                        //匹配对方正在输入的是文本消息还是语音消息
+                        if (objectName.equals(textTag.value())) {
+                            //显示“对方正在输入”
+//                        setToolbarSubTitle(UIUtils.getString(R.string.SET_TEXT_TYPING_TITLE));
+                            mToolbar.setTitle(getString(R.string.SET_TEXT_TYPING_TITLE));
+                        } else if (objectName.equals(voiceTag.value())) {
+                            //显示“对方正在讲话”
+//                        setToolbarSubTitle(UIUtils.getString(R.string.SET_VOICE_TYPING_TITLE));
+                            mToolbar.setTitle(getString(R.string.SET_VOICE_TYPING_TITLE));
+                        }
+                    } else {
+                        //当前会话没有用户正在输入，标题栏仍显示原来标题
+//                    setToolbarSubTitle("");
+                        mToolbar.setTitle("单聊");
+//                        setTitle("");
+                    }
+                }
+            }
+        });
+    }
+
+    private void initPanel() {
         mPanelBoss = (AirPanel.Boss) findViewById(R.id.lay_container);
         mPanelBoss.setPanelListener(new AirPanel.Listener() {
             @Override
@@ -100,33 +182,15 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         });
 
 
-        mEtContent.addTextChangedListener(new TextWatcherAdapter() {
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String content = editable.toString().trim();
-                boolean sendMsg = !TextUtils.isEmpty(content);
-                mBtSumbmit.setActivated(sendMsg);
-            }
-        });
-
         PanelFragment fragment = (PanelFragment) getSupportFragmentManager().findFragmentById(R.id.frag_panel);
         fragment.setup(this);
         mPanelContent = fragment;
+    }
 
-        mToolbar.setTitle("单聊");
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    @Override
+    protected void initData() {
+        super.initData();
 
-        setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -134,14 +198,26 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
         mRecyclerView.setAdapter(mAdapter);
 
-
     }
 
     @Override
-    protected void initData() {
-        super.initData();
+    protected void initListener() {
+        super.initListener();
 
-        subscribeEvent();
+        mEtContent.addTextChangedListener(new TextWatcherAdapter() {
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String content = editable.toString().trim();
+                boolean sendMsg = !TextUtils.isEmpty(content);
+                mBtSumbmit.setActivated(sendMsg);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                super.onTextChanged(s, start, before, count);
+                RongIMClient.getInstance().sendTypingStatus(Conversation.ConversationType.PRIVATE, receiverId, TextMessage.class.getAnnotation(MessageTag.class).value());
+            }
+        });
 
     }
 
@@ -166,7 +242,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
     @Override
     public void onSendGalleryClick(ArrayList<String> paths) {
-
+        mPresenter.pushImages(paths);
     }
 
     @Override
@@ -234,7 +310,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
     @Override
     protected ChatMessageContract.Presenter initPresenter() {
-        return new ChatMessagePresenter(this,receiverId, Conversation.ConversationType.PRIVATE);
+        return new ChatMessagePresenter(this, receiverId, Conversation.ConversationType.PRIVATE);
     }
 
     @Override
@@ -289,6 +365,11 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
                     //左右都是同一个
                     return new TextViewHolder(root);
 
+                case R.layout.cell_chat_pic_right:
+                case R.layout.cell_chat_pic_left:
+
+                    return new ImageViewHolder(root);
+
 
                 default:  //默认的就是
                     return new TextViewHolder(root);
@@ -307,6 +388,10 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
                 //文字内容
                 return isRight ? R.layout.cell_chat_txt_right :
                         R.layout.cell_chat_txt_left;
+            } else if (message.getContent() instanceof ImageMessage) {
+                //图片内容
+                return isRight ? R.layout.cell_chat_pic_right :
+                        R.layout.cell_chat_pic_left;
             } else {
 
                 //其他内容
@@ -376,6 +461,42 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         }
     }
 
+    class ImageViewHolder extends BaseHolder {
+
+        ImageView mIvPic;
+
+        public ImageViewHolder(View itemView) {
+            super(itemView);
+
+            mIvPic = (ImageView) itemView.findViewById(R.id.iv_pic);
+        }
+
+        @Override
+        public void bindData(Message data) {
+            super.bindData(data);
+            MessageContent content = data.getContent();
+            if (content instanceof ImageMessage){
+              ImageMessage message = ((ImageMessage) content);
+
+//                Glide.with(ChatActivity.this)
+//                        .load(thumUri)
+//                        .fitCenter()
+//                        .into(mIvPic);
+
+                Glide.with(ChatActivity.this).load(message.getLocalUri() == null ? message.getRemoteUri() : message.getLocalUri()).fitCenter().into(mIvPic);
+
+            }
+
+
+            //当是图片类型的时候  content中就是具体的地址
+//
+//            Glide.with(ChatFragment.this)
+//                    .load(content)
+//                    .fitCenter()
+//                    .into(mIvPic);
+        }
+    }
+
 
     private Subscription mRxSub;
 
@@ -393,6 +514,8 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
                                 @Override
                                 public void run() {
                                     mAdapter.add(userEvent.mMessage);
+                                    Log.d("ChatActivity", "mAdapter.getItemCount():" + mAdapter.getItemCount());
+                                    Log.d("ChatActivity", "mRecyclerView:" + mRecyclerView);
                                     mRecyclerView.smoothScrollToPosition(mAdapter.getItemCount() - 1);
                                 }
                             });
@@ -401,5 +524,9 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
                 });
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mRxSub.unsubscribe();
+    }
 }
