@@ -2,6 +2,7 @@ package com.cainiao.factory.presenter.message;
 
 import com.cainiao.common.presenter.BaseContract;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imlib.model.Message;
@@ -24,7 +25,7 @@ public interface ChatMessageContract {
         void pushAudio(String path, long time);
 
         //发送图片
-        void pushImages(String[] paths);
+        void pushImages(ArrayList<String> paths);
 
         //重新发送一个消息  是否调度成功
         boolean rePush(Message message);

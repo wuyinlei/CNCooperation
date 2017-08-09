@@ -36,19 +36,15 @@ dependencies {
     //    compile project(':IMLib')
     //    compile project (':IMKit')
     //retrofit
-
     //rxjava2.0
     //    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjavaVersion"
     //    compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroidVersion"
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
     compile 'cn.bmob.android:http-legacy:1.0'
-
-
     //    compile files('src/main/jniLibs/BmobSDK_3.5.0_20160627.jar')
     compile files('libs/Rong_IMLib.jar')
-
-//    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
-
+    //    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:${rootProject.ext.dbflowVersion}"
     compile "com.github.Raizlabs.DBFlow:dbflow-core:${rootProject.ext.dbflowVersion}"
     compile "com.github.Raizlabs.DBFlow:dbflow:${rootProject.ext.dbflowVersion}"
+    compile files('libs/MiPush_SDK_Client_3_2_2.jar')
 }

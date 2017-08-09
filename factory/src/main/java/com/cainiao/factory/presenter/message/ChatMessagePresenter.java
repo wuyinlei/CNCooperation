@@ -5,16 +5,21 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.cainiao.common.presenter.BasePresenter;
+import com.cainiao.common.utils.ImageUtils;
 import com.cainiao.common.widget.logger.CNLogger;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.R;
+import com.cainiao.factory.utils.UploadHelper;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.imlib.model.UserInfo;
+import io.rong.message.ImageMessage;
 import io.rong.message.TextMessage;
 
 /**
@@ -51,6 +56,8 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
         }
 
         TextMessage message = TextMessage.obtain(content);
+
+        //携带用户信息
         UserInfo userInfo = new UserInfo(Account.getUser().getObjectId(),
                 Account.getUserName(),
                 Uri.parse(Account.getAvatar()));
@@ -131,8 +138,80 @@ public class ChatMessagePresenter extends BasePresenter<ChatMessageContract.Chat
     }
 
     @Override
-    public void pushImages(String[] paths) {
+    public void pushImages(ArrayList<String> paths) {
 
+        for (String path : paths) {
+
+
+            Uri imageFileThumbUri = Uri.fromFile(ImageUtils.genThumbImgFile(path));
+            Uri imageFileSourceUri = Uri.fromFile(new File(path));
+//                sendImgMsg(imageFileThumbUri, imageFileSourceUri);
+
+//            String portrait = UploadHelper.uploadPortrait(path);
+
+            ImageMessage imgMsg = ImageMessage.obtain(imageFileThumbUri, imageFileSourceUri);
+
+            //携带用户信息
+            UserInfo userInfo = new UserInfo(Account.getUser().getObjectId(),
+                    Account.getUserName(),
+                    Uri.parse(Account.getAvatar()));
+
+            //设置用户信息
+            imgMsg.setUserInfo(userInfo);
+
+
+            RongIMClient.getInstance().sendImageMessage(mConversationType, mReceiverId, imgMsg, null, null,
+                    new RongIMClient.SendImageMessageCallback() {
+                        @Override
+                        public void onAttached(Message message) {
+                            //保存数据库成功
+//                            mAdapter.addLastItem(message);
+//                            rvMoveToBottom();
+                        }
+
+                        @Override
+                        public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+                            //发送失败
+//                            updateMessageStatus(message);
+                        }
+
+                        @Override
+                        public void onSuccess(Message message) {
+                            //发送成功
+//                            updateMessageStatus(message);
+
+                            if (message.getContent() instanceof ImageMessage) {
+
+                                message.setExtra(Account.getAvatar());
+
+                                getView().getRecyclerViewAadpter().add(message);
+
+                                getView().scrollRecyclerToPosition(getView().getRecyclerViewAadpter().getItemCount() - 1);
+
+//                                CNLogger.d(TAG, "成功发送图片消息: " + ((TextMessage) message.getContent()).getContent());
+//                                CNLogger.d(TAG, "文本消息的附加信息: " + ((TextMessage) message.getContent()).getExtra() + '\n');
+                            }
+
+                        }
+
+                        @Override
+                        public void onProgress(Message message, int progress) {
+                            //发送进度
+                            message.setExtra(progress + "");
+//                            updateMessageStatus(message);
+                        }
+                    });
+
+            //这个地方要把图片上传到云服务器  然后返回一个真实的外网的图片地址  赋值给path  然后在发送消息
+
+
+//            MsgCreateModel model = new MsgCreateModel.Builder()
+//                    .receiver(mReceiverId,mReceiverType)
+//                    .content(path,Message.TYPE_PIC)
+//                    .build();
+//            //发送消息
+//            MessageHelper.push(model);
+        }
 
     }
 
