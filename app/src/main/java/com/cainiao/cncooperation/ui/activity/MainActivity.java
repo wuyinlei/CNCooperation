@@ -33,6 +33,7 @@ import com.cainiao.common.constant.Common;
 import com.cainiao.common.utils.SharedUtils;
 import com.cainiao.common.widget.BottomNavigationViewHelper;
 import com.cainiao.common.widget.BottomViewPagerAdapter;
+import com.cainiao.common.widget.logger.CNLogger;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.utils.rongyun.FakeServer;
 import com.cainiao.factory.utils.rongyun.HttpUtil;
@@ -42,6 +43,7 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.rong.imlib.RongIMClient;
 
 public class MainActivity extends BaseActivity {
 
@@ -113,7 +115,55 @@ public class MainActivity extends BaseActivity {
         if (TextUtils.isEmpty(token)) {
             FakeServer.getRongYunToken(this);
         }
+
+        if (!TextUtils.isEmpty(token))
+            getConnectIm(token);
+
     }
+
+    private void getConnectIm(String token) {
+
+        RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+
+            /**
+             * Token 错误，在线上环境下主要是因为 Token 已经过期，您需要向 App Server 重新请求一个新的 Token
+             */
+            @Override
+            public void onTokenIncorrect() {
+                CNLogger.d("HomeFragment", "Token 错误---onTokenIncorrect---" + '\n');
+
+            }
+
+            /**
+             * 连接融云成功
+             * @param userid 当前 token
+             */
+            @Override
+            public void onSuccess(String userid) {
+//                Toast.makeText(getContext(), "连接融云成功---onSuccess---用户ID:" + userid + '\n', Toast.LENGTH_SHORT).show();
+                Log.d("HomeFragment", "连接融云成功---onSuccess---用户ID:" + userid + '\n');
+
+                //链接成功之后开启聊天 80cf8a6a7e       f168dd00b6   大白思密达
+
+
+            }
+
+            /**
+             * 连接融云失败
+             * @param errorCode 错误码，可到官网 查看错误码对应的注释
+             */
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                Log.d("HomeFragment", "连接融云失败, 错误码: " + errorCode + '\n');
+
+
+            }
+        });
+
+
+    }
+
+
 //
 //    /**
 //     * 获取到链接的tokan

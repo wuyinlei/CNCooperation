@@ -38,8 +38,7 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     //glide图片加载器
-//    compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
-
+    //    compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
     //极光开源的聊天输入组件
     compile 'cn.jiguang.imui:chatinput:0.4.3'
     //极光开源的消息列表组件
@@ -49,23 +48,19 @@ dependencies {
     //圆形图片
     //Log
     compile "com.orhanobut:logger:$rootProject.ext.loggerVersion"
-
     compile "com.aliyun.dpa:oss-android-sdk:$rootProject.ext.ossVersion"
-
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     compile 'com.kyleduo.switchbutton:library:1.4.6'
-
     compile "net.qiujuer.widget:airpanel:$rootProject.ext.airpanelVersion"
-
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
-
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
     //    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     //okhttp
     compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+    compile files('libs/joda-time-2.5.jar')
+    compile files('libs/joda-time-2.5-sources.jar')
 }

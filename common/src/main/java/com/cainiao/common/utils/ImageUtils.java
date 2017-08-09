@@ -73,7 +73,7 @@ public class ImageUtils {
      * @param options   解析图片的配置信息
      * @param reqWidth  所需图片压缩尺寸最小宽度
      * @param reqHeight 所需图片压缩尺寸最小高度
-     * @return
+     * @return  压缩比例值
      */
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         // 保存图片原宽高值

@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
@@ -34,6 +35,7 @@ public abstract class RecyclerAdapter<T> extends
         AdapterViewHolder<T> holder = onCreateViewHolder(root, viewType);
         root.setTag(R.id.view_tag, holder);
         holder.mCallBack = this;
+        holder.mUnbinder = ButterKnife.bind(holder, root);
 
         return holder;
     }
@@ -71,7 +73,8 @@ public abstract class RecyclerAdapter<T> extends
 
     /**
      * 获取到当前的数据
-     * @return  List<T></>
+     *
+     * @return List<T></>
      */
     public List<T> getItems() {
         return mDatas;
@@ -132,7 +135,6 @@ public abstract class RecyclerAdapter<T> extends
         }
         notifyDataSetChanged();
     }
-
 
 
     public static abstract class AdapterViewHolder<T> extends RecyclerView.ViewHolder {

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CNCooperation.iml" filepath="$PROJECT_DIR$/CNCooperation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cnface/cnface.iml" filepath="$PROJECT_DIR$/cnface/cnface.iml" />
       <module fileurl="file://$PROJECT_DIR$/cnlang/cnlang.iml" filepath="$PROJECT_DIR$/cnlang/cnlang.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/factory/factory.iml" filepath="$PROJECT_DIR$/factory/factory.iml" />

@@ -16,6 +16,7 @@
         android:background="@color/colorAccent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/len_48"
+        android:title="@string/app_name"
         app:contentScrim="@color/colorAccent"
         app:layout_collapseMode="pin"/>
 

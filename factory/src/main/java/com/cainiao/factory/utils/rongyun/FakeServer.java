@@ -61,6 +61,7 @@ public class FakeServer {
                     token = jsonObj.optString("token");
                     SharedUtils.putString(context, Common.Constance.RONGYUNG_IM_TOKEN, token);
 
+
                     Log.i("HomeFragment", "获取的 token 值为:\n" + token + '\n');
                 } else {
                     Log.i("HomeFragment", "获取 token 失败" + '\n');
