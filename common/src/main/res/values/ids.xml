@@ -10,4 +10,7 @@
     <item name="ll_expand" type="id"/>
     <item name="view_tag" type="id">recycler_view_tag</item>
 
+    <item type="id" name="statusbarutil_fake_status_bar_view" />
+    <item type="id" name="statusbarutil_translucent_view" />
+
 </resources>

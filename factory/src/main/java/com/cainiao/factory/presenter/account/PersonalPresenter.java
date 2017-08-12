@@ -14,16 +14,14 @@ import com.cainiao.factory.utils.BmobUtils;
 
 public class PersonalPresenter extends BasePresenter<PersonalContract.View> implements PersonalContract.Presenter {
 
-    private Context mContext;
 
     public PersonalPresenter(PersonalContract.View view) {
         super(view);
-        mContext = (Context) view;
     }
 
     @Override
-    public void updateUserInfo(String avatar, String desc, String address, boolean sex, String alias, String birthday, Integer age) {
-        BmobUtils.updateUserInfo(mContext, avatar, desc, address, sex, alias, birthday, age, new BmobUtils.OnListener<String>() {
+    public void updateUserInfo(final Context context, String avatar, String desc, String address, boolean sex, String alias, String birthday, Integer age) {
+        BmobUtils.updateUserInfo(context, avatar, desc, address, sex, alias, birthday, age, new BmobUtils.OnListener<String>() {
             @Override
             public void onError(int errorCode, String message) {
                 getView().onSaveFailure(errorCode, message);
@@ -31,7 +29,7 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View> impl
 
             @Override
             public void onSuccess(String str) {
-                getView().onSaveSuccess(mContext.getResources().getString(R.string.update_userinfo_success));
+                getView().onSaveSuccess(context.getResources().getString(R.string.update_userinfo_success));
             }
         });
     }

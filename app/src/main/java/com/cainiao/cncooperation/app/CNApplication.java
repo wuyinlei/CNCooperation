@@ -16,6 +16,7 @@ import cn.bmob.v3.Bmob;
 import io.rong.imlib.AnnotationNotFoundException;
 import io.rong.imlib.RongIMClient;
 import io.rong.message.FileMessage;
+import io.rong.push.RongPushClient;
 
 /**
  * Created by wuyinlei on 2017/7/22.
@@ -56,6 +57,7 @@ public class CNApplication extends BaseApplication {
 
         AppContext.getInstance().init(getApplicationContext());
         AppContext.getInstance().registerReceiveMessageListener();
+
 
 //        RongIM.init(this);
 //        RongIMClient.init(this, "sfci50a7s1b2i");

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools"
               android:background="@color/white"
+              android:id="@+id/ll_container"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -180,9 +181,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10.0dip"
-                    tools:text="@string/app_name"
                     android:layout_toLeftOf="@+id/profile_userid_arrow"
-                    android:textColor="@color/circle_text_color_three"/>
+                    android:textColor="@color/circle_text_color_three"
+                    tools:text="@string/app_name"/>
 
                 <View
                     android:layout_width="match_parent"

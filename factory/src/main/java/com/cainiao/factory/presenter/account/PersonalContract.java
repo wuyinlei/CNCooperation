@@ -1,6 +1,8 @@
 package com.cainiao.factory.presenter.account;
 
 
+import android.content.Context;
+
 import com.cainiao.common.presenter.BaseContract;
 import com.cainiao.factory.model.MyUser;
 
@@ -27,7 +29,7 @@ public interface PersonalContract {
 
     public interface Presenter extends BaseContract.Presenter {
 
-        void updateUserInfo(
+        void updateUserInfo(Context context,
                 String avatar,
                             String desc,
                             String address,

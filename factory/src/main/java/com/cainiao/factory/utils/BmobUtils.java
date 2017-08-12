@@ -584,14 +584,14 @@ public class BmobUtils {
      *
      * @param userId 用户的ObjectId
      */
-    public static void queryUserInfo(final String userId, final OnListener<UserInfo> listener) {
+    public static void queryUserInfo(final String userId, final OnListener<MyUser> listener) {
         BmobQuery<MyUser> query = new BmobQuery<>();
-        query.addWhereEqualTo("objectId", "lucky");
+        query.addWhereEqualTo("objectId", userId);
         query.findObjects(new FindListener<MyUser>() {
             @Override
             public void done(List<MyUser> object, BmobException e) {
-                if (e == null) {
-                    listener.onSuccess(new UserInfo(userId,object.get(0).getUsername(),object.get(0).getAvatar()));
+                if (e == null && object.size() > 0) {
+                    listener.onSuccess(object.get(0));
                 } else {
                     listener.onError(e.getErrorCode(),e.getMessage());
                 }

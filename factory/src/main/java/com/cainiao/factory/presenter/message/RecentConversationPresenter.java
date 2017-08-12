@@ -1,8 +1,5 @@
 package com.cainiao.factory.presenter.message;
 
-import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.util.Log;
 
 import com.cainiao.common.presenter.BasePresenter;
