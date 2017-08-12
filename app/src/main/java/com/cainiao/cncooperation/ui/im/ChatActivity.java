@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,7 +34,7 @@ import com.cainiao.common.widget.circleimage.CircleImageView;
 import com.cainiao.common.widget.recycler.RecyclerAdapter;
 import com.cainiao.factory.app.Account;
 import com.cainiao.factory.event.MessageEvent;
-import com.cainiao.factory.model.im.UserInfo;
+import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.message.ChatMessageContract;
 import com.cainiao.factory.presenter.message.ChatMessagePresenter;
 import com.cainiao.factory.utils.BmobUtils;
@@ -79,9 +82,11 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
 
+
     private Adapter mAdapter;
 
     private List<Message> mMessages = new ArrayList<>();
+
     private String receiverId;  //接收者id
     private Conversation.ConversationType CHAT_TYPE = Conversation.ConversationType.PRIVATE;
 
@@ -99,6 +104,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     protected void initView() {
         super.initView();
 
+//        StatusBarUtil.setTranslucent(this,255);
 
         initPanel();
 
@@ -119,34 +125,62 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 
     private void initToolbar() {
 
+//        mToolbar.setTitle("ddddd");
+        mToolbar.setTitle("");
+
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setDisplayShowTitleEnabled(false);
+//        }
 
         if (CHAT_TYPE == Conversation.ConversationType.PRIVATE) {
-            BmobUtils.queryUserInfo(receiverId, new BmobUtils.OnListener<UserInfo>() {
+            BmobUtils.queryUserInfo(receiverId, new BmobUtils.OnListener<MyUser>() {
                 @Override
                 public void onError(int errorCode, String message) {
 
                 }
 
                 @Override
-                public void onSuccess(UserInfo data) {
-                    mToolbar.setTitle(data.getName());
+                public void onSuccess(MyUser data) {
+                    mToolbar.setTitle(data.getUsername());
                 }
             });
         }
+
+
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.action_person) {
+                    onPortraitClick();
+                }
+                return false;
+            }
+        });
+
 //        mToolbar.setTitle("单聊");
-        mToolbar.setTitleTextColor(R.color.white);
+//        mToolbar.setTitleTextColor(R.color.white);
+        mToolbar.setNavigationIcon(R.drawable.ic_back);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chat_user, menu);
+        return true;
+    }
+
+    private void onPortraitClick() {
+
 
     }
 
@@ -202,8 +236,6 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
 //        });
 
 
-
-
         PanelFragment fragment = (PanelFragment) getSupportFragmentManager().findFragmentById(R.id.frag_panel);
         fragment.setup(this);
         mPanelContent = fragment;
@@ -214,7 +246,10 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         super.initData();
 
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+//        layoutManager.setStackFromEnd(true);
+//        layoutManager.setReverseLayout(true);
+        mRecyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new Adapter();
 
@@ -239,7 +274,7 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 //                super.onTextChanged(s, start, before, count);
-                RongIMClient.getInstance().sendTypingStatus(Conversation.ConversationType.PRIVATE, receiverId, TextMessage.class.getAnnotation(MessageTag.class).value());
+                RongIMClient.getInstance().sendTypingStatus(CHAT_TYPE, receiverId, TextMessage.class.getAnnotation(MessageTag.class).value());
             }
         });
 
@@ -430,7 +465,6 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
     class BaseHolder extends RecyclerAdapter.AdapterViewHolder<Message> {
 
 
-
         CircleImageView mPortraitView;
 
         //允许为空  左边没有 右边有
@@ -507,8 +541,8 @@ public class ChatActivity extends PresenterActivity<ChatMessageContract.Presente
         public void bindData(Message data) {
             super.bindData(data);
             MessageContent content = data.getContent();
-            if (content instanceof ImageMessage){
-              ImageMessage message = ((ImageMessage) content);
+            if (content instanceof ImageMessage) {
+                ImageMessage message = ((ImageMessage) content);
 
 //                Glide.with(ChatActivity.this)
 //                        .load(thumUri)

@@ -58,7 +58,9 @@ public class Common {
         public int USER_ADDRESS_TYPE = 2;
         public int USER_DESC_TYPE = 3;
         public int USER_PHONE_TYPE = 4;
+
         public String USER_UPDATE_INFO_EXTRA = "USER_UPDATE_INFO_EXTRA";
+        public String USER_UPDATE_INFO_RESULT = "USER_UPDATE_INFO_RESULT";
 
 
         //分享的点击的链接

@@ -9,6 +9,7 @@ import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.BaseActivity;
 import com.cainiao.common.constant.Common;
 import com.cainiao.factory.app.Account;
+import com.cainiao.factory.presenter.account.PersonalContract;
 
 public class PersonalActivity extends BaseActivity {
 
@@ -19,8 +20,9 @@ public class PersonalActivity extends BaseActivity {
 
     /**
      * 进入到别人的个人页面
+     *
      * @param context  上下文
-     * @param username  用户名
+     * @param username 用户名
      */
     public static void show(Context context, String username) {
         Intent intent = new Intent(context, PersonalActivity.class);
@@ -46,7 +48,7 @@ public class PersonalActivity extends BaseActivity {
 
 //        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 
-        if (Account.getUserName().equals(username)){
+        if (Account.getUserName().equals(username)) {
             //如果传递过来的用户名就是当前登录的用户
             mCurrentFragment = new PersonalFragment();
         } else {
@@ -71,6 +73,13 @@ public class PersonalActivity extends BaseActivity {
 //                        this.view.setImageDrawable(drawable);
 //                    }
 //                });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ((PersonalFragment) mCurrentFragment).onActivityResult(requestCode, resultCode, data);
 
     }
 

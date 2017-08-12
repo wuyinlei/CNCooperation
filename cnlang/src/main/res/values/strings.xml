@@ -142,9 +142,12 @@
     <string name="personal_update_desc">点击更改签名</string>
     <string name="personal_desc">个性签名</string>
     <string name="personal_birth">生日</string>
+    <string name="edit_personal_birth">点击编辑生日</string>
     <string name="personal_gender">性别</string>
     <string name="personal_address">用户地址</string>
+    <string name="edit_personal_address">点击编辑地址</string>
     <string name="personal_alias">昵称</string>
+    <string name="edit_personal_alias">打造你自己的别名吧！！！</string>
     <string name="personal_avatar">头像</string>
 
     <!--app设置相关资源-->
@@ -182,7 +185,10 @@
     <string name="prompt_loading">Loading...</string>
     <string name="SET_TEXT_TYPING_TITLE">对方正在输入</string>
     <string name="SET_VOICE_TYPING_TITLE">对方正在讲话</string>
-
+    <string name="action_person">用户信息</string>
+    <string name="pop_close">关闭</string>
+    <string name="pop_choose">选择相册</string>
+    <string name="pop_photo">选择照相</string>
 
 
 </resources>

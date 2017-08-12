@@ -115,7 +115,7 @@
 
         <activity
             android:name=".ui.account.EditorInfoActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
         <!-- <provider -->
@@ -199,8 +199,22 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".ui.im.ChatActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+                  android:windowSoftInputMode="adjustResize"
+                  android:theme="@style/AppTheme.Main">
         </activity>
+
+
+        <receiver
+            android:exported="true"
+            android:name="com.cainiao.factory.app.CNNotificationReceiver">
+
+            <intent-filter>
+                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_ARRIVED" />
+                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+                <action android:name="io.rong.push.intent.MI_MESSAGE_CLICKED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
