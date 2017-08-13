@@ -62,6 +62,13 @@ public class Common {
         public String USER_UPDATE_INFO_EXTRA = "USER_UPDATE_INFO_EXTRA";
         public String USER_UPDATE_INFO_RESULT = "USER_UPDATE_INFO_RESULT";
 
+        /**
+         * 定义三种状态
+         */
+        public int REQUESTCODE_PIC = 1;//相册
+        public  int REQUESTCODE_CAM = 2;//相机
+        public  int REQUESTCODE_CUT = 3;//图片裁剪
+
 
         //分享的点击的链接
         public String GITHUB_URL = "https://github.com/wuyinlei";

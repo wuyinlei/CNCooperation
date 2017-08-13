@@ -38,11 +38,11 @@ dependencies {
     compile "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     //glide图片加载器
-    //    compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
+        compile "com.github.bumptech.glide:glide:$rootProject.ext.gildeVersion"
     //极光开源的聊天输入组件
-    compile 'cn.jiguang.imui:chatinput:0.4.3'
+//    compile 'cn.jiguang.imui:chatinput:0.4.3'
     //极光开源的消息列表组件
-    compile 'cn.jiguang.imui:messagelist:0.4.3'
+//    compile 'cn.jiguang.imui:messagelist:0.4.3'
     //图片裁剪库
     //    compile "com.yalantis:ucrop:$rootProject.ext.ucropVersion"
     //圆形图片
@@ -61,6 +61,9 @@ dependencies {
     //okhttp
     compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
     compile "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
+
+    compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
+
     compile files('libs/joda-time-2.5.jar')
     compile files('libs/joda-time-2.5-sources.jar')
 }
