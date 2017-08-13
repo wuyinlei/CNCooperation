@@ -85,7 +85,7 @@ public class EditorInfoActivity extends BaseActivity {
 
     private void editInfoInitialize() {
 
-        mEditChange.setText(defaultStr);
+        mEditChange.setHint(defaultStr);
         mEditChange.setSelection(mEditChange.getText().toString().length());
 
         if (EDIT_TYPE == Common.Constance.USER_NICK_NAME_TYPE) {

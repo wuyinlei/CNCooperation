@@ -11,21 +11,22 @@
 
 
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:paddingTop="@dimen/statusBarSize"
-            app:titleTextColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            app:layout_collapseMode="pin"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_48"
+        android:title="@string/app_name"
+        app:contentScrim="@color/colorAccent"
+        app:layout_collapseMode="pin"/>
 
 
-        <include
-            layout="@layout/lay_chat_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
+    <include
+        android:background="@color/white"
+        layout="@layout/lay_chat_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
 
     <LinearLayout

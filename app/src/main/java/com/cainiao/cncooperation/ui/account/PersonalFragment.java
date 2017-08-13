@@ -2,7 +2,12 @@ package com.cainiao.cncooperation.ui.account;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -27,9 +32,14 @@ import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.PersonalContract;
 import com.cainiao.factory.presenter.account.PersonalPresenter;
+import com.cainiao.factory.utils.UploadHelper;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * @author wuyinlei
@@ -61,7 +71,7 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     TextView mUserPhone;
 
     @BindView(R.id.ll_container)
-     LinearLayout mActivityUser;
+    LinearLayout mActivityUser;
 
     private RelativeLayout layout_choose;
     private RelativeLayout layout_photo;
@@ -69,6 +79,8 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
 
 
     PopupWindow avatorPop;
+    private Bitmap mBitmap;
+    private String mPortrait;
 
 
     @Override
@@ -82,6 +94,8 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     private void updateUI(MyUser user) {
 
         ImageLoader.load(user.getAvatar(), mIvAvatar);
+
+        mPortrait = user.getAvatar();
 
         mUserAlias.setText(TextUtils.isEmpty(user.getAlias()) ?
                 getActivity().getResources().getString(R.string.edit_personal_alias) :
@@ -116,7 +130,7 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     public void save() {
 
         mPresenter.updateUserInfo(getActivity(),
-                mUserAlias.getText().toString().trim(),
+                mPortrait,
                 mUserSolgon.getText().toString().trim(),
                 mUserAdress.getText().toString().trim(),
                 !mUserGender.getText().equals("男"),
@@ -190,7 +204,6 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
         });
 
 
-
         DisplayMetrics metric = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);
         mScreenWidth = metric.widthPixels;
@@ -218,18 +231,34 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
         avatorPop.showAtLocation(mActivityUser, Gravity.BOTTOM, 0, 0);
 
 
-
     }
 
     private void openPic() {
 
 
-
     }
+
+    private File mFile;
 
     private void openCamera() {
 
-
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File file = Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            mFile = new File(file, System.currentTimeMillis() + ".jpg");
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mFile));
+            intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+            startActivityForResult(intent, Common.Constance.REQUESTCODE_CAM);
+        } else {
+            Toast.makeText(this, getResources()
+                            .getString(R.string.please_insert_sd_card),
+                    Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -314,8 +343,81 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
                     mUserSolgon.setText(data.getStringExtra(Common.Constance.USER_UPDATE_INFO_RESULT));
                     break;
             }
+        } else if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case Common.Constance.REQUESTCODE_CAM:
+                    startPhotoZoom(Uri.fromFile(mFile));
+                    break;
+
+                case Common.Constance.REQUESTCODE_CUT:
+
+                    if (data != null) {
+                        setPicToView(data);
+                    }
+                    break;
+            }
         }
 
+
+    }
+
+    private void setPicToView(Intent data) {
+        Bundle bundle = data.getExtras();
+        if (bundle != null) {
+
+//
+//            Uri selectedImage = data.getData();
+//
+//            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+//
+//            Cursor cursor = getContentResolver().query(selectedImage,
+//                    filePathColumn, null, null, null);
+//            cursor.moveToFirst();
+//
+//            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//            String picturePath = cursor.getString(columnIndex);
+//
+
+            //这里也可以做文件上传
+            mBitmap = bundle.getParcelable("data");
+            // ivHead.setImageBitmap(mBitmap);
+            mIvAvatar.setImageBitmap(mBitmap);
+            String path = "";
+//
+//            if (picturePath!=null){
+//                path = picturePath;
+//            }
+
+            if (mFile != null)
+                path = mFile.getPath();
+
+            mPortrait = UploadHelper.uploadPortrait(path);
+
+//         }
+
+        }
+
+
+    }
+
+    /**
+     * 打开系统图片裁剪功能
+     *
+     * @param uri uri
+     */
+    private void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", true);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("scale", true); //黑边
+        intent.putExtra("scaleUpIfNeeded", true); //黑边
+        intent.putExtra("return-data", true);
+        intent.putExtra("noFaceDetection", true);
+        startActivityForResult(intent, Common.Constance.REQUESTCODE_CUT);
 
     }
 

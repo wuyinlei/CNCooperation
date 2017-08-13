@@ -199,8 +199,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
         <activity android:name=".ui.im.ChatActivity"
-                  android:windowSoftInputMode="adjustResize"
-                  android:theme="@style/AppTheme.Main">
+                  android:theme="@style/Theme.AppCompat.NoActionBar">
         </activity>
 
 
