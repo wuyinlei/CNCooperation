@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.adapter.PublishImageAdapter;
+import com.cainiao.cncooperation.ui.account.AccountActivity;
 import com.cainiao.cncooperation.ui.main.CartFragment;
 import com.cainiao.cncooperation.ui.main.HomeFragment;
 import com.cainiao.cncooperation.ui.main.MineFragment;
@@ -113,11 +114,15 @@ public class MainActivity extends BaseActivity {
         //判断本地是否有这个token
         token = SharedUtils.getString(this, Common.Constance.RONGYUNG_IM_TOKEN, "");
         if (TextUtils.isEmpty(token)) {
-            FakeServer.getRongYunToken(this);
+            if (Account.isLogin()) {
+                FakeServer.getRongYunToken(this);
+            } else {
+                AccountActivity.show(this);
+            }
+        } else {
+            getConnectIm(token);
         }
 
-        if (!TextUtils.isEmpty(token))
-            getConnectIm(token);
 
     }
 
