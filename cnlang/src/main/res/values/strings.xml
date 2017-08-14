@@ -190,6 +190,8 @@
     <string name="pop_choose">选择相册</string>
     <string name="pop_photo">选择照相</string>
     <string name="please_insert_sd_card">请确认已经插入SD卡</string>
+    <string name="cn_code_tip">菜鸟号：(%s)</string>
+    <string name="add_friend_failure">添加朋友失败</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.cainiao.factory.db;
 
+import com.cainiao.factory.model.MyUser;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
@@ -34,6 +35,17 @@ public class Friend extends BaseDbModel<Model> {
     private Date modifyAt;
 
     List<GroupMembers> groupMembers;
+
+    public Friend(String originId, String alias, MyUser targetUser) {
+
+        this.id  = originId;
+        this.alias = alias;
+        this.name = targetUser.getUsername();
+        this.phone = targetUser.getMobilePhoneNumber();
+        this.portrait = targetUser.getAvatar();
+        this.modifyAt = new Date();
+
+    }
 
     public String getId() {
         return id;

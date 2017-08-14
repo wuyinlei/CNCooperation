@@ -128,7 +128,7 @@ public class LoginFragment extends BaseFragment {
                                     SharedUtils.deleShare(getContext(), "password");
                                 }
                                 //跳转
-                                startActivity(new Intent(getContext(), MainActivity.class));
+//                                startActivity(new Intent(getContext(), MainActivity.class));
 
                                 //结束
                                 getActivity().finish();

@@ -79,7 +79,7 @@ public class FriendCircleAdapter extends SimpleAdapter<CircleViewBean> {
             @Override
             public void onClick(View v) {
                 if (Account.isLogin()) {
-                    PersonalActivity.show(context, item.getUsername());
+                    PersonalActivity.show(context, item.getObjectId());
                 } else {
                     AccountActivity.show(context);
                 }
