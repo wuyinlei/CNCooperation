@@ -23,6 +23,7 @@ public class Account {
         return BmobUser.getCurrentUser(MyUser.class);
     }
 
+
     /**
      * 返回当前账号是否登录
      * </p>

@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.cainiao.cncooperation.R;
 import com.cainiao.common.base.PresenterFragment;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.presenter.account.RegisterContract;
 import com.cainiao.factory.presenter.account.RegisterPresenter;
@@ -115,26 +117,28 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
                 !TextUtils.isEmpty(code) &
                 !TextUtils.isEmpty(password)) {
 
+            mPresenter.register(phone,name,password,code);
+
             //判断两次输入的密码是否一致
-            if (password.equals(password)) {
+//            if (password.equals(password)) {
                 //注册
-                MyUser user = new MyUser();
-                user.setUsername(name);
-                user.setPassword(password);
-                user.signUp(new SaveListener<MyUser>() {
-                    @Override
-                    public void done(MyUser myUser, BmobException e) {
-                        if (e == null) {
-                            Toast.makeText(getContext(), R.string.register_success, Toast.LENGTH_SHORT).show();
-                            getFragmentManager().popBackStackImmediate();
-                        } else {
-                            Toast.makeText(getContext(), getString(R.string.register_failure) + e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            } else {
-                Toast.makeText(getContext(), R.string.change_password_def, Toast.LENGTH_SHORT).show();
-            }
+//                MyUser user = new MyUser();
+//                user.setUsername(name);
+//                user.setPassword(password);
+//                user.signUp(new SaveListener<MyUser>() {
+//                    @Override
+//                    public void done(MyUser myUser, BmobException e) {
+//                        if (e == null) {
+//                            Toast.makeText(getContext(), R.string.register_success, Toast.LENGTH_SHORT).show();
+//                            getFragmentManager().popBackStackImmediate();
+//                        } else {
+//                            Toast.makeText(getContext(), getString(R.string.register_failure) + e.toString(), Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//            } else {
+//                Toast.makeText(getContext(), R.string.change_password_def, Toast.LENGTH_SHORT).show();
+//            }
         }
 
     }
@@ -166,7 +170,7 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
             @Override
             public void onCompleted() {
                 mBtSend.setClickable(true);
-                mBtSend.setText(getActivity().getString(R.string.retry_msg_code_error));
+                mBtSend.setText(getActivity().getString(R.string.send_message_code));
             }
 
             @Override
@@ -189,35 +193,50 @@ public class RegisterFragment extends PresenterFragment<RegisterContract.Present
 
 
     @Override
-    public void registerSuccess(MyUser user) {
-//        Observable.interval(1, TimeUnit.SECONDS)
+    public void registerSuccess(final MyUser user) {
+        Observable.interval(1, TimeUnit.SECONDS)
+                .subscribe(new Subscriber<Long>() {
+                    @Override
+                    public void onCompleted() {
+
+                        //注册成功
+                        mBtLogin.setClickable(true);
+                        mBtLogin.setBackgroundResource(R.color.white);
+                        mBtLogin.setTextColor(R.color.springgreen);
+                        mBtLogin.setText(getActivity().getString(R.string.login_ing));
+
+//                        transaction = getFragmentManager().beginTransaction();
+//                        LoginFragment loginFragment = new LoginFragment();
+//                        mCurrentFragment = loginFragment;
+//                        transaction.replace(R.id.lay_container, mCurrentFragment);
+//                        transaction.commit();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(Long aLong) {
+
+
+                    }
+                });
 //                .doOnSubscribe(new Action0() {
 //                    @Override
 //                    public void call() {
-//                        //注册成功
-//                        mBtLogin.setClickable(true);
-//                        mBtLogin.setBackgroundResource(R.color.white);
-//                        mBtLogin.setTextColor(R.color.springgreen);
-//                        mBtLogin.setText(getActivity().getString(R.string.login_ing));
-//                        getActivity().getFragmentManager().popBackStack();
+//
+//                        MyUser user1 = Account.getUser();
+//
+//                        Log.d("RegisterFragment", "user1:" + user1);
+//
+////                        Account.getUser().setObjectId(user.getObjectId());
+//
+//
 //                    }
-//                }).subscribe(new Subscriber<Long>() {
-//            @Override
-//            public void onCompleted() {
-//                getActivity().finish();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//
-//            }
-//
-//            @Override
-//            public void onNext(Long aLong) {
-//
-//            }
-//        });
-   //     getFragmentManager().popBackStackImmediate();
+//                });
+//        getFragmentManager().popBackStackImmediate();
 
     }
 

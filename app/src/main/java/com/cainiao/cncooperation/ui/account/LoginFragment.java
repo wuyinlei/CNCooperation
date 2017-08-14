@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.cainiao.cncooperation.R;
 import com.cainiao.cncooperation.ui.activity.MainActivity;
 import com.cainiao.common.base.BaseFragment;
+import com.cainiao.common.utils.HashUtil;
 import com.cainiao.common.utils.SharedUtils;
 import com.cainiao.factory.model.MyUser;
 
