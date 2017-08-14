@@ -172,7 +172,7 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
                         R.color.white));
 
 
-                openCamera();
+//                openCamera();
 
             }
         });
@@ -255,7 +255,7 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
             intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
             startActivityForResult(intent, Common.Constance.REQUESTCODE_CAM);
         } else {
-            Toast.makeText(this, getResources()
+            Toast.makeText(getContext(), getResources()
                             .getString(R.string.please_insert_sd_card),
                     Toast.LENGTH_SHORT).show();
         }
