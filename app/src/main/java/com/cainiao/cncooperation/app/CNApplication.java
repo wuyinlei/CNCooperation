@@ -11,6 +11,7 @@ import com.cainiao.common.widget.nineimage.NineGridView;
 import com.cainiao.factory.app.AppContext;
 import com.cainiao.factory.model.im.CustomizeMessage;
 import com.cainiao.factory.app.Factory;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import cn.bmob.v3.Bmob;
 import io.rong.imlib.AnnotationNotFoundException;
@@ -34,7 +35,10 @@ public class CNApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
 
-        Factory.setUp();
+        FlowManager.init(this);
+
+
+//        Factory.setUp();
 
         /**
          * OnCreate 会被多个进程重入，这段保护代码，确保只有您需要使用 RongIMClient 的进程和 Push 进程执行了 init。

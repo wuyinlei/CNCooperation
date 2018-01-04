@@ -16,17 +16,17 @@ public class PersonalActivity extends BaseActivity {
 
     private Fragment mCurrentFragment;
 
-    private String username;
+    private String objectId;
 
     /**
      * 进入到别人的个人页面
      *
      * @param context  上下文
-     * @param username 用户名
+     * @param objectId 用户objectId
      */
-    public static void show(Context context, String username) {
+    public static void show(Context context, String objectId) {
         Intent intent = new Intent(context, PersonalActivity.class);
-        intent.putExtra(Common.Constance.USER_NAME, username);
+        intent.putExtra(Common.Constance.OBECJT_ID, objectId);
         context.startActivity(intent);
     }
 
@@ -38,7 +38,7 @@ public class PersonalActivity extends BaseActivity {
 
     @Override
     protected boolean initArgs(Bundle bundle) {
-        username = bundle.getString(Common.Constance.USER_NAME);
+        objectId = bundle.getString(Common.Constance.OBECJT_ID);
         return true;
     }
 
@@ -48,12 +48,12 @@ public class PersonalActivity extends BaseActivity {
 
 //        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_left);
 
-        if (Account.getUserName().equals(username)) {
+        if (Account.getUser().getObjectId().equals(objectId)) {
             //如果传递过来的用户名就是当前登录的用户
             mCurrentFragment = new PersonalFragment();
         } else {
             //如果传递过来的用户名不是当前登录的用户
-            mCurrentFragment = OtherUserFragment.newInstance(username);
+            mCurrentFragment = OtherUserFragment.newInstance(objectId);
         }
 
         getSupportFragmentManager().beginTransaction()

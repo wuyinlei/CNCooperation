@@ -19,7 +19,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private Unbinder mUnbinder;
-    protected StateView mStateView;
+    public StateView mStateView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

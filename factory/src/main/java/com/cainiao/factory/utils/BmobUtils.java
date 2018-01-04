@@ -4,14 +4,14 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.cainiao.factory.app.Account;
 import com.cainiao.factory.R;
+import com.cainiao.factory.app.Account;
 import com.cainiao.factory.model.MyUser;
 import com.cainiao.factory.model.circle.CircleViewBean;
 import com.cainiao.factory.model.circle.DetailComment;
 import com.cainiao.factory.model.circle.FriendCircle;
 import com.cainiao.factory.model.circle.FriendCircleComment;
-import com.cainiao.factory.model.im.UserInfo;
+import com.cainiao.factory.model.im.CircleFriend;
 import com.cainiao.factory.presenter.dynamic.DynamicDetailContract;
 import com.cainiao.factory.presenter.dynamic.FriendCircleContract;
 
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -261,7 +260,7 @@ public class BmobUtils {
                     viewBean.setLikescount(friendCircle.getLove() + "");
 //                    viewBean.setLikescount(friendCircle.getLove() + "");
                     viewBean.setCommentcount(friendCircle.getCommentSize() + "");
-                    viewBean.setObjectId(friendCircle.getObjectId());
+                    viewBean.setObjectId(friendCircle.getAuthor().getObjectId());
                     viewBean.setUsername(friendCircle.getAuthor().getUsername());
 //                    viewBean.setCommentcount();
 //                    BmobQuery<FriendCircleComment> query = new BmobQuery<>();
@@ -295,7 +294,7 @@ public class BmobUtils {
                     circleViewBeanList.add(viewBean);
                 }
                 //// TODO: 2017/7/29 暂时还没想到怎么解决为好
-                return Observable.just(circleViewBeanList).delay(500, TimeUnit.MICROSECONDS);
+                return Observable.just(circleViewBeanList);
             }
         })
                 .subscribeOn(Schedulers.io())
@@ -593,11 +592,81 @@ public class BmobUtils {
                 if (e == null && object.size() > 0) {
                     listener.onSuccess(object.get(0));
                 } else {
-                    listener.onError(e.getErrorCode(),e.getMessage());
+                    assert e != null;
+                    listener.onError(e.getErrorCode(), e.getMessage());
                 }
             }
         });
     }
+
+    /**
+     * 通过用户的ObjectId来查询用户
+     *
+     * @param userId 用户的ObjectId
+     */
+    public static void queryIsFriend(final String userId, final OnListener<CircleFriend> listener) {
+        BmobQuery<CircleFriend> query = new BmobQuery<>();
+        query.addWhereEqualTo("targetId", userId);
+        query.findObjects(new FindListener<CircleFriend>() {
+            @Override
+            public void done(List<CircleFriend> object, BmobException e) {
+                if (e == null && object.size() > 0) {
+                    listener.onSuccess(object.get(0));
+                } else {
+                    assert e != null;
+                    listener.onError(e.getErrorCode(), e.getMessage());
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 添加朋友  其实这个只是一个伪添加朋友   并没有通知(后台没有呀)
+     * 当我添加这个朋友的时候  同时他直接同意 并且他也是我的朋友
+     *
+     * @param originId   我这个人的id
+     * @param alias      别名
+     * @param targetUser 目标user
+     */
+    public static void addFriend(final String originId, final String alias, final MyUser targetUser, final OnListener<String> listener) {
+        CircleFriend friend = new CircleFriend();
+        friend.setOriginId(originId);
+        if (!TextUtils.isEmpty(alias))
+            friend.setAlias(alias);
+        friend.setUser(targetUser);
+        friend.setTargetId(targetUser.getObjectId());
+        friend.save(new SaveListener<String>() {
+            @Override
+            public void done(String s, BmobException e) {
+                if (e == null) {
+
+                    //这个有bug我擦。。。。
+//                    Friend dbFriend = new Friend(originId, alias, targetUser);
+//                    保存到本地数据库
+//                    dbFriend.save();
+
+                    CircleFriend targetFriend = new CircleFriend();
+                    targetFriend.setUser(Account.getUser());
+                    targetFriend.setOriginId(targetFriend.getObjectId());
+                    targetFriend.save(new SaveListener<String>() {
+                        @Override
+                        public void done(String s, BmobException e) {
+                            if (e == null) {
+                                //这个地方模拟双方互相添加为朋友
+                                listener.onSuccess("添加朋友成功");
+                            } else {
+                                listener.onError(e.getErrorCode(), e.getMessage());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+
+    }
+
 
     public interface OnDataListener<T> {
 
@@ -607,6 +676,7 @@ public class BmobUtils {
 
     }
 
+
     public interface OnListener<T> {
 
         void onError(int errorCode, String message);
@@ -614,6 +684,5 @@ public class BmobUtils {
         void onSuccess(T data);
 
     }
-
 
 }

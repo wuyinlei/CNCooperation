@@ -62,9 +62,6 @@ public class Factory {
      */
     public static void setUp() {
 
-        FlowManager.init(new FlowConfig.Builder(app())
-                .openDatabasesOnInit(true)  //数据库初始化的时候打开数据库
-                .build());
 
     }
 

@@ -87,6 +87,8 @@ public class PersonalFragment extends PresenterFragment<PersonalContract.Present
     protected void initData() {
         super.initData();
 
+
+
         updateUI(Account.getUser());
 
     }

@@ -123,6 +123,7 @@
             android:textSize="@dimen/font_18"/>
 
         <TextView
+            android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -159,6 +160,7 @@
             android:textSize="@dimen/font_18"/>
 
         <TextView
+            android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -177,7 +179,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/loginout"
+        android:id="@+id/bt_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10.0dip"
@@ -188,7 +190,21 @@
         android:textSize="@dimen/font_18"
         android:text="添加到通讯录"
         android:textColor="@color/white"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/bt_chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10.0dip"
+        android:layout_marginRight="10.0dip"
+        android:layout_marginTop="20.0dip"
+        android:background="@drawable/consultant_button"
+        android:gravity="center"
+        android:textSize="@dimen/font_18"
+        android:text="开始闲聊吧"
+        android:textColor="@color/white"
+        android:visibility="gone"/>
 
 
 
